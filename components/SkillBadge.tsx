@@ -1,12 +1,7 @@
 
 import React from 'react';
 
-interface SkillBadgeProps {
-  skill: string;
-  category: 'Back-End' | 'Front-End';
-}
-
-const SkillBadge: React.FC<SkillBadgeProps> = ({ skill, category }) => {
+const SkillBadge = ({ skill, category }) => {
     const categoryColors = {
         'Back-End': 'bg-blue-100 text-blue-800',
         'Front-End': 'bg-pink-100 text-pink-800',

@@ -1,25 +1,8 @@
-
 import React from 'react';
-import ProjectCard from './ProjectCard.tsx';
+import ProjectCard from './ProjectCard.jsx';
 
-// Define Project type for clarity
-interface Project {
-  name: string;
-  image: string;
-  link?: string;
-}
-
-interface ExperienceItemProps {
-  role: string;
-  company: string;
-  dates: string;
-  location: string;
-  points: string[];
-  isLast: boolean;
-  projects?: Project[]; // Add optional projects prop
-}
-
-const ExperienceItem: React.FC<ExperienceItemProps> = ({ role, company, dates, location, points, isLast, projects }) => {
+// FIX: Added a default value to the `projects` prop to make it optional, resolving a type error when it's not provided for an experience item.
+const ExperienceItem = ({ role, company, dates, location, points, isLast, projects = [] }) => {
   return (
     <div className={`relative pl-10 ${isLast ? '' : 'pb-8'} border-l-2 border-pink-200`}>
       <div className="absolute -left-[9px] top-1 w-4 h-4 bg-white border-2 border-pink-500 rounded-full"></div>

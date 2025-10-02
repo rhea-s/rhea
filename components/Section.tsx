@@ -1,14 +1,9 @@
-
 import React, { useRef } from 'react';
-import { useOnScreen } from '../hooks/useOnScreen.ts';
+import { useOnScreen } from '../hooks/useOnScreen.js';
 
-interface SectionProps {
-    title: string;
-    children: React.ReactNode;
-}
-
-const Section: React.FC<SectionProps> = ({ title, children }) => {
-    const ref = useRef<HTMLDivElement>(null);
+const Section = ({ title, children }) => {
+    // FIX: Explicitly type the ref to work with the typed `useOnScreen` hook.
+    const ref = useRef<HTMLElement>(null);
     const isVisible = useOnScreen(ref, { threshold: 0.1 });
 
     return (

@@ -1,16 +1,7 @@
 
 import React from 'react';
 
-interface ActivityItemProps {
-  role: string;
-  organization: string;
-  dates: string;
-  location: string;
-  points: string[];
-  isLast: boolean;
-}
-
-const ActivityItem: React.FC<ActivityItemProps> = ({ role, organization, dates, location, points, isLast }) => {
+const ActivityItem = ({ role, organization, dates, location, points, isLast }) => {
   return (
     <div className={`relative pl-10 ${isLast ? '' : 'pb-8'} border-l-2 border-pink-200`}>
       <div className="absolute -left-[9px] top-1 w-4 h-4 bg-white border-2 border-pink-500 rounded-full"></div>

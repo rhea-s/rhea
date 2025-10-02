@@ -1,12 +1,12 @@
 
 import React from 'react';
-import Header from './components/Header.tsx';
-import Section from './components/Section.tsx';
-import SkillBadge from './components/SkillBadge.tsx';
-import ExperienceItem from './components/ExperienceItem.tsx';
-import EducationItem from './components/EducationItem.tsx';
-import ActivityItem from './components/ActivityItem.tsx';
-import { PROFILE_IMAGE_PATH } from './constants.ts';
+import Header from './components/Header.jsx';
+import Section from './components/Section.jsx';
+import SkillBadge from './components/SkillBadge.jsx';
+import ExperienceItem from './components/ExperienceItem.jsx';
+import EducationItem from './components/EducationItem.jsx';
+import ActivityItem from './components/ActivityItem.jsx';
+import { PROFILE_IMAGE_PATH } from './constants.js';
 
 const resumeData = {
   name: 'Rhea Singh',
@@ -110,7 +110,7 @@ const resumeData = {
   ],
 };
 
-const App: React.FC = () => {
+const App = () => {
   return (
     <div className="max-w-5xl mx-auto my-8 md:my-16">
         <div className="bg-white rounded-2xl shadow-2xl shadow-gray-300/40 overflow-hidden">

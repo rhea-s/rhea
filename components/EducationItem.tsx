@@ -1,15 +1,7 @@
 
 import React from 'react';
 
-interface EducationItemProps {
-  institution: string;
-  degree: string;
-  location: string;
-  years: string;
-  coursework: string[];
-}
-
-const EducationItem: React.FC<EducationItemProps> = ({ institution, degree, location, years, coursework }) => {
+const EducationItem = ({ institution, degree, location, years, coursework }) => {
   return (
     <div>
       <div className="flex justify-between items-start flex-wrap">

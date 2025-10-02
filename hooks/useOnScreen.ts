@@ -1,7 +1,7 @@
-
 import { useState, useEffect, RefObject } from 'react';
 
-export const useOnScreen = (ref: RefObject<HTMLElement>, options?: IntersectionObserverInit): boolean => {
+// FIX: Added TypeScript types for parameters to improve type safety and remove implicit any types.
+export const useOnScreen = (ref: RefObject<Element | null>, options?: IntersectionObserverInit) => {
     const [isIntersecting, setIntersecting] = useState(false);
 
     useEffect(() => {
