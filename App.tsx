@@ -6,7 +6,6 @@ import SkillBadge from './components/SkillBadge.tsx';
 import ExperienceItem from './components/ExperienceItem.tsx';
 import EducationItem from './components/EducationItem.tsx';
 import ActivityItem from './components/ActivityItem.tsx';
-import ProjectCard from './components/ProjectCard.tsx';
 import { PROFILE_IMAGE_PATH } from './constants.ts';
 
 const resumeData = {
@@ -45,6 +44,23 @@ const resumeData = {
         'Developed user study apps to measure performance of various proposed Health and Fitness features.',
         'Helped plan and execute multi-year feature tentpole, continuously evaluating progress and feasibility, meeting strict deadlines to fulfill executive-level vision, with the primary objective of creating useful and necessary advancements in wearable health technology.',
       ],
+      projects: [
+        {
+          name: 'Cycle Tracking Advancements',
+          image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600',
+          link: 'https://www.apple.com/healthcare/health-app/'
+        },
+        {
+          name: 'watchOS Fitness+ Integration',
+          image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600',
+          link: 'https://www.apple.com/apple-fitness-plus/'
+        },
+        {
+          name: 'Medication Reminders',
+          image: 'https://images.unsplash.com/photo-1584515933487-779824d279f9?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600',
+          link: 'https://www.apple.com/newsroom/2022/06/apple-unveils-new-ways-to-share-and-communicate-in-ios-16/'
+        }
+      ],
     },
     {
       role: 'TECH INTERN',
@@ -68,26 +84,6 @@ const resumeData = {
         'Thought critically in collaboration with professor about data and potential biases and faults with research.',
       ],
     },
-  ],
-  projects: [
-    {
-      name: 'Cycle Tracking Advancements',
-      description: 'Led the implementation of new predictive algorithms and UI enhancements for the Cycle Tracking feature in the Health app.',
-      image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600',
-      link: 'https://www.apple.com/healthcare/health-app/'
-    },
-    {
-      name: 'watchOS Fitness+ Integration',
-      description: 'Developed key components for integrating Apple Fitness+ workouts, metrics, and real-time data streaming on Apple Watch.',
-      image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600',
-      link: 'https://www.apple.com/apple-fitness-plus/'
-    },
-    {
-      name: 'Medication Reminders',
-      description: 'Architected the backend logic and notification system for the Medications feature, helping users track and manage their prescriptions.',
-      image: 'https://images.unsplash.com/photo-1584515933487-779824d279f9?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=600',
-      link: 'https://www.apple.com/newsroom/2022/06/apple-unveils-new-ways-to-share-and-communicate-in-ios-16/'
-    }
   ],
   extracurricular: [
     {
@@ -133,11 +129,6 @@ const App: React.FC = () => {
                 </Section>
                 <Section title="Experience">
                     {resumeData.experience.map((job, index) => <ExperienceItem key={index} {...job} isLast={index === resumeData.experience.length - 1} />)}
-                </Section>
-                <Section title="Project Gallery">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {resumeData.projects.map((project, index) => <ProjectCard key={index} {...project} />)}
-                    </div>
                 </Section>
                  <Section title="Education">
                     <EducationItem {...resumeData.education} />

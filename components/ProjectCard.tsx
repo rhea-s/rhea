@@ -3,48 +3,33 @@ import React from 'react';
 
 interface ProjectCardProps {
   name: string;
-  description: string;
   image: string;
   link?: string;
 }
 
-const ArrowRightIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
-    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" {...props}>
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-    </svg>
-);
-
-
-const ProjectCard: React.FC<ProjectCardProps> = ({ name, description, image, link }) => {
-  const CardContent = () => (
-    <>
-        <div className="overflow-hidden">
-            <img src={image} alt={name} className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110" />
-        </div>
-        <div className="p-6">
-            <h3 className="text-xl font-bold text-gray-900 mb-2">{name}</h3>
-            <p className="text-gray-700 text-sm mb-4">{description}</p>
-            {link && (
-                 <span className="font-semibold text-pink-600 group-hover:text-pink-700 transition-colors inline-flex items-center">
-                    Learn More
-                    <ArrowRightIcon />
-                </span>
-            )}
-        </div>
-    </>
+const ProjectCard: React.FC<ProjectCardProps> = ({ name, image, link }) => {
+  const CardContent = (
+      <div className="relative w-full h-40 group overflow-hidden rounded-lg shadow-md">
+          <img src={image} alt={name} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" />
+          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-all duration-300 flex items-center justify-center">
+              <h3 className="text-white text-lg font-bold text-center p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  {name}
+              </h3>
+          </div>
+      </div>
   );
 
+  if (link) {
+      return (
+          <a href={link} target="_blank" rel="noopener noreferrer" className="block transform hover:-translate-y-1 transition-transform">
+              {CardContent}
+          </a>
+      );
+  }
+
   return (
-    <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 overflow-hidden group transform hover:-translate-y-1">
-      {link ? (
-        <a href={link} target="_blank" rel="noopener noreferrer" className="block">
-          <CardContent />
-        </a>
-      ) : (
-        <div>
-          <CardContent />
-        </div>
-      )}
+    <div className="transform hover:-translate-y-1 transition-transform">
+        {CardContent}
     </div>
   );
 };
