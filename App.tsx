@@ -1,13 +1,13 @@
 
 import React from 'react';
-import Header from './components/Header';
-import Section from './components/Section';
-import SkillBadge from './components/SkillBadge';
-import ExperienceItem from './components/ExperienceItem';
-import EducationItem from './components/EducationItem';
-import ActivityItem from './components/ActivityItem';
-import ProjectCard from './components/ProjectCard';
-import { PROFILE_IMAGE_PATH } from './constants';
+import Header from './components/Header.tsx';
+import Section from './components/Section.tsx';
+import SkillBadge from './components/SkillBadge.tsx';
+import ExperienceItem from './components/ExperienceItem.tsx';
+import EducationItem from './components/EducationItem.tsx';
+import ActivityItem from './components/ActivityItem.tsx';
+import ProjectCard from './components/ProjectCard.tsx';
+import { PROFILE_IMAGE_PATH } from './constants.ts';
 
 const resumeData = {
   name: 'Rhea Singh',
