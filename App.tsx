@@ -6,12 +6,12 @@ import SkillBadge from './components/SkillBadge';
 import ExperienceItem from './components/ExperienceItem';
 import EducationItem from './components/EducationItem';
 import ActivityItem from './components/ActivityItem';
-import { PROFILE_IMAGE_BASE64 } from './constants';
+import { PROFILE_IMAGE_PATH } from './constants';
 
 const resumeData = {
   name: 'Rhea Singh',
   title: 'SEEKING FULFILLING + IMPACTFUL SOFTWARE ENGINEERING ROLES',
-  profileImage: PROFILE_IMAGE_BASE64,
+  profileImage: PROFILE_IMAGE_PATH,
   contact: {
     email: 'singh.rhea.04@gmail.com',
     linkedin: '/in/rheas',
