@@ -14,7 +14,6 @@ const resumeData = {
   profileImage: PROFILE_IMAGE_BASE64,
   contact: {
     email: 'singh.rhea.04@gmail.com',
-    website: 'umich.edu/~rheas',
     linkedin: '/in/rheas',
   },
   education: {
