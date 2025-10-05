@@ -256,6 +256,28 @@
       }
     }
 
+    @keyframes bubbleFadeUp {
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateY(-15px);
+      }
+    }
+
+    @keyframes bubbleFadeDown {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     .avatar-info {
       padding: 16px;
       text-align: center;
@@ -537,7 +559,7 @@
           <div class="pupil left" id="pupilL"></div>
           <div class="pupil right" id="pupilR"></div>
           <img class="avatar" id="avatarImg" src="assets/avatar_no-eyes.png" alt="Rhea Singh avatar" />
-          <div class="speech-bubble">hello, world :)</div>
+          <div class="speech-bubble">hello world!</div>
         </div>
         <div class="avatar-info">
           <div class="avatar-name">Rhea Singh</div>
@@ -815,12 +837,33 @@
     (function () {
       const toggle = document.getElementById('themeToggle');
       const facetimeContent = document.querySelector('.facetime-content');
+      const speechBubble = document.querySelector('.speech-bubble');
       let isDayMode = true;
+
+      // Check if reduced motion is preferred
+      const motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       toggle.addEventListener('click', function(e) {
         e.stopPropagation(); // Prevent triggering window click-to-front
         isDayMode = !isDayMode;
 
+        // Animate speech bubble text change
+        if (motionOK && speechBubble) {
+          // Fade up and out
+          speechBubble.style.animation = 'bubbleFadeUp 0.3s ease-out forwards';
+
+          setTimeout(() => {
+            // Change text content
+            speechBubble.textContent = isDayMode ? 'hello world!' : 'gn, world :)';
+            // Fade down and in
+            speechBubble.style.animation = 'bubbleFadeDown 0.3s ease-out forwards';
+          }, 300);
+        } else if (speechBubble) {
+          // No animation, just change text
+          speechBubble.textContent = isDayMode ? 'hello world!' : 'gn, world :)';
+        }
+
+        // Change background
         if (isDayMode) {
           facetimeContent.style.backgroundImage = "url('assets/sf-background-day.png')";
           toggle.classList.add('active');
