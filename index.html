@@ -228,6 +228,34 @@
     .pupil.left  { left: var(--eye-left-x); top: var(--eye-left-y); }
     .pupil.right { left: var(--eye-right-x); top: var(--eye-right-y); }
 
+    .speech-bubble {
+      position: absolute;
+      bottom: 40%;
+      right: 3%;
+      background: white;
+      color: var(--text-dark);
+      padding: 10px 10px;
+      border-radius: 16px;
+      border: 2px solid var(--pink-border);
+      box-shadow: 0 4px 12px rgba(74, 14, 61, 0.15);
+      font-size: 14px;
+      font-weight: 200;
+      z-index: 3;
+      animation: bubbleFadeIn 0.6s ease-out;
+      white-space: nowrap;
+    }
+
+    @keyframes bubbleFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     .avatar-info {
       padding: 16px;
       text-align: center;
@@ -437,6 +465,7 @@
     @media (prefers-reduced-motion: reduce) {
       .pupil { transition: none; }
       .window, .contact-link { transition: none; }
+      .speech-bubble { animation: none; }
     }
 
     /* --- Responsive Mobile Layout --- */
@@ -508,6 +537,7 @@
           <div class="pupil left" id="pupilL"></div>
           <div class="pupil right" id="pupilR"></div>
           <img class="avatar" id="avatarImg" src="assets/avatar_no-eyes.png" alt="Rhea Singh avatar" />
+          <div class="speech-bubble">hello, world :)</div>
         </div>
         <div class="avatar-info">
           <div class="avatar-name">Rhea Singh</div>
