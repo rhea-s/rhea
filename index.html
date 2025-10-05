@@ -308,6 +308,40 @@
       color: var(--text-muted);
     }
 
+    /* --- Location Footer (integrated into FaceTime window) --- */
+    .location-footer {
+      padding: 10px 16px;
+      background: white;
+      border-top: 1px solid var(--pink-border);
+      text-align: center;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .online-indicator {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #27c93f;
+      box-shadow: 0 0 0 2px rgba(39, 201, 63, 0.2);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 0 0 2px rgba(39, 201, 63, 0.2);
+      }
+      50% {
+        box-shadow: 0 0 0 4px rgba(39, 201, 63, 0.1);
+      }
+    }
+
     /* --- About/Education Window --- */
     .about-window {
       width: 420px;
@@ -696,6 +730,12 @@
       background: #98c379;
       margin-left: 2px;
       opacity: 1;
+      animation: none; /* No animation by default on desktop */
+    }
+
+    /* Cursor blinks when terminal window is hovered or active on desktop */
+    .terminal-window:hover .terminal-cursor,
+    .terminal-window.active .terminal-cursor {
       animation: blink 1s step-end infinite;
     }
 
@@ -1012,6 +1052,7 @@
       .window, .contact-link { transition: none; }
       .speech-bubble { animation: none; }
       .terminal-cursor { animation: none; opacity: 1; }
+      .online-indicator { animation: none; }
     }
 
     /* --- Responsive Mobile Layout --- */
@@ -1088,6 +1129,11 @@
         max-width: 360px;
       }
 
+      .location-footer {
+        font-size: 10px;
+        padding: 8px 12px;
+      }
+
       .experience-window,
       .about-window {
         max-height: none;
@@ -1121,6 +1167,13 @@
 
       .dock-divider {
         height: 40px;
+      }
+    }
+
+    /* Cursor always blinks on mobile (respects reduced motion preference) */
+    @media (max-width: 1024px) and (prefers-reduced-motion: no-preference) {
+      .terminal-cursor {
+        animation: blink 1s step-end infinite;
       }
     }
 
@@ -1185,6 +1238,11 @@
         <div class="avatar-info">
           <div class="avatar-name">Rhea Singh</div>
           <div class="avatar-subtitle">Software Engineer · Product/UX</div>
+        </div>
+        <!-- Location Footer -->
+        <div class="location-footer">
+          <span class="online-indicator"></span>
+          Open to roles in SF, NYC, and non-US
         </div>
       </div>
     </div>
@@ -1949,12 +2007,51 @@
       });
     })();
 
+    // Location and Theme Management
+    let currentLocation = 'sf';
+    let isDayMode = true;
+
+    // Background image mapping
+    const backgrounds = {
+      sf: {
+        day: 'assets/sf-background-day.png',
+        night: 'assets/sf-background-night.png'
+      },
+      nyc: {
+        day: 'assets/nyc-background-day-2.png',
+        night: 'assets/nyc-background-night-2.png'
+      },
+      remote: {
+        day: 'assets/bliss-background.png',
+        night: 'assets/bliss-background-night.png'
+      }
+    };
+
+    function updateBackground() {
+      const facetimeContent = document.querySelector('.facetime-content');
+      const mode = isDayMode ? 'day' : 'night';
+      const bgUrl = backgrounds[currentLocation][mode];
+      facetimeContent.style.backgroundImage = `url('${bgUrl}')`;
+    }
+
+    // Location switcher
+    function switchLocation(location) {
+      currentLocation = location;
+
+      // Update active state on tiles
+      document.querySelectorAll('.location-tile').forEach(tile => {
+        tile.classList.remove('active');
+      });
+      document.querySelector(`[data-location="${location}"]`).classList.add('active');
+
+      // Update background
+      updateBackground();
+    }
+
     // Theme toggle for FaceTime background
     (function () {
       const toggle = document.getElementById('themeToggle');
-      const facetimeContent = document.querySelector('.facetime-content');
       const speechBubble = document.querySelector('.speech-bubble');
-      let isDayMode = true;
 
       // Check if reduced motion is preferred
       const motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1979,14 +2076,15 @@
           speechBubble.textContent = isDayMode ? 'hello world!' : 'gn, world :)';
         }
 
-        // Change background
+        // Update toggle state
         if (isDayMode) {
-          facetimeContent.style.backgroundImage = "url('assets/sf-background-day.png')";
           toggle.classList.add('active');
         } else {
-          facetimeContent.style.backgroundImage = "url('assets/sf-background-night.png')";
           toggle.classList.remove('active');
         }
+
+        // Update background based on current location and theme
+        updateBackground();
       });
     })();
 
