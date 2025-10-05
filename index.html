@@ -47,16 +47,16 @@
       /* Eye tracking variables */
       --eye-left-x: 42.9%;
       --eye-left-y: 40.6%;
-      --eye-right-x: 57.1%;
+      --eye-right-x: 57.3%;
       --eye-right-y: 40.6%;
-      --pupil-size: 15.8px;
+      --pupil-size: 16px;
       --pupil-radius: 2.1px;
     }
 
     .window {
       position: absolute;
       background: rgba(255, 255, 255, 0.95);
-      border: 2px solid var(--pink-border);
+      border: 2px hidden var(--pink-border);
       border-radius: 8px;
       box-shadow: var(--window-shadow);
       overflow: hidden;
@@ -89,6 +89,7 @@
 
     .window-controls {
       display: flex;
+      padding-right: 10px;
       gap: 6px;
     }
 
@@ -105,11 +106,21 @@
     .window-button.minimize { background: #f5d5e0; }
     .window-button.maximize { background: #f5e6f1; }
 
+    /* Interactive close button for project windows */
+    .project-window .window-button.close {
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .project-window .window-button.close:hover {
+      background: #e8738d;
+    }
+
     .theme-toggle {
       width: 44px;
       height: 22px;
       border-radius: 11px;
-      background: rgba(200, 200, 200, 0.35);
+      background: rgba(200, 200, 200, 0.75);
       border: none;
       position: relative;
       cursor: pointer;
@@ -122,7 +133,7 @@
     }
 
     .theme-toggle.active {
-      background: rgba(200, 200, 200, 0.35);
+      background: rgba(200, 200, 200, 0.75);
     }
 
     .theme-toggle-knob {
@@ -147,7 +158,7 @@
 
     .theme-toggle-icon {
       position: absolute;
-      font-size: 11px;
+      font-size: 12px;
       top: 50%;
       transform: translateY(-50%);
       opacity: 0.5;
@@ -231,12 +242,12 @@
     .speech-bubble {
       position: absolute;
       bottom: 40%;
-      right: 3%;
+      right: 5%;
       background: white;
       color: var(--text-dark);
       padding: 10px 10px;
       border-radius: 16px;
-      border: 2px solid var(--pink-border);
+      border: 2px hidden var(--pink-border);
       box-shadow: 0 4px 12px rgba(74, 14, 61, 0.15);
       font-size: 14px;
       font-weight: 200;
@@ -399,67 +410,120 @@
       white-space: nowrap;
     }
 
-    /* --- Skills Window --- */
+    /* --- Skills Window (System/Finder Style) --- */
     .skills-window {
-      width: 340px;
+      width: 270px;
       top: 380px;
       left: 100px;
       z-index: 6;
+      background: white;
+      border: 1px solid #d0d0d0;
     }
 
-    .skill-category {
-      margin-bottom: 16px;
+    .skills-window .window-titlebar {
+      background: #f5f5f5;
+      border-bottom: 1px solid #d0d0d0;
     }
 
-    .skill-category:last-child {
-      margin-bottom: 0;
-    }
-
-    .skill-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 8px;
-    }
-
-    .skill-tag {
-      background: var(--pink-light);
-      color: var(--text-dark);
-      padding: 4px 10px;
-      border-radius: 12px;
-      font-size: 11px;
+    .skills-window .window-title {
+      color: #333;
+      font-size: 12px;
       font-weight: 500;
-      border: 1px solid var(--pink-border);
+      font-family: 'SF Mono', Consolas, Monaco, 'Courier New', monospace;
     }
 
-    /* --- Contact Window --- */
-    .contact-window {
-      width: 280px;
-      top: 460px;
-      right: 120px;
-      z-index: 8;
+    .skills-window .window-content {
+      background: white;
+      padding: 12px 20px;
     }
 
-    .contact-link {
-      display: block;
-      padding: 10px 12px;
-      margin-bottom: 8px;
-      background: var(--pink-light);
-      border: 1px solid var(--pink-border);
-      border-radius: 6px;
-      color: var(--text-dark);
-      text-decoration: none;
-      font-size: 13px;
-      transition: all 0.2s ease;
+    /* File Explorer Styling - macOS Finder inspired */
+    .file-explorer {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      padding: 0;
     }
 
-    .contact-link:hover {
-      background: var(--pink-chrome);
-      transform: translateX(4px);
+    .folder {
+      margin-bottom: 4px;
     }
 
-    .contact-link:last-child {
+    .folder:last-child {
       margin-bottom: 0;
+    }
+
+    .folder-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 8px;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: background-color 0.15s ease;
+      user-select: none;
+    }
+
+    .folder-header:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    .folder-icon {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    .folder-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #333;
+      flex: 1;
+      letter-spacing: -0.01em;
+    }
+
+    .folder-arrow {
+      font-size: 10px;
+      color: #999;
+      transition: transform 0.2s ease;
+    }
+
+    .folder.collapsed .folder-arrow {
+      transform: rotate(-90deg);
+    }
+
+    .folder-content {
+      margin-left: 24px;
+      margin-top: 2px;
+      max-height: 500px;
+      overflow: hidden;
+      transition: max-height 0.3s ease, opacity 0.3s ease;
+    }
+
+    .folder.collapsed .folder-content {
+      max-height: 0;
+      opacity: 0;
+    }
+
+    .file {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 3px 8px;
+      font-size: 13px;
+      color: #333;
+      border-radius: 6px;
+      transition: background-color 0.15s ease;
+      cursor: default;
+    }
+
+    .file:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    .file-icon {
+      flex-shrink: 0;
+      font-size: 11px;
+      color: #d89fca;
+      line-height: 1;
     }
 
     /* --- Extracurriculars Window --- */
@@ -468,15 +532,294 @@
       top: 100px;
       right: 80px;
       z-index: 4;
-      max-height: 400px;
+      max-height: 380px;
     }
 
     .extra-window .window-content {
-      max-height: 400px;
+      max-height: 380px;
     }
 
     .experience-window:hover {
       transform: translateX(-50%) translateY(-2px);
+    }
+
+    /* --- Dock --- */
+    .dock {
+      display: flex;
+      align-items: flex-end;
+      gap: 12px;
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(20px);
+      border: 2px hidden var(--pink-border);
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(74, 14, 61, 0.2);
+    }
+
+    .dock-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      box-shadow: 0 2px 8px rgba(74, 14, 61, 0.15);
+    }
+
+    .dock-icon img {
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+
+    .dock-icon:hover {
+      transform: translateY(-8px) scale(1.15);
+      box-shadow: 0 12px 24px rgba(74, 14, 61, 0.25);
+    }
+
+    .dock-divider {
+      width: 1px;
+      height: 48px;
+      background: var(--pink-border);
+      margin: 0 4px;
+    }
+
+    /* --- Dock Tooltips --- */
+    .dock-tooltip {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      background: rgba(40, 44, 52, 0.95);
+      color: #abb2bf;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      font-family: 'SF Mono', Consolas, Monaco, 'Courier New', monospace;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      z-index: 1001;
+    }
+
+    .dock-icon {
+      position: relative;
+    }
+
+    .dock-icon:hover .dock-tooltip {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-4px);
+    }
+
+    /* --- Dashboard Widget (Terminal Style) --- */
+    .dashboard-widget {
+      position: fixed;
+      bottom: 100px;
+      right: 20px;
+      width: 280px;
+      background: rgba(40, 44, 52, 0.95);
+      backdrop-filter: blur(12px);
+      border: 1px solid #21252b;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      z-index: 999;
+      font-family: 'SF Mono', Consolas, Monaco, 'Courier New', monospace;
+    }
+
+    .dashboard-titlebar {
+      background: #21252b;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid #181a1f;
+      border-radius: 7px 7px 0 0;
+    }
+
+    .terminal-dots {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .terminal-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .terminal-dot.red { background: #ff5f56; }
+    .terminal-dot.yellow { background: #ffbd2e; }
+    .terminal-dot.green { background: #27c93f; }
+
+    .dashboard-title {
+      font-size: 12px;
+      font-weight: 500;
+      color: #abb2bf;
+      letter-spacing: 0.3px;
+      margin-left: 4px;
+    }
+
+    .dashboard-content {
+      padding: 14px;
+      color: #abb2bf;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .terminal-prompt {
+      color: #5c6370;
+      margin-bottom: 8px;
+    }
+
+    .terminal-status {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .terminal-status:last-child {
+      margin-bottom: 0;
+    }
+
+    .terminal-bullet {
+      color: #98c379;
+      flex-shrink: 0;
+    }
+
+    .terminal-label {
+      color: #abb2bf;
+      min-width: 80px;
+    }
+
+    .terminal-value {
+      color: #98c379;
+    }
+
+    .terminal-cursor {
+      display: inline-block;
+      width: 8px;
+      height: 14px;
+      background: #98c379;
+      margin-left: 2px;
+      opacity: 1;
+    }
+
+    .dashboard-widget:hover .terminal-cursor {
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+
+    /* --- Project Windows --- */
+    .project-window {
+      display: none;
+      position: absolute;
+      width: 550px;
+      top: 40%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 900;
+      transition: box-shadow 0.2s ease;
+    }
+
+    #spellingBeeWindow {
+      top: 7%;
+      left: 75%;
+    }
+
+    .project-window.active {
+      display: block;
+    }
+
+    .project-window:hover {
+      transform: translateX(-50%) translateY(-2px);
+    }
+
+    .project-link {
+      display: inline-block;
+      padding: 8px 16px;
+      background: var(--pink-chrome);
+      border: 1px solid var(--pink-border);
+      border-radius: 6px;
+      color: var(--text-dark);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      margin-top: 12px;
+    }
+
+    .project-link:hover {
+      background: var(--pink-border);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(74, 14, 61, 0.15);
+    }
+
+    .skill-tag {
+      display: inline-block;
+      padding: 4px 12px;
+      background: var(--pink-light);
+      border: 1px solid var(--pink-border);
+      border-radius: 12px;
+      color: var(--text-dark);
+      font-size: 12px;
+      font-weight: 500;
+      margin: 4px 4px 4px 0;
+    }
+
+    /* --- Screenshot Gallery & Phone Mockups --- */
+    .screenshot-gallery {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin: 16px 0;
+      flex-wrap: wrap;
+    }
+
+    .phone-mockup {
+      background: #1a1a1a;
+      border-radius: 28px;
+      padding: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      position: relative;
+      width: 200px;
+    }
+
+    .phone-notch {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 20px;
+      background: #1a1a1a;
+      border-radius: 0 0 16px 16px;
+      z-index: 1;
+    }
+
+    .phone-screen {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .phone-screen img {
+      width: 100%;
+      height: auto;
+      display: block;
     }
 
     /* --- Accessibility --- */
@@ -488,12 +831,13 @@
       .pupil { transition: none; }
       .window, .contact-link { transition: none; }
       .speech-bubble { animation: none; }
+      .terminal-cursor { animation: none; opacity: 1; }
     }
 
     /* --- Responsive Mobile Layout --- */
     @media (max-width: 1024px) {
       .desktop {
-        padding: 20px 10px;
+        padding: 20px 10px 120px;
       }
 
       .window {
@@ -523,6 +867,69 @@
       .avatar {
         transform: translateY(-25px);
       }
+
+      .project-window {
+        position: relative !important;
+        transform: none !important;
+        margin: 20px auto;
+        width: calc(100% - 20px);
+        max-width: 550px;
+      }
+
+      .phone-mockup {
+        width: 160px;
+      }
+
+      .dashboard-widget {
+        bottom: 100px;
+        right: 10px;
+        left: 10px;
+        width: auto;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
+      }
+
+      /* Collapsed state for mobile scroll */
+      .dashboard-widget.collapsed {
+        width: 50px;
+        height: 50px;
+        border-radius: 25px;
+        bottom: 150px;
+        right: 10px;
+        left: auto;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .dashboard-widget.collapsed .dashboard-content {
+        display: none;
+      }
+
+      .dashboard-widget.collapsed .dashboard-title {
+        display: none;
+      }
+
+      .dashboard-widget.collapsed .dashboard-titlebar {
+        background: transparent;
+        border: none;
+        padding: 0;
+      }
+
+      .dock {
+        gap: 8px;
+        padding: 6px 12px;
+      }
+
+      .dock-icon {
+        width: 48px;
+        height: 48px;
+      }
+
+      .dock-divider {
+        height: 40px;
+      }
     }
 
     @media (max-width: 480px) {
@@ -532,6 +939,36 @@
 
       .facetime-window {
         max-width: 100%;
+      }
+
+      .dock {
+        gap: 6px;
+        padding: 4px 8px;
+      }
+
+      .dock-icon {
+        width: 42px;
+        height: 42px;
+      }
+
+      .dock-divider {
+        height: 36px;
+      }
+
+      .dashboard-widget {
+        font-size: 11px;
+      }
+
+      .terminal-status {
+        font-size: 11px;
+      }
+
+      .phone-mockup {
+        width: 140px;
+      }
+
+      .screenshot-gallery {
+        gap: 12px;
       }
     }
   </style>
@@ -643,6 +1080,7 @@
           <div class="job-header">
             <div>
               <div class="job-company">Blablablab (UMich)</div>
+              <div class="job-role"><i>The Bringing together Language and Behavior for Large-scale Analytical Breakthroughs Laboratory</i></div>
               <div class="job-role">Undergraduate Researcher</div>
             </div>
             <div class="job-date">2018 - 2020<br>Ann Arbor, MI</div>
@@ -664,51 +1102,46 @@
           <div class="window-button minimize"></div>
           <div class="window-button maximize"></div>
         </div>
-        <div class="window-title">Skills</div>
+        <div class="window-title">/Users/rhea/skills/</div>
         <div style="width: 54px;"></div>
       </div>
       <div class="window-content">
-        <div class="skill-category">
-          <div class="section-heading">Backend</div>
-          <div class="skill-tags">
-            <span class="skill-tag">C/C++</span>
-            <span class="skill-tag">Multithreaded OS</span>
-            <span class="skill-tag">Python</span>
-            <span class="skill-tag">SQL</span>
-            <span class="skill-tag">REST APIs</span>
-            <span class="skill-tag">Objective-C</span>
+        <div class="file-explorer">
+          <!-- Backend Folder -->
+          <div class="folder">
+            <div class="folder-header" onclick="toggleFolder(this)">
+              <span class="folder-arrow">▼</span>
+              <!-- TODO: Replace with macOS folder icon - suggested: assets/icon-folder-open.png -->
+              <img src="assets/icon-folder.png" alt="" class="folder-icon" />
+              <span class="folder-name">backend</span>
+            </div>
+            <div class="folder-content">
+              <div class="file"><img src="assets/icon-file.png" alt="" class="folder-icon" /> .cpp</div>
+              <div class="file"><img src="assets/icon-file.png" alt="" class="folder-icon" /> .py</div>
+              <div class="file"><img src="assets/icon-file.png" alt="" class="folder-icon" /> .sql</div>
+              <div class="file"><span class="file-icon">●</span> APIs and SDK Dev</div>
+              <div class="file"><span class="file-icon">●</span> Multithreaded OS</div>
+            </div>
+          </div>
+
+          <!-- Frontend Folder -->
+          <div class="folder">
+            <div class="folder-header" onclick="toggleFolder(this)">
+              <span class="folder-arrow">▼</span>
+              <img src="assets/icon-folder.png" alt="" class="folder-icon" />
+              <span class="folder-name">frontend</span>
+            </div>
+            <div class="folder-content">
+              <div class="file"><img src="assets/icon-file.png" alt="" class="folder-icon" /> .swift</div>
+              <div class="file"><img src="assets/icon-file.png" alt="" class="folder-icon" /> .m/.mm</div>
+              <div class="file"><img src="assets/icon-file.png" alt="" class="folder-icon" /> .html</div>
+              <div class="file"><img src="assets/icon-file.png" alt="" class="folder-icon" /> .css</div>
+              <div class="file"><img src="assets/icon-file.png" alt="" class="folder-icon" /> .js</div>
+              <div class="file"><span class="file-icon">●</span> iOS + Xcode</div>
+              <div class="file"><span class="file-icon">●</span> React</div>
+            </div>
           </div>
         </div>
-
-        <div class="skill-category">
-          <div class="section-heading">Frontend</div>
-          <div class="skill-tags">
-            <span class="skill-tag">iOS + Xcode</span>
-            <span class="skill-tag">Objective-C++</span>
-            <span class="skill-tag">Swift/SwiftUI</span>
-            <span class="skill-tag">HTML5</span>
-            <span class="skill-tag">CSS</span>
-            <span class="skill-tag">JavaScript</span>
-            <span class="skill-tag">React</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Contact Window -->
-    <div class="window contact-window">
-      <div class="window-titlebar">
-        <div class="window-controls">
-          <div class="window-button close"></div>
-          <div class="window-button minimize"></div>
-          <div class="window-button maximize"></div>
-        </div>
-        <div class="window-title">Contact</div>
-        <div style="width: 54px;"></div>
-      </div>
-      <div class="window-content">
-        <a href="mailto:singh.rhea.04@gmail.com" class="contact-link">📧 Email</a>
-        <a href="https://linkedin.com/in/rheas" class="contact-link" target="_blank">💼 LinkedIn</a>
       </div>
     </div>
 
@@ -754,6 +1187,138 @@
       </div>
     </div>
 
+    <!-- Project Windows (Hidden by default) -->
+    <!-- NYT Spelling Bee Project Window -->
+    <div class="window project-window" id="spellingBeeWindow">
+      <div class="window-titlebar">
+        <div class="window-controls">
+          <div class="window-button close" onclick="closeProjectWindow('spellingBeeWindow')"></div>
+          <div class="window-button minimize"></div>
+          <div class="window-button maximize"></div>
+        </div>
+        <div class="window-title">spelling-bee</div>
+        <div style="width: 54px;"></div>
+      </div>
+      <div class="window-content">
+        <div class="section-heading">Project Overview</div>
+        <p style="font-size: 13px; line-height: 1.6; color: var(--text-dark); margin-bottom: 12px;">
+          A real-time interactive version of the New York Times Spelling Bee made to compete with friends. Updates daily when the new puzzle drops.
+        </p>
+        <div class="section-heading">Tech Stack</div>
+        <div class="skill-tags" style="margin-bottom: 16px;">
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">CSS</span>
+          <span class="skill-tag">Shell Scripting</span>
+          <span class="skill-tag">Firebase DB</span>
+          <span class="skill-tag">Claude Code</span>
+          <!-- Add more tech stack tags as needed -->
+        </div>
+
+        <div class="section-heading">Screenshots</div>
+        <div class="screenshot-gallery">
+          <div class="phone-mockup">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <img src="assets/spellingbee-ex1.PNG" alt="Spelling Bee Screenshot 1" />
+            </div>
+          </div>
+          <div class="phone-mockup">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <img src="assets/spellingbee-ex2.PNG" alt="Spelling Bee Screenshot 2" />
+            </div>
+          </div>
+        </div>
+
+        <a href="https://frankies-spelling-bee.vercel.app" class="project-link" target="_blank">View Live Project →</a>
+        <a href="https://github.com/rhea-s/spelling-bee/tree/main" class="project-link" target="_blank" style="margin-left: 8px;">View on GitHub →</a>
+      </div>
+    </div>
+
+    <!-- Book Club Project Window -->
+    <div class="window project-window" id="bookClubWindow">
+      <div class="window-titlebar">
+        <div class="window-controls">
+          <div class="window-button close" onclick="closeProjectWindow('bookClubWindow')"></div>
+          <div class="window-button minimize"></div>
+          <div class="window-button maximize"></div>
+        </div>
+        <div class="window-title">book-club</div>
+        <div style="width: 54px;"></div>
+      </div>
+      <div class="window-content">
+        <div style="text-align: center; padding: 40px 20px;">
+          <p style="font-size: 18px; font-weight: 600; color: var(--text-dark); margin-bottom: 8px;">
+            🚧 Under Construction 🚧
+          </p>
+          <p style="font-size: 13px; color: var(--text-muted);">
+            Check back soon!
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dashboard Widget (Terminal) -->
+    <div class="dashboard-widget">
+      <div class="dashboard-titlebar">
+        <div class="terminal-dots">
+          <div class="terminal-dot red"></div>
+          <div class="terminal-dot yellow"></div>
+          <div class="terminal-dot green"></div>
+        </div>
+        <div class="dashboard-title">terminal</div>
+      </div>
+      <div class="dashboard-content">
+        <div class="terminal-prompt">$ status --now</div>
+        <div class="terminal-status">
+          <span class="terminal-bullet">◉</span>
+          <span class="terminal-label">working_on</span>
+          <span class="terminal-value">the Sunday crossword</span>
+        </div>
+        <div class="terminal-status">
+          <span class="terminal-bullet">◉</span>
+          <span class="terminal-label">reading</span>
+          <span class="terminal-value">Jane Eyre</span>
+        </div>
+        <div style="margin-top: 8px; color: #5c6370;">
+          $<span class="terminal-cursor"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dock Container -->
+    <div style="position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); display: flex; gap: 12px; z-index: 1000;">
+      <!-- Projects Dock -->
+      <div class="dock">
+        <!-- NYT Spelling Bee App Icon -->
+        <div class="dock-icon" onclick="openProjectWindow('spellingBeeWindow')">
+          <img src="assets/spelling-bee-logo.png" alt="Spelling Bee" />
+          <div class="dock-tooltip">spelling-bee</div>
+        </div>
+
+        <!-- Book Club App Icon -->
+        <div class="dock-icon" onclick="openProjectWindow('bookClubWindow')">
+          <img src="assets/icon-book-club.png" alt="Book Club" />
+          <div class="dock-tooltip">book-club</div>
+        </div>
+      </div>
+
+      <!-- Contact Dock -->
+      <div class="dock">
+        <!-- Mail App Icon -->
+        <a href="mailto:singh.rhea.04@gmail.com" class="dock-icon">
+          <img src="assets/icon-ios-mail.png" alt="Email" />
+          <div class="dock-tooltip">send email</div>
+        </a>
+
+        <!-- LinkedIn App Icon -->
+        <a href="https://linkedin.com/in/rheas" target="_blank" class="dock-icon">
+          <img src="assets/icon-linkedin.png" alt="LinkedIn" />
+          <div class="dock-tooltip">connect with me</div>
+        </a>
+      </div>
+    </div>
+
   </div>
 
   <script>
@@ -793,7 +1358,7 @@
         const nx = (dx / dist) * m;
         const ny = (dy / dist) * m;
 
-        pupil.style.transform = `translate(calc(-50% + ${nx}px), calc(-50% + ${ny}px))`;
+        pupil.style.transform = `translate(calc(-50% + ${nx}px), calc(-55% + ${ny}px))`;
       }
 
       function getCenter(pupil) {
@@ -875,6 +1440,89 @@
         } else {
           facetimeContent.style.backgroundImage = "url('assets/sf-background-night.png')";
           toggle.classList.remove('active');
+        }
+      });
+    })();
+
+    // Dock project window interactions
+    function openProjectWindow(windowId) {
+      const projectWindow = document.getElementById(windowId);
+      if (projectWindow) {
+        // Close any other open project windows
+        document.querySelectorAll('.project-window').forEach(w => {
+          w.classList.remove('active');
+        });
+
+        // Open the selected window
+        projectWindow.classList.add('active');
+
+        // Bring to front
+        let zIndexCounter = 1000;
+        projectWindow.style.zIndex = zIndexCounter++;
+      }
+    }
+
+    function closeProjectWindow(windowId) {
+      const projectWindow = document.getElementById(windowId);
+      if (projectWindow) {
+        projectWindow.classList.remove('active');
+      }
+    }
+
+    // Make dock icons accessible for link elements
+    document.querySelectorAll('.dock-icon').forEach(icon => {
+      icon.addEventListener('click', function(e) {
+        // Let links handle their own navigation
+        if (this.tagName === 'A') {
+          return;
+        }
+      });
+    });
+
+    // File Explorer folder toggle
+    function toggleFolder(header) {
+      const folder = header.parentElement;
+      folder.classList.toggle('collapsed');
+
+      // Update folder icon
+      const icon = header.querySelector('.folder-icon');
+      if (folder.classList.contains('collapsed')) {
+        icon.src = 'assets/icon-folder.png'; // Closed folder icon
+      } else {
+        icon.src = 'assets/icon-folder.png'; // Open folder icon
+      }
+    }
+
+    // Mobile terminal widget collapse on scroll
+    (function() {
+      // Only apply on mobile screens
+      if (window.innerWidth > 1024) return;
+
+      const widget = document.querySelector('.dashboard-widget');
+      if (!widget) return;
+
+      let isExpanded = true;
+
+      // Collapse on scroll
+      window.addEventListener('scroll', function() {
+        if (isExpanded) {
+          widget.classList.add('collapsed');
+          isExpanded = false;
+        }
+      });
+
+      // Toggle on click/tap
+      widget.addEventListener('click', function(e) {
+        e.stopPropagation();
+        widget.classList.toggle('collapsed');
+        isExpanded = !widget.classList.contains('collapsed');
+      });
+
+      // Re-check on resize
+      window.addEventListener('resize', function() {
+        if (window.innerWidth > 1024) {
+          widget.classList.remove('collapsed');
+          isExpanded = true;
         }
       });
     })();
