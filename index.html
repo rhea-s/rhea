@@ -1391,6 +1391,20 @@
         // Bring to front
         let zIndexCounter = 1000;
         projectWindow.style.zIndex = zIndexCounter++;
+
+        // On small screens, ensure the window is visible to the user
+        if (window.matchMedia('(max-width: 768px)').matches) {
+          // Wait for the window to render before measuring
+          requestAnimationFrame(() => {
+            const rect = projectWindow.getBoundingClientRect();
+            const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+            const fullyVisible = rect.top >= 0 && rect.bottom <= viewportHeight;
+
+            if (!fullyVisible) {
+              projectWindow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+          });
+        }
       }
     }
 
