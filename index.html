@@ -7,69 +7,130 @@
   <style>
     /* --- Base reset & layout --- */
     *, *::before, *::after { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body {
+    html, body {
+      height: 100%;
       margin: 0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      background: radial-gradient(1200px 800px at 50% 30%, #ffeef6 0%, #fdebf5 30%, #f7e6f1 55%, #f4eefa 100%);
-      color: #0f172a;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      color: #4a0e3d;
       overflow-x: hidden;
+      overflow-y: auto;
+      margin: 0;
     }
 
-    .container {
-      min-height: 100dvh;
-      display: grid;
-      place-items: center;
-      padding: 3rem 1rem 4rem;
-    }
-
-    /* --- Card --- */
-    .card {
+    .desktop {
       position: relative;
-      width: min(680px, 86vw);
-      background: rgba(255,255,255,0.75);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(15,23,42,.06);
-      border-radius: 24px;
-      box-shadow: 0 20px 60px rgba(15,23,42,.1);
-      padding: 28px 28px 20px;
+      min-height: 1000px;
+      background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 50%, #f48fb1 100%);
+      padding: 40px 20px 60px;
     }
 
-    .header {
-      display: grid;
-      grid-template-columns: 1fr;
-      justify-items: center;
-      gap: 16px;
+    /* --- Retro Window Component System --- */
+    :root {
+      --pink-chrome: #e5b4d4;
+      --pink-border: #d89fca;
+      --pink-light: #f5e6f1;
+      --text-dark: #4a0e3d;
+      --text-muted: #8b6b83;
+      --window-shadow: 0 8px 24px rgba(74, 14, 61, 0.15);
+
+      /* Eye tracking variables */
+      --eye-left-x: 43.2%;
+      --eye-left-y: 35.8%;
+      --eye-right-x: 56.8%;
+      --eye-right-y: 35.8%;
+      --pupil-size: 16px;
+      --pupil-radius: 2.5px;
     }
 
-    .name {
-      font-weight: 700;
-      font-size: clamp(20px, 3.5vw, 28px);
-      letter-spacing: 0.2px;
+    .window {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.95);
+      border: 2px solid var(--pink-border);
+      border-radius: 8px;
+      box-shadow: var(--window-shadow);
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    .subtitle {
-      font-size: clamp(14px, 2.2vw, 16px);
-      color: #475569;
+    .window:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(74, 14, 61, 0.2);
     }
 
-    /* --- Avatar Stage --- */
-    .stage {
-      position: relative;
-      width: min(380px, 64vw);
-      aspect-ratio: 1/1; /* square */
+    .window-titlebar {
+      background: var(--pink-chrome);
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--pink-border);
+      user-select: none;
+    }
+
+    .window-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-dark);
+      flex: 1;
+      text-align: center;
+      letter-spacing: 0.3px;
+    }
+
+    .window-controls {
+      display: flex;
+      gap: 6px;
+    }
+
+    .window-button {
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
-      background: radial-gradient(65% 65% at 50% 40%, #fff 0%, #fff 55%, #ffeef6 100%);
-      box-shadow: inset 0 4px 24px rgba(15,23,42,.06);
+      border: 1px solid rgba(74, 14, 61, 0.2);
+      background: var(--pink-light);
+      cursor: default;
+    }
+
+    .window-button.close { background: #f4a5b9; }
+    .window-button.minimize { background: #f5d5e0; }
+    .window-button.maximize { background: #f5e6f1; }
+
+    .window-content {
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    /* --- FaceTime Window (Avatar) --- */
+    .facetime-window {
+      width: 360px;
+      top: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .facetime-window:hover {
+      transform: translateX(-50%) translateY(-2px);
+    }
+
+    .facetime-content {
+      padding: 0;
+      background: radial-gradient(65% 65% at 50% 40%, #fff 0%, #fff 55%, var(--pink-light) 100%);
+    }
+
+    .avatar-stage {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1/1;
       display: grid;
       place-items: center;
-      overflow: hidden; /* to clip pupils */
-      margin: 10px auto 2px;
+      overflow: hidden;
       user-select: none;
       -webkit-user-drag: none;
     }
 
-    /* --- Avatar Image --- */
     .avatar {
       position: relative;
       z-index: 2;
@@ -77,21 +138,7 @@
       height: auto;
       transform: translateY(-40px);
       display: block;
-      pointer-events: none; /* allow mouse to pass through */
-    }
-
-    /* --- Eye system ---
-       The pupils are separate absolutely-positioned elements that we translate within a max radius.
-       Adjust the CSS variables below to match your avatar's eye centers & socket sizes.
-    */
-    :root {
-      /* Tuned for your uploaded avatar_no-pupils.png (768×768) */
-      --eye-left-x: 43.2%;
-      --eye-left-y: 35.8%;
-      --eye-right-x: 56.8%;
-      --eye-right-y: 35.8%;
-      --pupil-size: 16px; /* smaller pupil for your art */
-      --pupil-radius: 2.5px; /* max travel in px */
+      pointer-events: none;
     }
 
     .pupil {
@@ -100,77 +147,481 @@
       width: var(--pupil-size);
       height: var(--pupil-size);
       border-radius: 50%;
-      background-image: url("assets/avatar_eye-pupil.png"); /* path to your PNG */
-      background-size: cover;        /* scale to fill */
+      background-image: url("assets/avatar_eye-pupil.png");
+      background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
-      box-shadow: none;              /* optional — remove halo */
-      outline: none;                 /* optional — remove any edge */
       transform: translate(-50%, -50%);
       will-change: transform;
       transition: transform 120ms cubic-bezier(.2,.6,.2,1);
     }
 
-    .pupil.left  { left:  var(--eye-left-x);  top: var(--eye-left-y); }
-    .pupil.right { left:  var(--eye-right-x); top: var(--eye-right-y); }
+    .pupil.left  { left: var(--eye-left-x); top: var(--eye-left-y); }
+    .pupil.right { left: var(--eye-right-x); top: var(--eye-right-y); }
 
-    /* Desktop only: disable on coarse pointers */
+    .avatar-info {
+      padding: 16px;
+      text-align: center;
+      background: white;
+      border-top: 1px solid var(--pink-border);
+    }
+
+    .avatar-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+
+    .avatar-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* --- About/Education Window --- */
+    .about-window {
+      width: 420px;
+      top: 80px;
+      left: 80px;
+      z-index: 5;
+    }
+
+    .section-heading {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--pink-light);
+    }
+
+    .info-block {
+      margin-bottom: 16px;
+    }
+
+    .info-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+
+    .info-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .info-meta {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .info-list {
+      margin: 8px 0 0 0;
+      padding-left: 18px;
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--text-dark);
+    }
+
+    .info-list li {
+      margin-bottom: 4px;
+    }
+
+    /* --- Experience Window --- */
+    .experience-window {
+      width: 480px;
+      top: 540px;
+      left: 37%;
+      transform: translateX(-50%);
+      z-index: 7;
+      max-height: 400px;
+    }
+
+    .experience-window .window-content {
+      max-height: 400px;
+    }
+
+    .job-item {
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--pink-light);
+    }
+
+    .job-item:last-child {
+      border-bottom: none;
+    }
+
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+      gap: 12px;
+    }
+
+    .job-company {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .job-role {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .job-date {
+      font-size: 11px;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    /* --- Skills Window --- */
+    .skills-window {
+      width: 340px;
+      top: 440px;
+      left: 100px;
+      z-index: 6;
+    }
+
+    .skill-category {
+      margin-bottom: 16px;
+    }
+
+    .skill-category:last-child {
+      margin-bottom: 0;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .skill-tag {
+      background: var(--pink-light);
+      color: var(--text-dark);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 500;
+      border: 1px solid var(--pink-border);
+    }
+
+    /* --- Contact Window --- */
+    .contact-window {
+      width: 280px;
+      top: 460px;
+      right: 120px;
+      z-index: 8;
+    }
+
+    .contact-link {
+      display: block;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      background: var(--pink-light);
+      border: 1px solid var(--pink-border);
+      border-radius: 6px;
+      color: var(--text-dark);
+      text-decoration: none;
+      font-size: 13px;
+      transition: all 0.2s ease;
+    }
+
+    .contact-link:hover {
+      background: var(--pink-chrome);
+      transform: translateX(4px);
+    }
+
+    .contact-link:last-child {
+      margin-bottom: 0;
+    }
+
+    /* --- Extracurriculars Window --- */
+    .extra-window {
+      width: 380px;
+      top: 100px;
+      right: 80px;
+      z-index: 4;
+      max-height: 380px;
+    }
+
+    .extra-window .window-content {
+      max-height: 380px;
+    }
+
+    .experience-window:hover {
+      transform: translateX(-50%) translateY(-2px);
+    }
+
+    /* --- Accessibility --- */
     @media (pointer: coarse) {
       .pupil { display: none; }
     }
 
-    /* Respect motion sensitivity */
     @media (prefers-reduced-motion: reduce) {
       .pupil { transition: none; }
+      .window, .contact-link { transition: none; }
     }
 
-    /* --- Footer / Links --- */
-    .links {
-      margin-top: 22px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      justify-content: center;
-    }
-    .link {
-      text-decoration: none;
-      border: 1px solid rgba(15,23,42,.08);
-      background: #fff;
-      padding: 9px 14px;
-      border-radius: 12px;
-      font-size: 14px;
-      color: #0f172a;
-      transition: transform .16s ease, box-shadow .16s ease;
-    }
-    .link:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(15,23,42,.08); }
+    /* --- Responsive Mobile Layout --- */
+    @media (max-width: 1024px) {
+      .desktop {
+        padding: 20px 10px;
+      }
 
-    .hint { text-align: center; color: #64748b; font-size: 12.5px; margin-top: 6px; }
+      .window {
+        position: relative !important;
+        left: auto !important;
+        right: auto !important;
+        top: auto !important;
+        transform: none !important;
+        margin: 0 auto 20px;
+        max-width: 500px;
+        width: calc(100% - 20px);
+      }
+
+      .facetime-window {
+        max-width: 360px;
+      }
+
+      .experience-window,
+      .about-window {
+        max-height: none;
+      }
+
+      .experience-window .window-content {
+        max-height: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .window-content {
+        padding: 14px;
+      }
+
+      .facetime-window {
+        max-width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
-  <main class="container">
-    <section class="card" aria-label="Visual resume header">
-      <div class="header">
-        <div class="stage" id="stage" aria-hidden="true">
-            <!-- Pupils first, so they sit underneath -->
-            <div class="pupil left" id="pupilL"></div>
-            <div class="pupil right" id="pupilR"></div>
-            <!-- Avatar on top with transparent eye holes -->
-            <img class="avatar" src="assets/avatar_no-eyes.png" alt="Avatar with transparent eyes" />
-        </div>
-        <div class="name">Rhea Singh</div>
-        <div class="subtitle">Software Engineer · Product/UX · Visual Storyteller</div>
-      </div>
+  <div class="desktop">
 
-      <div class="links" aria-label="Primary links">
-        <a class="link" href="#about">About</a>
-        <a class="link" href="#work">Selected Work</a>
-        <a class="link" href="#writing">Writing</a>
-        <a class="link" href="#contact">Contact</a>
+    <!-- FaceTime Window (Avatar) -->
+    <div class="window facetime-window">
+      <div class="window-titlebar">
+        <div class="window-controls">
+          <div class="window-button close"></div>
+          <div class="window-button minimize"></div>
+          <div class="window-button maximize"></div>
+        </div>
+        <div class="window-title">Rhea Singh is calling...</div>
+        <div style="width: 54px;"></div> <!-- Spacer for centering -->
       </div>
-      <p class="hint">Tip: move your cursor over the avatar 👀</p>
-    </section>
-  </main>
+      <div class="window-content facetime-content">
+        <div class="avatar-stage" id="stage">
+          <div class="pupil left" id="pupilL"></div>
+          <div class="pupil right" id="pupilR"></div>
+          <img class="avatar" src="assets/avatar_no-eyes.png" alt="Rhea Singh avatar" />
+        </div>
+        <div class="avatar-info">
+          <div class="avatar-name">Rhea Singh</div>
+          <div class="avatar-subtitle">Software Engineer · Product/UX · Visual Storyteller</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- About/Education Window -->
+    <div class="window about-window">
+      <div class="window-titlebar">
+        <div class="window-controls">
+          <div class="window-button close"></div>
+          <div class="window-button minimize"></div>
+          <div class="window-button maximize"></div>
+        </div>
+        <div class="window-title">About.txt</div>
+        <div style="width: 54px;"></div>
+      </div>
+      <div class="window-content">
+        <div class="section-heading">Education</div>
+        <div class="info-block">
+          <div class="info-title">University of Michigan, College of Engineering</div>
+          <div class="info-subtitle">B.S. in Computer Science, History Minor</div>
+          <div class="info-meta">2016 - 2020 | Ann Arbor, MI</div>
+          <ul class="info-list">
+            <li>Data Structures & Algorithms, Computer Security, Discrete Math</li>
+            <li>Computer Architecture, Linear Algebra, Probability & Statistics</li>
+            <li>Web Systems, Operating Systems, UI Development</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Experience Window -->
+    <div class="window experience-window">
+      <div class="window-titlebar">
+        <div class="window-controls">
+          <div class="window-button close"></div>
+          <div class="window-button minimize"></div>
+          <div class="window-button maximize"></div>
+        </div>
+        <div class="window-title">Experience</div>
+        <div style="width: 54px;"></div>
+      </div>
+      <div class="window-content">
+        <div class="job-item">
+          <div class="job-header">
+            <div>
+              <div class="job-company">Apple</div>
+              <div class="job-role">Software Engineer</div>
+            </div>
+            <div class="job-date">Aug 2020 - Sept 2025<br>Cupertino, CA</div>
+          </div>
+          <ul class="info-list">
+            <li>Designed and implemented unique system architecture to enable new features and improve Health algorithms</li>
+            <li>Collaborated with research scientists and cross-functional teams to successfully run clinical validation studies for FDA-regulated iOS and watchOS features</li>
+            <li>Developed user study apps to measure performance of various proposed Health and Fitness features</li>
+            <li>Helped plan and execute multi-year feature tentpole, continuously evaluating progress and feasibility, meeting strict deadlines to fulfill executive-level vision</li>
+          </ul>
+        </div>
+
+        <div class="job-item">
+          <div class="job-header">
+            <div>
+              <div class="job-company">Capital One</div>
+              <div class="job-role">Tech Intern</div>
+            </div>
+            <div class="job-date">June - Aug 2019<br>Chicago, IL</div>
+          </div>
+          <ul class="info-list">
+            <li>Improved user experience for new partnership application based on feedback from previous rollouts</li>
+            <li>Developed metrics for team efficiency in the development process</li>
+            <li>Designed a beautiful, easy-to-understand data visualization tool of team's Github pull request process</li>
+          </ul>
+        </div>
+
+        <div class="job-item">
+          <div class="job-header">
+            <div>
+              <div class="job-company">Blablablab (UMich)</div>
+              <div class="job-role">Undergraduate Researcher</div>
+            </div>
+            <div class="job-date">2018 - 2020<br>Ann Arbor, MI</div>
+          </div>
+          <ul class="info-list">
+            <li>Scraped Wikipedia for all people with pages and identified gender based on names and pronouns</li>
+            <li>Applied NLP techniques to derive statistically significant differences in language used dependent on gender</li>
+            <li>Thought critically in collaboration with professor about data and potential biases</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Skills Window -->
+    <div class="window skills-window">
+      <div class="window-titlebar">
+        <div class="window-controls">
+          <div class="window-button close"></div>
+          <div class="window-button minimize"></div>
+          <div class="window-button maximize"></div>
+        </div>
+        <div class="window-title">Skills</div>
+        <div style="width: 54px;"></div>
+      </div>
+      <div class="window-content">
+        <div class="skill-category">
+          <div class="section-heading">Back-End</div>
+          <div class="skill-tags">
+            <span class="skill-tag">C/C++</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">SQL</span>
+            <span class="skill-tag">REST APIs</span>
+            <span class="skill-tag">Objective-C</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <div class="section-heading">Front-End</div>
+          <div class="skill-tags">
+            <span class="skill-tag">HTML5</span>
+            <span class="skill-tag">CSS</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">React</span>
+            <span class="skill-tag">Swift</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Window -->
+    <div class="window contact-window">
+      <div class="window-titlebar">
+        <div class="window-controls">
+          <div class="window-button close"></div>
+          <div class="window-button minimize"></div>
+          <div class="window-button maximize"></div>
+        </div>
+        <div class="window-title">Contact</div>
+        <div style="width: 54px;"></div>
+      </div>
+      <div class="window-content">
+        <a href="mailto:singh.rhea.04@gmail.com" class="contact-link">📧 Email</a>
+        <a href="https://umich.edu/~rheas" class="contact-link" target="_blank">🌐 Website</a>
+        <a href="https://linkedin.com/in/rheas" class="contact-link" target="_blank">💼 LinkedIn</a>
+      </div>
+    </div>
+
+    <!-- Extracurriculars Window -->
+    <div class="window extra-window">
+      <div class="window-titlebar">
+        <div class="window-controls">
+          <div class="window-button close"></div>
+          <div class="window-button minimize"></div>
+          <div class="window-button maximize"></div>
+        </div>
+        <div class="window-title">Extracurriculars</div>
+        <div style="width: 54px;"></div>
+      </div>
+      <div class="window-content">
+        <div class="job-item">
+          <div class="job-header">
+            <div>
+              <div class="job-company">ICPC (Programming Contest)</div>
+              <div class="job-role">Participant</div>
+            </div>
+            <div class="job-date">Sept 2018 - 2020</div>
+          </div>
+          <ul class="info-list">
+            <li>Qualified for ICPC State Level with team of three</li>
+            <li>Placed in top five, working on challenging programming questions</li>
+          </ul>
+        </div>
+
+        <div class="job-item">
+          <div class="job-header">
+            <div>
+              <div class="job-company">Michigan Research Community</div>
+              <div class="job-role">Peer Mentor</div>
+            </div>
+            <div class="job-date">Sept 2016 - May 2018</div>
+          </div>
+          <ul class="info-list">
+            <li>Guided first-time undergraduate research students in navigating project search and research path</li>
+            <li>Provided support, monthly meetings, and guidance with research posters</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
 
   <script>
     // Eye-tracking logic with rAF throttling and clamped movement within a circle.
