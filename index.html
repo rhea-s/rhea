@@ -728,24 +728,66 @@
       transform: translateX(-50%) translateY(-2px);
     }
 
-    .project-link {
-      display: inline-block;
-      padding: 8px 16px;
-      background: var(--pink-chrome);
-      border: 1px solid var(--pink-border);
-      border-radius: 6px;
-      color: var(--text-dark);
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 500;
-      transition: all 0.2s ease;
-      margin-top: 12px;
+    .project-actions {
+      margin-top: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
-    .project-link:hover {
-      background: var(--pink-border);
+    .project-launch {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 18px;
+      background: linear-gradient(135deg, #f48fb1, #f06292);
+      border: 1px solid rgba(74, 14, 61, 0.15);
+      border-radius: 999px;
+      color: white;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      box-shadow: 0 6px 16px rgba(244, 143, 177, 0.4);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    }
+
+    .project-launch:hover {
       transform: translateY(-1px);
-      box-shadow: 0 2px 8px rgba(74, 14, 61, 0.15);
+      box-shadow: 0 10px 22px rgba(244, 143, 177, 0.45);
+      filter: brightness(1.05);
+    }
+
+    .project-icon-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid var(--pink-border);
+      background: var(--pink-light);
+      color: var(--text-dark);
+      text-decoration: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .project-icon-link:hover {
+      transform: translateY(-1px);
+      border-color: rgba(74, 14, 61, 0.25);
+      box-shadow: 0 6px 16px rgba(74, 14, 61, 0.2);
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
 
     .skill-tag {
@@ -1190,8 +1232,18 @@
           </div>
         </div>
 
-        <a href="https://frankies-spelling-bee.vercel.app" class="project-link" target="_blank">View Live Project →</a>
-        <a href="https://github.com/rhea-s/spelling-bee/tree/main" class="project-link" target="_blank" style="margin-left: 8px;">View on GitHub →</a>
+        <div class="project-actions">
+          <a href="https://frankies-spelling-bee.vercel.app" class="project-launch" target="_blank">
+            <span>Launch</span>
+            <span aria-hidden="true">🚀</span>
+          </a>
+          <a href="https://github.com/rhea-s/spelling-bee/tree/main" class="project-icon-link" target="_blank" aria-label="View project on GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.52 2.87 8.36 6.84 9.72.5.1.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.1-1.5-1.1-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.27 2.75 1.05a9.3 9.3 0 0 1 5 0c1.9-1.32 2.74-1.05 2.74-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.33.68.97.68 1.96 0 1.42-.01 2.56-.01 2.9 0 .27.18.6.69.49A10.03 10.03 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z" fill="currentColor" />
+            </svg>
+            <span class="sr-only">View on GitHub</span>
+          </a>
+        </div>
       </div>
     </div>
 
