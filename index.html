@@ -430,7 +430,7 @@
         <div class="avatar-stage" id="stage">
           <div class="pupil left" id="pupilL"></div>
           <div class="pupil right" id="pupilR"></div>
-          <img class="avatar" src="assets/avatar_no-eyes.png" alt="Rhea Singh avatar" />
+          <img class="avatar" id="avatarImg" src="assets/avatar_no-eyes.png" alt="Rhea Singh avatar" />
         </div>
         <div class="avatar-info">
           <div class="avatar-name">Rhea Singh</div>
@@ -629,10 +629,17 @@
       const stage = document.getElementById('stage');
       const left = document.getElementById('pupilL');
       const right = document.getElementById('pupilR');
+      const avatarImg = document.getElementById('avatarImg');
 
       // Respect: reduced motion and non-fine pointers (phones/tablets)
       const motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const finePointer = window.matchMedia('(pointer: fine)').matches;
+
+      // If on mobile (coarse pointer), use the complete avatar with eyes
+      if (!finePointer) {
+        avatarImg.src = 'assets/avatar_base-complete.png';
+      }
+
       if (!motionOK || !finePointer) return; // bail out
 
       const MAX = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--pupil-radius')) || 7;
