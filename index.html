@@ -1,572 +1,234 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rhea Singh - Software Engineer</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rhea Singh — Visual Resume</title>
+  <style>
+    /* --- Base reset & layout --- */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 50% 30%, #ffeef6 0%, #fdebf5 30%, #f7e6f1 55%, #f4eefa 100%);
+      color: #0f172a;
+      overflow-x: hidden;
+    }
 
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #e74c3c;
-            --text-dark: #2c3e50;
-            --text-light: #7f8c8d;
-            --bg-light: #ecf0f1;
-            --white: #ffffff;
-            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        }
+    .container {
+      min-height: 100dvh;
+      display: grid;
+      place-items: center;
+      padding: 3rem 1rem 4rem;
+    }
 
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            line-height: 1.6;
-            color: var(--text-dark);
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            animation: gradientShift 10s ease infinite;
-            background-size: 200% 200%;
-        }
+    /* --- Card --- */
+    .card {
+      position: relative;
+      width: min(680px, 86vw);
+      background: rgba(255,255,255,0.75);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(15,23,42,.06);
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(15,23,42,.1);
+      padding: 28px 28px 20px;
+    }
 
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+    .header {
+      display: grid;
+      grid-template-columns: 1fr;
+      justify-items: center;
+      gap: 16px;
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            background: var(--white);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-            animation: slideUp 0.8s ease-out;
-        }
+    .name {
+      font-weight: 700;
+      font-size: clamp(20px, 3.5vw, 28px);
+      letter-spacing: 0.2px;
+    }
 
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    .subtitle {
+      font-size: clamp(14px, 2.2vw, 16px);
+      color: #475569;
+    }
 
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 60px 50px;
-            position: relative;
-            overflow: hidden;
-        }
+    /* --- Avatar Stage --- */
+    .stage {
+      position: relative;
+      width: min(380px, 64vw);
+      aspect-ratio: 1/1; /* square */
+      border-radius: 50%;
+      background: radial-gradient(65% 65% at 50% 40%, #fff 0%, #fff 55%, #ffeef6 100%);
+      box-shadow: inset 0 4px 24px rgba(15,23,42,.06);
+      display: grid;
+      place-items: center;
+      overflow: hidden; /* to clip pupils */
+      margin: 10px auto 2px;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
 
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
-            background-size: 30px 30px;
-            animation: drift 20s linear infinite;
-        }
+    /* --- Avatar Image --- */
+    .avatar {
+      position: relative;
+      width: 120%;
+      height: auto;
+      transform: translateY(-40px);
+      display: block;
+      pointer-events: none; /* allow mouse to pass through */
+    }
 
-        @keyframes drift {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
+    /* --- Eye system ---
+       The pupils are separate absolutely-positioned elements that we translate within a max radius.
+       Adjust the CSS variables below to match your avatar's eye centers & socket sizes.
+    */
+    :root {
+      /* Tuned for your uploaded avatar_no-pupils.png (768×768) */
+      --eye-left-x: 43.2%;
+      --eye-left-y: 35.3%;
+      --eye-right-x: 56.8%;
+      --eye-right-y: 35.3%;
+      --pupil-size: 10px; /* smaller pupil for your art */
+      --pupil-radius: 2px; /* max travel in px */
+    }
 
-        .header-content {
-            display: flex;
-            align-items: center;
-            gap: 40px;
-            position: relative;
-            z-index: 1;
-        }
+    .pupil {
+      position: absolute;
+      width: var(--pupil-size);
+      height: var(--pupil-size);
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #1f2937 0 45%, #0b1220 46% 100%);
+      /* Start centered; JS will transform from center. */
+      transform: translate(-50%, -50%);
+      will-change: transform;
+      transition: transform 120ms cubic-bezier(.2,.6,.2,1);
+    }
 
-        .profile-pic {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            border: 5px solid rgba(255,255,255,0.3);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            animation: float 6s ease-in-out infinite;
-            background: #f5f5f5;
-            object-fit: cover;
-        }
+    .pupil.left  { left:  var(--eye-left-x);  top: var(--eye-left-y); }
+    .pupil.right { left:  var(--eye-right-x); top: var(--eye-right-y); }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
+    /* Desktop only: disable on coarse pointers */
+    @media (pointer: coarse) {
+      .pupil { display: none; }
+    }
 
-        .header-text {
-            flex: 1;
-            color: var(--white);
-        }
+    /* Respect motion sensitivity */
+    @media (prefers-reduced-motion: reduce) {
+      .pupil { transition: none; }
+    }
 
-        .name {
-            font-size: 3em;
-            font-weight: 700;
-            margin-bottom: 10px;
-            animation: fadeInLeft 1s ease-out;
-        }
+    /* --- Footer / Links --- */
+    .links {
+      margin-top: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+    .link {
+      text-decoration: none;
+      border: 1px solid rgba(15,23,42,.08);
+      background: #fff;
+      padding: 9px 14px;
+      border-radius: 12px;
+      font-size: 14px;
+      color: #0f172a;
+      transition: transform .16s ease, box-shadow .16s ease;
+    }
+    .link:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(15,23,42,.08); }
 
-        @keyframes fadeInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .tagline {
-            font-size: 1.2em;
-            opacity: 0.95;
-            margin-bottom: 20px;
-            animation: fadeInLeft 1.2s ease-out;
-        }
-
-        .contact-links {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            animation: fadeInLeft 1.4s ease-out;
-        }
-
-        .contact-link {
-            color: var(--white);
-            text-decoration: none;
-            padding: 8px 16px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 25px;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .contact-link:hover {
-            background: rgba(255,255,255,0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .content {
-            padding: 50px;
-        }
-
-        .section {
-            margin-bottom: 50px;
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out forwards;
-        }
-
-        .section:nth-child(1) { animation-delay: 0.2s; }
-        .section:nth-child(2) { animation-delay: 0.4s; }
-        .section:nth-child(3) { animation-delay: 0.6s; }
-        .section:nth-child(4) { animation-delay: 0.8s; }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .section-title {
-            font-size: 2em;
-            color: var(--primary-color);
-            margin-bottom: 25px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid;
-            border-image: linear-gradient(90deg, #667eea, #764ba2) 1;
-            display: inline-block;
-        }
-
-        .education-item, .experience-item {
-            background: var(--bg-light);
-            padding: 25px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            border-left: 4px solid #667eea;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .education-item::before, .experience-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .education-item:hover::before, .experience-item:hover::before {
-            left: 100%;
-        }
-
-        .education-item:hover, .experience-item:hover {
-            transform: translateX(10px);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
-        }
-
-        .item-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-        }
-
-        .item-title {
-            font-size: 1.3em;
-            font-weight: 600;
-            color: var(--primary-color);
-        }
-
-        .item-subtitle {
-            color: var(--text-light);
-            font-size: 1.1em;
-            margin-bottom: 10px;
-        }
-
-        .item-date {
-            color: var(--text-light);
-            font-style: italic;
-        }
-
-        .item-location {
-            color: var(--text-light);
-            font-size: 0.95em;
-        }
-
-        ul {
-            margin-left: 20px;
-            margin-top: 10px;
-        }
-
-        li {
-            margin-bottom: 8px;
-            position: relative;
-            padding-left: 10px;
-        }
-
-        li::before {
-            content: '▸';
-            position: absolute;
-            left: -10px;
-            color: #667eea;
-            font-weight: bold;
-        }
-
-        .skills-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .skill-category {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 20px;
-            border-radius: 12px;
-            color: var(--white);
-            transition: all 0.3s ease;
-        }
-
-        .skill-category:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
-        }
-
-        .skill-title {
-            font-weight: 600;
-            margin-bottom: 10px;
-            font-size: 1.2em;
-        }
-
-        .skill-items {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .skill-tag {
-            background: rgba(255,255,255,0.2);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.9em;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-
-        .skill-tag:hover {
-            background: rgba(255,255,255,0.3);
-            transform: scale(1.1);
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                margin: 20px;
-            }
-            
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .name {
-                font-size: 2em;
-            }
-            
-            .content {
-                padding: 30px 20px;
-            }
-            
-            .contact-links {
-                justify-content: center;
-            }
-        }
-
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7);
-            }
-            70% {
-                box-shadow: 0 0 0 15px rgba(102, 126, 234, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(102, 126, 234, 0);
-            }
-        }
-    </style>
+    .hint { text-align: center; color: #64748b; font-size: 12.5px; margin-top: 6px; }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <div class="header-content">
-                <img src="profile.png" class="profile-pic" alt="Rhea Singh">
-                <div class="header-text">
-                    <h1 class="name">Rhea Singh</h1>
-                    <p class="tagline">Seeking Fulfilling + Impactful Software Engineering Roles</p>
-                    <div class="contact-links">
-                        <a href="mailto:singh.rhea.04@gmail.com" class="contact-link">📧 Email</a>
-                        <a href="https://umich.edu/~rheas" class="contact-link" target="_blank">🌐 Website</a>
-                        <a href="https://linkedin.com/in/rheas" class="contact-link" target="_blank">💼 LinkedIn</a>
-                    </div>
-                </div>
-            </div>
+  <main class="container">
+    <section class="card" aria-label="Visual resume header">
+      <div class="header">
+        <div class="stage" id="stage" aria-hidden="true">
+          <!-- Replace the src below with your avatar art (PNG/SVG). Ideally, export the art with static eye whites (no pupils). -->
+          <img class="avatar" draggable="false" alt="Avatar of Rhea Singh" src="assets/avatar_no-pupils.png" />
+
+          <!-- Pupils layered on top. Adjust eye centers via the :root variables. -->
+          <div class="pupil left"  id="pupilL" role="presentation"></div>
+          <div class="pupil right" id="pupilR" role="presentation"></div>
         </div>
+        <div class="name">Rhea Singh</div>
+        <div class="subtitle">Software Engineer · Product/UX · Visual Storyteller</div>
+      </div>
 
-        <div class="content">
-            <section class="section">
-                <h2 class="section-title">Education</h2>
-                <div class="education-item">
-                    <div class="item-header">
-                        <div>
-                            <h3 class="item-title">University of Michigan, College of Engineering</h3>
-                            <p class="item-subtitle">B.S. in Computer Science, History Minor</p>
-                        </div>
-                        <div>
-                            <span class="item-date">2016 - 2020</span>
-                            <span class="item-location"> | Ann Arbor, MI</span>
-                        </div>
-                    </div>
-                    <ul>
-                        <li>Completed Coursework: Data Structures & Algorithms, Computer Security, Discrete Math, Computer Architecture</li>
-                        <li>Linear Algebra, Probability & Statistics, Differential Equations, Microprocessors</li>
-                        <li>Web Systems, Operating Systems, UI Development</li>
-                    </ul>
-                </div>
-            </section>
+      <div class="links" aria-label="Primary links">
+        <a class="link" href="#about">About</a>
+        <a class="link" href="#work">Selected Work</a>
+        <a class="link" href="#writing">Writing</a>
+        <a class="link" href="#contact">Contact</a>
+      </div>
+      <p class="hint">Tip: move your cursor over the avatar 👀</p>
+    </section>
+  </main>
 
-            <section class="section">
-                <h2 class="section-title">Experience</h2>
-                
-                <div class="experience-item">
-                    <div class="item-header">
-                        <div>
-                            <h3 class="item-title">Apple</h3>
-                            <p class="item-subtitle">Software Engineer</p>
-                        </div>
-                        <div>
-                            <span class="item-date">Aug 2020 - Present</span>
-                            <span class="item-location"> | Cupertino, CA</span>
-                        </div>
-                    </div>
-                    <ul>
-                        <li>Designed and implemented unique system architecture to enable new features and improve Health algorithms</li>
-                        <li>Collaborated with research scientists and cross-functional teams to successfully run clinical validation studies for FDA-regulated iOS and watchOS features</li>
-                        <li>Developed user study apps to measure performance of various proposed Health and Fitness features</li>
-                        <li>Helped plan and execute multi-year feature tentpole, continuously evaluating progress and feasibility, meeting strict deadlines to fulfill executive-level vision, with the primary objective of creating useful and necessary advancements in wearable health technology</li>
-                    </ul>
-                </div>
+  <script>
+    // Eye-tracking logic with rAF throttling and clamped movement within a circle.
+    (function () {
+      const stage = document.getElementById('stage');
+      const left = document.getElementById('pupilL');
+      const right = document.getElementById('pupilR');
 
-                <div class="experience-item">
-                    <div class="item-header">
-                        <div>
-                            <h3 class="item-title">Capital One</h3>
-                            <p class="item-subtitle">Tech Intern</p>
-                        </div>
-                        <div>
-                            <span class="item-date">June - August 2019</span>
-                            <span class="item-location"> | Chicago, IL</span>
-                        </div>
-                    </div>
-                    <ul>
-                        <li>Improved user experience for new partnership application based on feedback from previous rollouts</li>
-                        <li>Developed metrics for team efficiency in the development process</li>
-                        <li>Designed a beautiful, easy-to-understand data visualization tool of team's Github pull request process</li>
-                    </ul>
-                </div>
+      // Respect: reduced motion and non-fine pointers (phones/tablets)
+      const motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const finePointer = window.matchMedia('(pointer: fine)').matches;
+      if (!motionOK || !finePointer) return; // bail out
 
-                <div class="experience-item">
-                    <div class="item-header">
-                        <div>
-                            <h3 class="item-title">The Bringing together Language and Behavior for Large-scale Analytical Breakthroughs Laboratory (Blablablab)</h3>
-                            <p class="item-subtitle">Undergraduate Researcher</p>
-                        </div>
-                        <div>
-                            <span class="item-date">2018 - 2020</span>
-                            <span class="item-location"> | University of Michigan, Ann Arbor, MI</span>
-                        </div>
-                    </div>
-                    <ul>
-                        <li>Scraped Wikipedia for all people with pages and identified gender of each page based on names and pronouns</li>
-                        <li>Applied Natural Language Processing techniques on each page to derive statistically significant differences in the language used dependent on gender of the subject being written about</li>
-                        <li>Thought critically in collaboration with professor about data and potential biases and faults with research</li>
-                    </ul>
-                </div>
-            </section>
+      const MAX = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--pupil-radius')) || 7;
 
-            <section class="section">
-                <h2 class="section-title">Skills</h2>
-                <div class="skills-section">
-                    <div class="skill-category">
-                        <h3 class="skill-title">Back-End</h3>
-                        <div class="skill-items">
-                            <span class="skill-tag">C/C++</span>
-                            <span class="skill-tag">Python</span>
-                            <span class="skill-tag">SQL</span>
-                            <span class="skill-tag">REST APIs</span>
-                            <span class="skill-tag">Objective-C</span>
-                        </div>
-                    </div>
-                    <div class="skill-category">
-                        <h3 class="skill-title">Front-End</h3>
-                        <div class="skill-items">
-                            <span class="skill-tag">HTML5</span>
-                            <span class="skill-tag">CSS</span>
-                            <span class="skill-tag">JavaScript</span>
-                            <span class="skill-tag">React</span>
-                            <span class="skill-tag">Swift</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
+      let queued = false;
+      let lastEvent = null;
 
-            <section class="section">
-                <h2 class="section-title">Extracurricular Activities</h2>
-                
-                <div class="experience-item">
-                    <div class="item-header">
-                        <div>
-                            <h3 class="item-title">International Collegiate Programming Contest (ICPC)</h3>
-                            <p class="item-subtitle">Participant</p>
-                        </div>
-                        <div>
-                            <span class="item-date">Sept 2018 - Present</span>
-                            <span class="item-location"> | Ann Arbor, MI</span>
-                        </div>
-                    </div>
-                    <ul>
-                        <li>Qualified for ICPC State Level with team of three</li>
-                        <li>Worked with team members to program solutions for challenging programming questions and placed in top five</li>
-                        <li>Communicated about and worked on code at high-level with team</li>
-                    </ul>
-                </div>
+      function clampMove(pupil, center) {
+        const rect = stage.getBoundingClientRect();
+        // Cursor position relative to stage
+        const x = lastEvent.clientX - rect.left;
+        const y = lastEvent.clientY - rect.top;
 
-                <div class="experience-item">
-                    <div class="item-header">
-                        <div>
-                            <h3 class="item-title">Michigan Research Community</h3>
-                            <p class="item-subtitle">Peer Mentor</p>
-                        </div>
-                        <div>
-                            <span class="item-date">Sept 2016 - May 2018</span>
-                            <span class="item-location"> | Ann Arbor, MI</span>
-                        </div>
-                    </div>
-                    <ul>
-                        <li>Guided group of first time undergraduate research students in navigating project search, a new school, and their research path</li>
-                        <li>Provided support, monthly meetings, and guidance with research posters</li>
-                    </ul>
-                </div>
-            </section>
-        </div>
-    </div>
+        const dx = x - center.x;
+        const dy = y - center.y;
+        const dist = Math.hypot(dx, dy) || 1;
+        const m = Math.min(MAX, dist);
+        const nx = (dx / dist) * m;
+        const ny = (dy / dist) * m;
 
-    <script>
-        // Add smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
+        pupil.style.transform = `translate(calc(-50% + ${nx}px), calc(-50% + ${ny}px))`;
+      }
 
-        // Add dynamic hover effects
-        const items = document.querySelectorAll('.experience-item, .education-item');
-        items.forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateX(10px) scale(1.02)';
-            });
-            item.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateX(0) scale(1)';
-            });
-        });
+      function getCenter(pupil) {
+        const r = pupil.getBoundingClientRect();
+        return { x: r.left + r.width / 2 - stage.getBoundingClientRect().left,
+                 y: r.top + r.height / 2 - stage.getBoundingClientRect().top };
+      }
 
-        // Add loading animation
-        window.addEventListener('load', function() {
-            document.body.style.opacity = '1';
-        });
+      function onMove(e) {
+        lastEvent = e;
+        if (!queued) {
+          queued = true;
+          requestAnimationFrame(() => {
+            const cL = getCenter(left);
+            const cR = getCenter(right);
+            clampMove(left,  cL);
+            clampMove(right, cR);
+            queued = false;
+          });
+        }
+      }
 
-        // Replace image src with actual base64 data
-        fetch('/mnt/user-data/uploads/Generated_Image_October_02__2025_-_4_14AM.png')
-            .then(response => response.blob())
-            .then(blob => {
-                const reader = new FileReader();
-                reader.onloadend = function() {
-                    document.querySelector('.profile-pic').src = reader.result;
-                }
-                reader.readAsDataURL(blob);
-            })
-            .catch(err => {
-                // If fetch fails, the image path will be used directly
-                console.log('Using direct image path');
-            });
-    </script>
+      function recenter() {
+        left.style.transform = 'translate(-50%, -50%)';
+        right.style.transform = 'translate(-50%, -50%)';
+      }
+
+      stage.addEventListener('mousemove', onMove);
+      stage.addEventListener('mouseleave', recenter);
+      window.addEventListener('resize', recenter);
+    })();
+  </script>
 </body>
 </html>
