@@ -680,7 +680,8 @@
       visibility: visible;
       transition:
         opacity 0.25s ease-out,
-        visibility 0.25s ease-out;
+        visibility 0.25s ease-out,
+        max-width 0.25s ease-out;
     }
 
     .dashboard-content {
@@ -885,10 +886,6 @@
         max-height: none;
       }
 
-      .avatar {
-        transform: translateY(-25px);
-      }
-
       .project-window {
         position: relative !important;
         transform: none !important;
@@ -914,9 +911,9 @@
         width: 50px;
         height: 50px;
         border-radius: 25px;
-        bottom: 150px;
-        right: 10px;
-        left: auto;
+        bottom: 270px;
+        left: 20px;
+        right: auto;
         padding: 0;
         display: flex;
         align-items: center;
@@ -924,11 +921,16 @@
       }
 
       .dashboard-widget.collapsed .dashboard-content {
-        display: none;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
       }
 
       .dashboard-widget.collapsed .dashboard-title {
-        display: none;
+        opacity: 0;
+        visibility: hidden;
+        max-width: 0;
+        overflow: hidden;
       }
 
       .dashboard-widget.collapsed .dashboard-titlebar {
