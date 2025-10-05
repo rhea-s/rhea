@@ -283,7 +283,7 @@
     /* --- Skills Window --- */
     .skills-window {
       width: 340px;
-      top: 440px;
+      top: 380px;
       left: 100px;
       z-index: 6;
     }
@@ -681,9 +681,21 @@
         right.style.transform = 'translate(-50%, -50%)';
       }
 
-      stage.addEventListener('mousemove', onMove);
-      stage.addEventListener('mouseleave', recenter);
+      document.addEventListener('mousemove', onMove);
       window.addEventListener('resize', recenter);
+    })();
+
+    // Window click-to-front functionality
+    (function () {
+      const windows = document.querySelectorAll('.window');
+      let zIndexCounter = 100;
+
+      windows.forEach(window => {
+        window.addEventListener('click', function() {
+          zIndexCounter++;
+          this.style.zIndex = zIndexCounter;
+        });
+      });
     })();
   </script>
 </body>
