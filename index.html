@@ -37,12 +37,12 @@
       --window-shadow: 0 8px 24px rgba(74, 14, 61, 0.15);
 
       /* Eye tracking variables */
-      --eye-left-x: 43.2%;
-      --eye-left-y: 35.8%;
-      --eye-right-x: 56.8%;
-      --eye-right-y: 35.8%;
-      --pupil-size: 16px;
-      --pupil-radius: 2.5px;
+      --eye-left-x: 42.9%;
+      --eye-left-y: 40.6%;
+      --eye-right-x: 57.1%;
+      --eye-right-y: 40.6%;
+      --pupil-size: 15.8px;
+      --pupil-radius: 2.1px;
     }
 
     .window {
@@ -97,6 +97,42 @@
     .window-button.minimize { background: #f5d5e0; }
     .window-button.maximize { background: #f5e6f1; }
 
+    .theme-toggle {
+      width: 44px;
+      height: 26px;
+      border-radius: 13px;
+      background: rgba(120, 120, 128, 0.32);
+      border: none;
+      position: relative;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .theme-toggle:hover {
+      opacity: 0.8;
+    }
+
+    .theme-toggle.active {
+      background: #34c759;
+    }
+
+    .theme-toggle-knob {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: white;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .theme-toggle.active .theme-toggle-knob {
+      transform: translateX(18px);
+    }
+
     .window-content {
       padding: 20px;
       overflow-y: auto;
@@ -117,13 +153,16 @@
 
     .facetime-content {
       padding: 0;
-      background: radial-gradient(65% 65% at 50% 40%, #fff 0%, #fff 55%, var(--pink-light) 100%);
+      width: 100%;
+      background-image: url('assets/sf-background-day.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
 
     .avatar-stage {
       position: relative;
-      width: 100%;
-      aspect-ratio: 1/1;
+      aspect-ratio: 8/7;
       display: grid;
       place-items: center;
       overflow: hidden;
@@ -423,8 +462,10 @@
           <div class="window-button minimize"></div>
           <div class="window-button maximize"></div>
         </div>
-        <div class="window-title">Rhea Singh is calling...</div>
-        <div style="width: 54px;"></div> <!-- Spacer for centering -->
+        <div class="window-title">Rhea is calling...</div>
+        <div class="theme-toggle active" id="themeToggle" title="Toggle day/night">
+          <div class="theme-toggle-knob"></div>
+        </div>
       </div>
       <div class="window-content facetime-content">
         <div class="avatar-stage" id="stage">
@@ -702,6 +743,26 @@
           zIndexCounter++;
           this.style.zIndex = zIndexCounter;
         });
+      });
+    })();
+
+    // Theme toggle for FaceTime background
+    (function () {
+      const toggle = document.getElementById('themeToggle');
+      const facetimeContent = document.querySelector('.facetime-content');
+      let isDayMode = true;
+
+      toggle.addEventListener('click', function(e) {
+        e.stopPropagation(); // Prevent triggering window click-to-front
+        isDayMode = !isDayMode;
+
+        if (isDayMode) {
+          facetimeContent.style.backgroundImage = "url('assets/sf-background-day.png')";
+          toggle.classList.add('active');
+        } else {
+          facetimeContent.style.backgroundImage = "url('assets/sf-background-night.png')";
+          toggle.classList.remove('active');
+        }
       });
     })();
   </script>
