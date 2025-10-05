@@ -620,6 +620,7 @@
 
     /* --- Terminal Window --- */
     .terminal-window {
+      display: none; /* Hidden on desktop, visible on mobile */
       width: 320px;
       top: 520px;
       right: 80px;
@@ -701,6 +702,84 @@
     @keyframes blink {
       0%, 50% { opacity: 1; }
       51%, 100% { opacity: 0; }
+    }
+
+    /* --- Dashboard Widget (Desktop Terminal) --- */
+    .dashboard-widget {
+      position: fixed;
+      bottom: 100px;
+      right: 20px;
+      width: 280px;
+      background: rgba(40, 44, 52, 0.95);
+      backdrop-filter: blur(12px);
+      border: 1px solid #21252b;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      z-index: 999;
+      font-family: 'SF Mono', Consolas, Monaco, 'Courier New', monospace;
+      transition:
+        width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+        height 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+        border-radius 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+        bottom 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+        left 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+        right 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .dashboard-titlebar {
+      background: #21252b;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid #181a1f;
+      border-radius: 7px 7px 0 0;
+      transition:
+        background-color 0.3s ease,
+        border 0.3s ease,
+        padding 0.3s ease;
+    }
+
+    .terminal-dots {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .terminal-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .terminal-dot.red { background: #ff5f56; }
+    .terminal-dot.yellow { background: #ffbd2e; }
+    .terminal-dot.green { background: #27c93f; }
+
+    .dashboard-title {
+      font-size: 12px;
+      font-weight: 500;
+      color: #abb2bf;
+      letter-spacing: 0.3px;
+      margin-left: 4px;
+      opacity: 1;
+      visibility: visible;
+      transition:
+        opacity 0.25s ease-out,
+        visibility 0.25s ease-out,
+        max-width 0.25s ease-out;
+    }
+
+    .dashboard-content {
+      padding: 14px;
+      color: #abb2bf;
+      font-size: 12px;
+      line-height: 1.6;
+      opacity: 1;
+      visibility: visible;
+      transition:
+        opacity 0.25s ease-out,
+        visibility 0.25s ease-out;
     }
 
     /* --- Project Windows --- */
@@ -941,6 +1020,59 @@
         padding: 20px 10px 120px;
       }
 
+      /* Show terminal window in vertical stack on mobile */
+      .terminal-window {
+        display: block;
+      }
+
+      /* Hide dashboard widget on mobile, show collapsed version instead */
+      .dashboard-widget {
+        bottom: 100px;
+        right: 10px;
+        left: 10px;
+        width: auto;
+        cursor: pointer;
+      }
+
+      /* Collapsed state for mobile scroll */
+      .dashboard-widget.collapsed {
+        width: 50px;
+        height: 50px;
+        border-radius: 25px;
+        bottom: 270px;
+        left: 20px;
+        right: auto;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .dashboard-widget.collapsed .dashboard-content {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .dashboard-widget.collapsed .dashboard-title {
+        opacity: 0;
+        visibility: hidden;
+        max-width: 0;
+        overflow: hidden;
+      }
+
+      .dashboard-widget.collapsed .dashboard-titlebar {
+        background: transparent;
+        border: none;
+        padding: 0;
+        border-radius: 25px;
+        width: 50px;
+        height: 50px;
+        gap: 0;
+        justify-content: center;
+        align-items: center;
+      }
+
       .window {
         position: relative !important;
         left: auto !important;
@@ -1093,11 +1225,10 @@
           <div class="window-button minimize"></div>
           <div class="window-button maximize"></div>
         </div>
-        <div class="window-title">about.txt</div>
+        <div class="window-title">education.txt</div>
         <div style="width: 54px;"></div>
       </div>
       <div class="window-content">
-        <div class="section-heading">Education</div>
         <div class="info-block">
           <div class="info-title">University of Michigan, College of Engineering</div>
           <div class="info-subtitle">B.S. in Computer Science, History Minor</div>
@@ -1119,7 +1250,7 @@
           <div class="window-button minimize"></div>
           <div class="window-button maximize"></div>
         </div>
-        <div class="window-title">Experience</div>
+        <div class="window-title">experience.txt</div>
         <div style="width: 54px;"></div>
       </div>
       <div class="window-content">
@@ -1333,6 +1464,29 @@
           <div class="window-button maximize"></div>
         </div>
         <div class="window-title">book-club</div>
+        <div style="width: 54px;"></div>
+      </div>
+      <div class="window-content">
+        <div style="text-align: center; padding: 40px 20px;">
+          <p style="font-size: 18px; font-weight: 600; color: var(--text-dark); margin-bottom: 8px;">
+            🚧 Under Construction 🚧
+          </p>
+          <p style="font-size: 13px; color: var(--text-muted);">
+            Check back soon!
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Apple Work Placeholder Window -->
+    <div class="window project-window" id="appleWorkPlaceholderWindow">
+      <div class="window-titlebar">
+        <div class="window-controls">
+          <div class="window-button close" onclick="closeProjectWindow('appleWorkPlaceholderWindow')"></div>
+          <div class="window-button minimize"></div>
+          <div class="window-button maximize"></div>
+        </div>
+        <div class="window-title">apple-work</div>
         <div style="width: 54px;"></div>
       </div>
       <div class="window-content">
@@ -1657,7 +1811,7 @@
         <div class="terminal-status">
           <span class="terminal-bullet">◉</span>
           <span class="terminal-label">working_on</span>
-          <span class="terminal-value">the crossword</span>
+          <span class="terminal-value">a Sunday crossword</span>
         </div>
         <div class="terminal-status">
           <span class="terminal-bullet">◉</span>
@@ -1689,8 +1843,8 @@
         <div class="dock-divider"></div>
 
         <!-- Work/Apple Projects Icon -->
-        <div class="dock-icon" onclick="openProjectWindow('workWindow')">
-          <img src="assets/icon-folder.png" alt="Work Projects" />
+        <div class="dock-icon" onclick="openProjectWindow('appleWorkPlaceholderWindow')">
+          <img src="assets/icon-apple.png" alt="Work Projects" />
           <div class="dock-tooltip">apple-work</div>
         </div>
       </div>
@@ -1923,6 +2077,40 @@
         icon.src = 'assets/icon-folder.png'; // Open folder icon
       }
     }
+
+    // Mobile terminal widget collapse on scroll
+    (function() {
+      // Only apply on mobile screens
+      if (window.innerWidth > 1024) return;
+
+      const widget = document.querySelector('.dashboard-widget');
+      if (!widget) return;
+
+      let isExpanded = true;
+
+      // Collapse on scroll
+      window.addEventListener('scroll', function() {
+        if (isExpanded) {
+          widget.classList.add('collapsed');
+          isExpanded = false;
+        }
+      });
+
+      // Toggle on click/tap
+      widget.addEventListener('click', function(e) {
+        e.stopPropagation();
+        widget.classList.toggle('collapsed');
+        isExpanded = !widget.classList.contains('collapsed');
+      });
+
+      // Re-check on resize
+      window.addEventListener('resize', function() {
+        if (window.innerWidth > 1024) {
+          widget.classList.remove('collapsed');
+          isExpanded = true;
+        }
+      });
+    })();
 
   </script>
 </body>
