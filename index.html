@@ -72,6 +72,7 @@
     /* --- Avatar Image --- */
     .avatar {
       position: relative;
+      z-index: 2;
       width: 120%;
       height: auto;
       transform: translateY(-40px);
@@ -86,20 +87,25 @@
     :root {
       /* Tuned for your uploaded avatar_no-pupils.png (768×768) */
       --eye-left-x: 43.2%;
-      --eye-left-y: 35.3%;
+      --eye-left-y: 35.8%;
       --eye-right-x: 56.8%;
-      --eye-right-y: 35.3%;
-      --pupil-size: 10px; /* smaller pupil for your art */
-      --pupil-radius: 2px; /* max travel in px */
+      --eye-right-y: 35.8%;
+      --pupil-size: 16px; /* smaller pupil for your art */
+      --pupil-radius: 2.5px; /* max travel in px */
     }
 
     .pupil {
       position: absolute;
+      z-index: 1;
       width: var(--pupil-size);
       height: var(--pupil-size);
       border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, #1f2937 0 45%, #0b1220 46% 100%);
-      /* Start centered; JS will transform from center. */
+      background-image: url("assets/avatar_eye-pupil.png"); /* path to your PNG */
+      background-size: cover;        /* scale to fill */
+      background-repeat: no-repeat;
+      background-position: center;
+      box-shadow: none;              /* optional — remove halo */
+      outline: none;                 /* optional — remove any edge */
       transform: translate(-50%, -50%);
       will-change: transform;
       transition: transform 120ms cubic-bezier(.2,.6,.2,1);
@@ -146,12 +152,11 @@
     <section class="card" aria-label="Visual resume header">
       <div class="header">
         <div class="stage" id="stage" aria-hidden="true">
-          <!-- Replace the src below with your avatar art (PNG/SVG). Ideally, export the art with static eye whites (no pupils). -->
-          <img class="avatar" draggable="false" alt="Avatar of Rhea Singh" src="assets/avatar_no-pupils.png" />
-
-          <!-- Pupils layered on top. Adjust eye centers via the :root variables. -->
-          <div class="pupil left"  id="pupilL" role="presentation"></div>
-          <div class="pupil right" id="pupilR" role="presentation"></div>
+            <!-- Pupils first, so they sit underneath -->
+            <div class="pupil left" id="pupilL"></div>
+            <div class="pupil right" id="pupilR"></div>
+            <!-- Avatar on top with transparent eye holes -->
+            <img class="avatar" src="assets/avatar_no-eyes.png" alt="Avatar with transparent eyes" />
         </div>
         <div class="name">Rhea Singh</div>
         <div class="subtitle">Software Engineer · Product/UX · Visual Storyteller</div>
