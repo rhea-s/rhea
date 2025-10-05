@@ -924,25 +924,23 @@
       }
 
       .dashboard-widget.collapsed .dashboard-content {
-        opacity: 0;
-        visibility: hidden;
-        transition:
-          opacity 0.2s ease-in,
-          visibility 0.2s ease-in;
+        display: none;
       }
 
       .dashboard-widget.collapsed .dashboard-title {
-        opacity: 0;
-        visibility: hidden;
-        transition:
-          opacity 0.2s ease-in,
-          visibility 0.2s ease-in;
+        display: none;
       }
 
       .dashboard-widget.collapsed .dashboard-titlebar {
         background: transparent;
         border: none;
         padding: 0;
+        border-radius: 25px;
+        width: 50px;
+        height: 50px;
+        gap: 0;
+        justify-content: center;
+        align-items: center;
       }
 
       .dock {
