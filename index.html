@@ -2160,25 +2160,42 @@
       return backgroundLoadPromise;
     }
 
+    function hideAvatarLoader() {
+      if (!avatarLoading || avatarLoading.classList.contains('is-hidden')) {
+        return;
+      }
+
+      avatarLoading.classList.add('is-hidden');
+      avatarLoading.setAttribute('aria-hidden', 'true');
+    }
+
     function setupAvatarLoader() {
       if (!avatarLoading) return;
-
-      const tasks = [
+      
+      const assetPromises = [
         waitForImageElement(avatarImgEl),
         preloadImage(PUPIL_SPRITE_URL)
       ];
 
       const currentBackgroundUrl = getCurrentBackgroundUrl();
-      if (backgroundLoadPromise) {
-        tasks.push(backgroundLoadPromise);
-      } else if (currentBackgroundUrl) {
-        tasks.push(ensureBackgroundPreload(currentBackgroundUrl));
+      const backgroundPromise = backgroundLoadPromise
+        || (currentBackgroundUrl ? ensureBackgroundPreload(currentBackgroundUrl) : null);
+
+      if (backgroundPromise) {
+        assetPromises.push(backgroundPromise);
       }
 
-      withTimeout(Promise.all(tasks), 8000).then(() => {
-        avatarLoading.classList.add('is-hidden');
-        avatarLoading.setAttribute('aria-hidden', 'true');
+      const combinedPromise = Promise.allSettled(assetPromises);
+
+      withTimeout(combinedPromise, 8000).then(() => {
+        hideAvatarLoader();
       });
+
+      if (document.readyState === 'complete') {
+        hideAvatarLoader();
+      } else {
+        window.addEventListener('load', hideAvatarLoader, { once: true });
+      }
     }
 
     // Eye-tracking logic with rAF throttling and clamped movement within a circle.
