@@ -2090,7 +2090,34 @@
       }
     };
 
+    let backgroundTransitionToken = 0;
+    const pendingTimeouts = new Set();
+
+    function resetFacetimeAnimation() {
+      const facetimeContent = document.querySelector('.facetime-content');
+      if (facetimeContent) {
+        facetimeContent.classList.remove('iris-close', 'iris-open', 'fade-out', 'fade-in');
+      }
+      pendingTimeouts.forEach(timeoutId => clearTimeout(timeoutId));
+      pendingTimeouts.clear();
+    }
+
+    function scheduleStep(fn, delay, token) {
+      const timeoutId = setTimeout(() => {
+        pendingTimeouts.delete(timeoutId);
+        if (token !== backgroundTransitionToken) {
+          return;
+        }
+        fn();
+      }, delay);
+      pendingTimeouts.add(timeoutId);
+    }
+
     function updateBackground(animationType = 'none') {
+      backgroundTransitionToken += 1;
+      resetFacetimeAnimation();
+      const transitionToken = backgroundTransitionToken;
+
       const facetimeContent = document.querySelector('.facetime-content');
       const mode = isDayMode ? 'day' : 'night';
       const bgUrl = backgrounds[currentLocation][mode];
@@ -2099,19 +2126,20 @@
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       if (prefersReducedMotion || animationType === 'none') {
-        facetimeContent.classList.remove('iris-close', 'iris-open', 'fade-out', 'fade-in');
+        if (!facetimeContent) return;
         facetimeContent.style.setProperty('--bg-image', `url('${bgUrl}')`);
         return;
       }
 
       if (animationType === 'iris') {
+        if (!facetimeContent) return;
         // Camera iris transition: close → swap → open
         facetimeContent.classList.remove('fade-in', 'fade-out');
 
         // Stage 1: Close the iris
         facetimeContent.classList.add('iris-close');
 
-        setTimeout(() => {
+        scheduleStep(() => {
           // Stage 2: Swap background at the closed moment
           facetimeContent.style.setProperty('--bg-image', `url('${bgUrl}')`);
           facetimeContent.classList.remove('iris-close');
@@ -2120,29 +2148,31 @@
           facetimeContent.classList.add('iris-open');
 
           // Clean up after opening animation completes
-          setTimeout(() => {
+          scheduleStep(() => {
             facetimeContent.classList.remove('iris-open');
-          }, 300);
-        }, 300);
+          }, 300, transitionToken);
+        }, 300, transitionToken);
         return;
       }
 
       if (animationType === 'fade') {
+        if (!facetimeContent) return;
         facetimeContent.classList.remove('iris-close', 'iris-open', 'fade-in');
         facetimeContent.classList.add('fade-out');
 
-        setTimeout(() => {
+        scheduleStep(() => {
           facetimeContent.style.setProperty('--bg-image', `url('${bgUrl}')`);
           facetimeContent.classList.remove('fade-out');
           facetimeContent.classList.add('fade-in');
 
-          setTimeout(() => {
+          scheduleStep(() => {
             facetimeContent.classList.remove('fade-in');
-          }, 200);
-        }, 200);
+          }, 200, transitionToken);
+        }, 200, transitionToken);
         return;
       }
 
+      if (!facetimeContent) return;
       facetimeContent.style.setProperty('--bg-image', `url('${bgUrl}')`);
     }
 
