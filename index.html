@@ -249,6 +249,7 @@
     .avatar-stage {
       position: relative;
       z-index: 1;
+      isolation: isolate;
       aspect-ratio: 8/7;
       display: grid;
       place-items: center;
@@ -281,7 +282,7 @@
       background: #fff;
       transform: translate(-50%, -50%);
       border-radius: 12px;
-      z-index: 0;
+      z-index: -1;
       pointer-events: none;
     }
 
