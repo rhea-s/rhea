@@ -2251,6 +2251,65 @@
     })();
 
     // Location and Theme Management
+    let currentLocation = 'sf';
+    let isDayMode = true;
+    const speechBubble = document.querySelector('.speech-bubble');
+    let hasUserChangedLocation = false;
+    const canAnimateGreeting = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let greetingAnimationTimeout = null;
+    let greetingResetTimeout = null;
+
+    function applyGreeting({ animate = false } = {}) {
+      if (!speechBubble) {
+        return;
+      }
+
+      const locationLabels = {
+        sf: 'SF',
+        nyc: 'NYC',
+        nonus: 'world'
+      };
+
+      const activeLabel = hasUserChangedLocation
+        ? (locationLabels[currentLocation] || 'world')
+        : 'world';
+      const displayLabel = activeLabel === 'world' ? 'world' : activeLabel;
+      const message = isDayMode
+        ? `hello ${displayLabel}!`
+        : `gn, ${displayLabel} :)`;
+
+      speechBubble.classList.toggle('night-mode', !isDayMode);
+
+      if (greetingAnimationTimeout) {
+        clearTimeout(greetingAnimationTimeout);
+        greetingAnimationTimeout = null;
+      }
+
+      if (greetingResetTimeout) {
+        clearTimeout(greetingResetTimeout);
+        greetingResetTimeout = null;
+      }
+
+      const shouldAnimate = animate && canAnimateGreeting;
+
+      if (shouldAnimate) {
+        speechBubble.style.animation = 'bubbleFadeUp 0.3s ease-out forwards';
+
+        greetingAnimationTimeout = window.setTimeout(() => {
+          greetingAnimationTimeout = null;
+          speechBubble.textContent = message;
+          speechBubble.style.animation = 'bubbleFadeDown 0.3s ease-out forwards';
+
+          greetingResetTimeout = window.setTimeout(() => {
+            speechBubble.style.animation = '';
+            greetingResetTimeout = null;
+          }, 300);
+        }, 300);
+      } else {
+        speechBubble.textContent = message;
+        speechBubble.style.animation = '';
+      }
+    }
 
     // Background image mapping
     const backgrounds = {
@@ -2376,6 +2435,7 @@
     // Initialize background on page load
     updateBackground();
     setupAvatarLoader();
+    applyGreeting();
 
     // Location switcher
     function switchLocation(location) {
@@ -2432,11 +2492,9 @@
         }
 
         // Update toggle state
-        if (isDayMode) {
-          toggle.classList.add('active');
-        } else {
-          toggle.classList.remove('active');
-        }
+        toggle.classList.toggle('active', isDayMode);
+
+        applyGreeting({ animate: canAnimateGreeting });
 
         // Update background based on current location and theme
         updateBackground('fade');
@@ -2471,6 +2529,8 @@
         nonusLocation.style.fontWeight = currentLocation === 'nonus' ? '700' : '300';
 
         // Update background with animation
+        hasUserChangedLocation = true;
+        applyGreeting({ animate: false });
         updateBackground('iris');
       });
     })();
