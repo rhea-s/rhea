@@ -226,6 +226,15 @@
       animation: irisOpen 0.3s ease-out forwards;
     }
 
+    /* FaceTime background fade animations */
+    .facetime-content.fade-out::before {
+      animation: facetimeFadeOut 0.2s ease-out forwards;
+    }
+
+    .facetime-content.fade-in::before {
+      animation: facetimeFadeIn 0.2s ease-out forwards;
+    }
+
     @keyframes irisClose {
       from {
         clip-path: circle(150% at 50% 40%);
@@ -245,6 +254,24 @@
       to {
         clip-path: circle(150% at 50% 40%);
         filter: brightness(1);
+      }
+    }
+
+    @keyframes facetimeFadeOut {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+
+    @keyframes facetimeFadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
       }
     }
 
@@ -1124,6 +1151,11 @@
       /* Disable iris animations - instant background swap instead */
       .facetime-content.iris-close::before,
       .facetime-content.iris-open::before {
+        animation: none;
+      }
+
+      .facetime-content.fade-out::before,
+      .facetime-content.fade-in::before {
         animation: none;
       }
     }
@@ -2058,7 +2090,7 @@
       }
     };
 
-    function updateBackground(animated = false) {
+    function updateBackground(animationType = 'none') {
       const facetimeContent = document.querySelector('.facetime-content');
       const mode = isDayMode ? 'day' : 'night';
       const bgUrl = backgrounds[currentLocation][mode];
@@ -2066,8 +2098,15 @@
       // Check if user prefers reduced motion
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      if (animated && !prefersReducedMotion) {
+      if (prefersReducedMotion || animationType === 'none') {
+        facetimeContent.classList.remove('iris-close', 'iris-open', 'fade-out', 'fade-in');
+        facetimeContent.style.setProperty('--bg-image', `url('${bgUrl}')`);
+        return;
+      }
+
+      if (animationType === 'iris') {
         // Camera iris transition: close → swap → open
+        facetimeContent.classList.remove('fade-in', 'fade-out');
 
         // Stage 1: Close the iris
         facetimeContent.classList.add('iris-close');
@@ -2085,10 +2124,26 @@
             facetimeContent.classList.remove('iris-open');
           }, 300);
         }, 300);
-      } else {
-        // Instant swap (no animation or reduced motion preference)
-        facetimeContent.style.setProperty('--bg-image', `url('${bgUrl}')`);
+        return;
       }
+
+      if (animationType === 'fade') {
+        facetimeContent.classList.remove('iris-close', 'iris-open', 'fade-in');
+        facetimeContent.classList.add('fade-out');
+
+        setTimeout(() => {
+          facetimeContent.style.setProperty('--bg-image', `url('${bgUrl}')`);
+          facetimeContent.classList.remove('fade-out');
+          facetimeContent.classList.add('fade-in');
+
+          setTimeout(() => {
+            facetimeContent.classList.remove('fade-in');
+          }, 200);
+        }, 200);
+        return;
+      }
+
+      facetimeContent.style.setProperty('--bg-image', `url('${bgUrl}')`);
     }
 
     // Initialize background on page load
@@ -2144,7 +2199,7 @@
         }
 
         // Update background based on current location and theme
-        updateBackground(true);
+        updateBackground('fade');
       });
     })();
 
@@ -2176,7 +2231,7 @@
         nonusLocation.style.fontWeight = currentLocation === 'nonus' ? '700' : '500';
 
         // Update background with animation
-        updateBackground(true);
+        updateBackground('iris');
       });
     })();
 
