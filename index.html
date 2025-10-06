@@ -195,14 +195,59 @@
     .facetime-content {
       padding: 0;
       width: 100%;
-      background-image: url('assets/sf-background-day.png');
+      position: relative;
+    }
+
+    .facetime-content::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: var(--bg-image);
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
+      z-index: 0;
+      clip-path: circle(150% at 50% 40%);
+    }
+
+    /* Camera iris closing animation */
+    .facetime-content.iris-close::before {
+      animation: irisClose 0.3s ease-in forwards;
+    }
+
+    /* Camera iris opening animation */
+    .facetime-content.iris-open::before {
+      animation: irisOpen 0.3s ease-out forwards;
+    }
+
+    @keyframes irisClose {
+      from {
+        clip-path: circle(150% at 50% 40%);
+        filter: brightness(1);
+      }
+      to {
+        clip-path: circle(0% at 50% 40%);
+        filter: brightness(0.8);
+      }
+    }
+
+    @keyframes irisOpen {
+      from {
+        clip-path: circle(0% at 50% 40%);
+        filter: brightness(0.8);
+      }
+      to {
+        clip-path: circle(150% at 50% 40%);
+        filter: brightness(1);
+      }
     }
 
     .avatar-stage {
       position: relative;
+      z-index: 1;
       aspect-ratio: 8/7;
       display: grid;
       place-items: center;
@@ -218,7 +263,12 @@
       height: auto;
       transform: translateY(-40px);
       display: block;
-      pointer-events: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .avatar:hover {
+      transform: translateY(-40px) scale(1.02);
     }
 
     .pupil {
@@ -294,6 +344,8 @@
       text-align: center;
       background: white;
       border-top: 1px solid var(--pink-border);
+      position: relative;
+      z-index: 1;
     }
 
     .avatar-name {
@@ -322,6 +374,8 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
+      position: relative;
+      z-index: 1;
     }
 
     .online-indicator {
@@ -1054,6 +1108,12 @@
       .speech-bubble { animation: none; }
       .terminal-cursor { animation: none; opacity: 1; }
       .online-indicator { animation: none; }
+
+      /* Disable iris animations - instant background swap instead */
+      .facetime-content.iris-close::before,
+      .facetime-content.iris-open::before {
+        animation: none;
+      }
     }
 
     /* --- Responsive Mobile Layout --- */
@@ -1200,7 +1260,7 @@
         <!-- Location Footer -->
         <div class="location-footer">
           <span class="online-indicator"></span>
-          Open to roles in SF, NYC, and non-US
+          Open to roles in <span id="sfLocation">SF</span>|<span id="nycLocation">NYC</span>|<span id="nonusLocation">Remote or non-US</span>
         </div>
       </div>
     </div>
@@ -1976,21 +2036,50 @@
         night: 'assets/sf-background-night.png'
       },
       nyc: {
-        day: 'assets/nyc-background-day-2.png',
-        night: 'assets/nyc-background-night-2.png'
+        day: 'assets/nyc-background-day.png',
+        night: 'assets/nyc-background-night.png'
       },
-      remote: {
+      nonus: {
         day: 'assets/bliss-background.png',
         night: 'assets/bliss-background-night.png'
       }
     };
 
-    function updateBackground() {
+    function updateBackground(animated = false) {
       const facetimeContent = document.querySelector('.facetime-content');
       const mode = isDayMode ? 'day' : 'night';
       const bgUrl = backgrounds[currentLocation][mode];
-      facetimeContent.style.backgroundImage = `url('${bgUrl}')`;
+
+      // Check if user prefers reduced motion
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (animated && !prefersReducedMotion) {
+        // Camera iris transition: close → swap → open
+
+        // Stage 1: Close the iris
+        facetimeContent.classList.add('iris-close');
+
+        setTimeout(() => {
+          // Stage 2: Swap background at the closed moment
+          facetimeContent.style.setProperty('--bg-image', `url('${bgUrl}')`);
+          facetimeContent.classList.remove('iris-close');
+
+          // Stage 3: Open the iris
+          facetimeContent.classList.add('iris-open');
+
+          // Clean up after opening animation completes
+          setTimeout(() => {
+            facetimeContent.classList.remove('iris-open');
+          }, 300);
+        }, 300);
+      } else {
+        // Instant swap (no animation or reduced motion preference)
+        facetimeContent.style.setProperty('--bg-image', `url('${bgUrl}')`);
+      }
     }
+
+    // Initialize background on page load
+    updateBackground();
 
     // Location switcher
     function switchLocation(location) {
@@ -2042,7 +2131,39 @@
         }
 
         // Update background based on current location and theme
-        updateBackground();
+        updateBackground(true);
+      });
+    })();
+
+    // Avatar tap to rotate location (SF → NYC → non-US → SF)
+    (function () {
+      const avatar = document.querySelector('.avatar');
+      const sfLocation = document.getElementById('sfLocation');
+      const nycLocation = document.getElementById('nycLocation');
+      const nonusLocation = document.getElementById('nonusLocation');
+
+      // Initialize: bold SF since it's the starting location
+      sfLocation.style.fontWeight = '700';
+
+      avatar.addEventListener('click', function(e) {
+        e.stopPropagation(); // Prevent triggering window click-to-front
+
+        // Rotate location: SF → NYC → non-US → SF
+        if (currentLocation === 'sf') {
+          currentLocation = 'nyc';
+        } else if (currentLocation === 'nyc') {
+          currentLocation = 'nonus';
+        } else {
+          currentLocation = 'sf';
+        }
+
+        // Update footer: bold the active location
+        sfLocation.style.fontWeight = currentLocation === 'sf' ? '700' : '500';
+        nycLocation.style.fontWeight = currentLocation === 'nyc' ? '700' : '500';
+        nonusLocation.style.fontWeight = currentLocation === 'nonus' ? '700' : '500';
+
+        // Update background with animation
+        updateBackground(true);
       });
     })();
 
