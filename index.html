@@ -349,6 +349,11 @@
       white-space: nowrap;
     }
 
+    .speech-bubble.night-mode {
+      background: #1c1c1e;
+      color: #f5e6f1;
+    }
+
     @keyframes bubbleFadeIn {
       from {
         opacity: 0;
@@ -2077,6 +2082,63 @@
     // Location and Theme Management
     let currentLocation = 'sf';
     let isDayMode = true;
+    const speechBubble = document.querySelector('.speech-bubble');
+    let hasUserChangedLocation = false;
+    const canAnimateGreeting = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let greetingAnimationTimeout = null;
+    let greetingResetTimeout = null;
+
+    function applyGreeting({ animate = false } = {}) {
+      if (!speechBubble) {
+        return;
+      }
+
+      const locationLabels = {
+        sf: 'SF',
+        nyc: 'NYC',
+        nonus: 'world'
+      };
+
+      const activeLabel = hasUserChangedLocation
+        ? (locationLabels[currentLocation] || 'world')
+        : 'world';
+      const displayLabel = activeLabel === 'world' ? 'world' : activeLabel;
+      const message = isDayMode
+        ? `hello ${displayLabel}!`
+        : `gn, ${displayLabel} :)`;
+
+      speechBubble.classList.toggle('night-mode', !isDayMode);
+
+      if (greetingAnimationTimeout) {
+        clearTimeout(greetingAnimationTimeout);
+        greetingAnimationTimeout = null;
+      }
+
+      if (greetingResetTimeout) {
+        clearTimeout(greetingResetTimeout);
+        greetingResetTimeout = null;
+      }
+
+      const shouldAnimate = animate && canAnimateGreeting;
+
+      if (shouldAnimate) {
+        speechBubble.style.animation = 'bubbleFadeUp 0.3s ease-out forwards';
+
+        greetingAnimationTimeout = window.setTimeout(() => {
+          greetingAnimationTimeout = null;
+          speechBubble.textContent = message;
+          speechBubble.style.animation = 'bubbleFadeDown 0.3s ease-out forwards';
+
+          greetingResetTimeout = window.setTimeout(() => {
+            speechBubble.style.animation = '';
+            greetingResetTimeout = null;
+          }, 300);
+        }, 300);
+      } else {
+        speechBubble.textContent = message;
+        speechBubble.style.animation = '';
+      }
+    }
 
     // Background image mapping
     const backgrounds = {
@@ -2182,6 +2244,7 @@
 
     // Initialize background on page load
     updateBackground();
+    applyGreeting();
 
     // Location switcher
     function switchLocation(location) {
@@ -2200,37 +2263,15 @@
     // Theme toggle for FaceTime background
     (function () {
       const toggle = document.getElementById('themeToggle');
-      const speechBubble = document.querySelector('.speech-bubble');
-
-      // Check if reduced motion is preferred
-      const motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       toggle.addEventListener('click', function(e) {
         e.stopPropagation(); // Prevent triggering window click-to-front
         isDayMode = !isDayMode;
 
-        // Animate speech bubble text change
-        if (motionOK && speechBubble) {
-          // Fade up and out
-          speechBubble.style.animation = 'bubbleFadeUp 0.3s ease-out forwards';
-
-          setTimeout(() => {
-            // Change text content
-            speechBubble.textContent = isDayMode ? 'hello world!' : 'gn, world :)';
-            // Fade down and in
-            speechBubble.style.animation = 'bubbleFadeDown 0.3s ease-out forwards';
-          }, 300);
-        } else if (speechBubble) {
-          // No animation, just change text
-          speechBubble.textContent = isDayMode ? 'hello world!' : 'gn, world :)';
-        }
-
         // Update toggle state
-        if (isDayMode) {
-          toggle.classList.add('active');
-        } else {
-          toggle.classList.remove('active');
-        }
+        toggle.classList.toggle('active', isDayMode);
+
+        applyGreeting({ animate: canAnimateGreeting });
 
         // Update background based on current location and theme
         updateBackground('fade');
@@ -2265,6 +2306,8 @@
         nonusLocation.style.fontWeight = currentLocation === 'nonus' ? '700' : '500';
 
         // Update background with animation
+        hasUserChangedLocation = true;
+        applyGreeting({ animate: false });
         updateBackground('iris');
       });
     })();
