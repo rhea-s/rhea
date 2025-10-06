@@ -2069,9 +2069,6 @@
     const PUPIL_SPRITE_URL = 'assets/avatar_eye-pupil.png';
     let backgroundLoadPromise = null;
 
-    let currentLocation = 'sf';
-    let isDayMode = true;
-
     function waitForImageElement(img) {
       if (!img) return Promise.resolve();
       if (img.complete && img.naturalWidth > 0) {
