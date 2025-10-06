@@ -314,7 +314,7 @@
       background: white;
       border-top: 1px solid var(--pink-border);
       text-align: center;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 500;
       color: var(--text-muted);
       letter-spacing: 0.2px;
@@ -1067,52 +1067,9 @@
         display: block;
       }
 
-      /* Hide dashboard widget on mobile, show collapsed version instead */
+      /* Hide dashboard widget on mobile */
       .dashboard-widget {
-        bottom: 100px;
-        right: 10px;
-        left: 10px;
-        width: auto;
-        cursor: pointer;
-      }
-
-      /* Collapsed state for mobile scroll */
-      .dashboard-widget.collapsed {
-        width: 50px;
-        height: 50px;
-        border-radius: 25px;
-        bottom: 270px;
-        left: 20px;
-        right: auto;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .dashboard-widget.collapsed .dashboard-content {
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-      }
-
-      .dashboard-widget.collapsed .dashboard-title {
-        opacity: 0;
-        visibility: hidden;
-        max-width: 0;
-        overflow: hidden;
-      }
-
-      .dashboard-widget.collapsed .dashboard-titlebar {
-        background: transparent;
-        border: none;
-        padding: 0;
-        border-radius: 25px;
-        width: 50px;
-        height: 50px;
-        gap: 0;
-        justify-content: center;
-        align-items: center;
+        display: none;
       }
 
       .window {
@@ -1912,13 +1869,13 @@
       <div class="dock">
         <!-- Mail App Icon -->
         <a href="mailto:singh.rhea.04@gmail.com" class="dock-icon">
-          <img src="assets/icon-mail-2.png" alt="Email" />
+          <img src="assets/icon-mail.png" alt="Email" />
           <div class="dock-tooltip">send email</div>
         </a>
 
         <!-- LinkedIn App Icon -->
         <a href="https://linkedin.com/in/rheas" target="_blank" class="dock-icon">
-          <img src="assets/icon-linkedin-2.png" alt="LinkedIn" />
+          <img src="assets/icon-linkedin.png" alt="LinkedIn" />
           <div class="dock-tooltip">connect</div>
         </a>
       </div>
@@ -2176,40 +2133,6 @@
         icon.src = 'assets/icon-folder.png'; // Open folder icon
       }
     }
-
-    // Mobile terminal widget collapse on scroll
-    (function() {
-      // Only apply on mobile screens
-      if (window.innerWidth > 1024) return;
-
-      const widget = document.querySelector('.dashboard-widget');
-      if (!widget) return;
-
-      let isExpanded = true;
-
-      // Collapse on scroll
-      window.addEventListener('scroll', function() {
-        if (isExpanded) {
-          widget.classList.add('collapsed');
-          isExpanded = false;
-        }
-      });
-
-      // Toggle on click/tap
-      widget.addEventListener('click', function(e) {
-        e.stopPropagation();
-        widget.classList.toggle('collapsed');
-        isExpanded = !widget.classList.contains('collapsed');
-      });
-
-      // Re-check on resize
-      window.addEventListener('resize', function() {
-        if (window.innerWidth > 1024) {
-          widget.classList.remove('collapsed');
-          isExpanded = true;
-        }
-      });
-    })();
 
   </script>
 </body>
