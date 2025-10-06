@@ -2395,27 +2395,52 @@
     }
 
     let backgroundTransitionToken = 0;
-    const pendingTimeouts = new Set();
+    const activeAnimationCleanups = new Set();
 
     function resetFacetimeAnimation() {
       const facetimeContent = document.querySelector('.facetime-content');
+      activeAnimationCleanups.forEach(cleanup => cleanup());
+      activeAnimationCleanups.clear();
       if (facetimeContent) {
         facetimeContent.classList.remove('iris-close', 'iris-open', 'fade-out', 'fade-in');
       }
-      pendingTimeouts.forEach(timeoutId => clearTimeout(timeoutId));
-      pendingTimeouts.clear();
     }
 
-    function scheduleStep(fn, delay, token) {
-      const timeoutId = setTimeout(() => {
-        pendingTimeouts.delete(timeoutId);
+    function waitForFacetimeAnimation(element, animationName, token) {
+      if (!element) return Promise.resolve();
+
+      return new Promise(resolve => {
+        let finished = false;
+
+        const cleanup = () => {
+          if (finished) return;
+          finished = true;
+          element.removeEventListener('animationend', handleAnimationEnd);
+          activeAnimationCleanups.delete(cleanup);
+          resolve();
+        };
+
+        const handleAnimationEnd = event => {
+          if (event.target !== element || event.animationName !== animationName) {
+            return;
+          }
+          cleanup();
+        };
+
+        activeAnimationCleanups.add(cleanup);
+        element.addEventListener('animationend', handleAnimationEnd);
+
+        // If the token is already stale, resolve immediately.
         if (token !== backgroundTransitionToken) {
-          return;
+          cleanup();
         }
-        fn();
-      }, delay);
-      pendingTimeouts.add(timeoutId);
+      });
     }
+
+    const waitForFadeOut = (element, token) => waitForFacetimeAnimation(element, 'facetimeFadeOut', token);
+    const waitForFadeIn = (element, token) => waitForFacetimeAnimation(element, 'facetimeFadeIn', token);
+    const waitForIrisClose = (element, token) => waitForFacetimeAnimation(element, 'irisClose', token);
+    const waitForIrisOpen = (element, token) => waitForFacetimeAnimation(element, 'irisOpen', token);
 
     function updateBackground(animationType = 'none') {
       backgroundTransitionToken += 1;
@@ -2440,57 +2465,64 @@
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       if (prefersReducedMotion || animationType === 'none') {
-        backgroundPromise.then(applyBackground);
-        return backgroundPromise;
+        return backgroundPromise.then(() => {
+          if (transitionToken !== backgroundTransitionToken) return;
+          applyBackground();
+        });
       }
 
       if (animationType === 'iris') {
         if (!facetimeContent) return backgroundPromise;
-        // Camera iris transition: close → swap → open
-        facetimeContent.classList.remove('fade-in', 'fade-out');
+        return (async () => {
+          facetimeContent.classList.remove('fade-in', 'fade-out');
+          facetimeContent.classList.add('iris-close');
 
-        // Stage 1: Close the iris
-        facetimeContent.classList.add('iris-close');
+          await Promise.all([
+            backgroundPromise,
+            waitForIrisClose(facetimeContent, transitionToken)
+          ]);
 
-        scheduleStep(() => {
-          backgroundPromise.then(() => {
-            if (transitionToken !== backgroundTransitionToken) return;
-            applyBackground();
-            facetimeContent.classList.remove('iris-close');
+          if (transitionToken !== backgroundTransitionToken) return;
+          applyBackground();
 
-            // Stage 3: Open the iris
-            facetimeContent.classList.add('iris-open');
+          facetimeContent.classList.remove('iris-close');
+          facetimeContent.classList.add('iris-open');
 
-            // Clean up after opening animation completes
-            scheduleStep(() => {
-              facetimeContent.classList.remove('iris-open');
-            }, 300, transitionToken);
-          });
-        }, 300, transitionToken);
-        return backgroundPromise;
+          await waitForIrisOpen(facetimeContent, transitionToken);
+
+          if (transitionToken !== backgroundTransitionToken) return;
+          facetimeContent.classList.remove('iris-open');
+        })();
       }
 
       if (animationType === 'fade') {
         if (!facetimeContent) return backgroundPromise;
-        facetimeContent.classList.remove('iris-close', 'iris-open', 'fade-in');
-        facetimeContent.classList.add('fade-out');
+        return (async () => {
+          facetimeContent.classList.remove('iris-close', 'iris-open', 'fade-in');
+          facetimeContent.classList.add('fade-out');
 
-        scheduleStep(() => {
-          backgroundPromise.then(() => {
-            if (transitionToken !== backgroundTransitionToken) return;
-            applyBackground();
-            facetimeContent.classList.remove('fade-out');
-            facetimeContent.classList.add('fade-in');
+          await Promise.all([
+            backgroundPromise,
+            waitForFadeOut(facetimeContent, transitionToken)
+          ]);
 
-            scheduleStep(() => {
-              facetimeContent.classList.remove('fade-in');
-            }, 200, transitionToken);
-          });
-        }, 200, transitionToken);
-        return backgroundPromise;
+          if (transitionToken !== backgroundTransitionToken) return;
+          applyBackground();
+
+          facetimeContent.classList.remove('fade-out');
+          facetimeContent.classList.add('fade-in');
+
+          await waitForFadeIn(facetimeContent, transitionToken);
+
+          if (transitionToken !== backgroundTransitionToken) return;
+          facetimeContent.classList.remove('fade-in');
+        })();
       }
 
-      backgroundPromise.then(applyBackground);
+      backgroundPromise.then(() => {
+        if (transitionToken !== backgroundTransitionToken) return;
+        applyBackground();
+      });
       return backgroundPromise;
     }
 
