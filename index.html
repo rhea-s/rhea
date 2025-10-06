@@ -345,8 +345,12 @@
       font-size: 14px;
       font-weight: 200;
       z-index: 3;
-      animation: bubbleFadeIn 0.6s ease-out;
       white-space: nowrap;
+      will-change: transform, opacity;
+    }
+
+    .speech-bubble--initial {
+      animation: bubbleFadeIn 0.6s ease-out;
     }
 
     .speech-bubble--night {
@@ -367,7 +371,7 @@
       }
     }
 
-    @keyframes bubbleFadeUp {
+    @keyframes bubbleSlideOut {
       from {
         opacity: 1;
         transform: translateY(0);
@@ -378,7 +382,7 @@
       }
     }
 
-    @keyframes bubbleFadeDown {
+    @keyframes bubbleSlideIn {
       from {
         opacity: 0;
         transform: translateY(15px);
@@ -387,6 +391,14 @@
         opacity: 1;
         transform: translateY(0);
       }
+    }
+
+    .speech-bubble--exiting {
+      animation: bubbleSlideOut 0.3s ease-out forwards;
+    }
+
+    .speech-bubble--entering {
+      animation: bubbleSlideIn 0.3s ease-out forwards;
     }
 
     .avatar-info {
@@ -1307,7 +1319,7 @@
           <div class="pupil left" id="pupilL"></div>
           <div class="pupil right" id="pupilR"></div>
           <img class="avatar" id="avatarImg" src="assets/avatar_no-eyes.png" alt="Rhea Singh avatar" />
-          <div class="speech-bubble">hello world!</div>
+          <div class="speech-bubble speech-bubble--initial">hello world!</div>
         </div>
         <div class="avatar-info">
           <div class="avatar-name">Rhea Singh</div>
@@ -2087,8 +2099,8 @@
     const speechBubble = document.querySelector('.speech-bubble');
     let hasUserChangedLocation = false;
     const canAnimateGreeting = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let greetingAnimationTimeout = null;
-    let greetingResetTimeout = null;
+    let activeSpeechBubbleAnimationCleanup = null;
+    let hasClearedInitialSpeechBubble = false;
 
     function applyGreeting({ animate = false } = {}) {
       if (!speechBubble) {
@@ -2109,37 +2121,65 @@
         ? `hello ${displayLabel}!`
         : `gn, ${displayLabel} :)`;
 
-      speechBubble.classList.toggle('night-mode', !isDayMode);
+      speechBubble.classList.toggle('speech-bubble--night', !isDayMode);
 
-      if (greetingAnimationTimeout) {
-        clearTimeout(greetingAnimationTimeout);
-        greetingAnimationTimeout = null;
+      if (activeSpeechBubbleAnimationCleanup) {
+        activeSpeechBubbleAnimationCleanup();
+        activeSpeechBubbleAnimationCleanup = null;
       }
 
-      if (greetingResetTimeout) {
-        clearTimeout(greetingResetTimeout);
-        greetingResetTimeout = null;
+      const messageChanged = speechBubble.textContent !== message;
+
+      if (!hasClearedInitialSpeechBubble && messageChanged) {
+        speechBubble.classList.remove('speech-bubble--initial');
+        hasClearedInitialSpeechBubble = true;
       }
 
-      const shouldAnimate = animate && canAnimateGreeting;
+      const shouldAnimate = animate && canAnimateGreeting && messageChanged;
 
-      if (shouldAnimate) {
-        speechBubble.style.animation = 'bubbleFadeUp 0.3s ease-out forwards';
-
-        greetingAnimationTimeout = window.setTimeout(() => {
-          greetingAnimationTimeout = null;
+      if (!shouldAnimate) {
+        if (messageChanged) {
           speechBubble.textContent = message;
-          speechBubble.style.animation = 'bubbleFadeDown 0.3s ease-out forwards';
-
-          greetingResetTimeout = window.setTimeout(() => {
-            speechBubble.style.animation = '';
-            greetingResetTimeout = null;
-          }, 300);
-        }, 300);
-      } else {
-        speechBubble.textContent = message;
-        speechBubble.style.animation = '';
+        }
+        return;
       }
+
+      let enterHandler = null;
+
+      function cleanupAnimation() {
+        speechBubble.removeEventListener('animationend', exitHandler);
+        if (enterHandler) {
+          speechBubble.removeEventListener('animationend', enterHandler);
+        }
+        speechBubble.classList.remove('speech-bubble--exiting', 'speech-bubble--entering');
+        activeSpeechBubbleAnimationCleanup = null;
+        enterHandler = null;
+      }
+
+      function exitHandler(event) {
+        if (event.target !== speechBubble || event.animationName !== 'bubbleSlideOut') {
+          return;
+        }
+
+        speechBubble.removeEventListener('animationend', exitHandler);
+        speechBubble.classList.remove('speech-bubble--exiting');
+        speechBubble.textContent = message;
+        speechBubble.classList.add('speech-bubble--entering');
+
+        enterHandler = function (enterEvent) {
+          if (enterEvent.target !== speechBubble || enterEvent.animationName !== 'bubbleSlideIn') {
+            return;
+          }
+
+          cleanupAnimation();
+        };
+
+        speechBubble.addEventListener('animationend', enterHandler);
+      }
+
+      activeSpeechBubbleAnimationCleanup = cleanupAnimation;
+      speechBubble.addEventListener('animationend', exitHandler);
+      speechBubble.classList.add('speech-bubble--exiting');
     }
 
     // Background image mapping
@@ -2265,47 +2305,14 @@
     // Theme toggle for FaceTime background
     (function () {
       const toggle = document.getElementById('themeToggle');
-      const speechBubble = document.querySelector('.speech-bubble');
-      const applySpeechBubbleTheme = () => {
-        if (!speechBubble) return;
-        if (isDayMode) {
-          speechBubble.classList.remove('speech-bubble--night');
-        } else {
-          speechBubble.classList.add('speech-bubble--night');
-        }
-      };
-
-      // Check if reduced motion is preferred
-      const motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      applySpeechBubbleTheme();
-
       toggle.addEventListener('click', function(e) {
         e.stopPropagation(); // Prevent triggering window click-to-front
         isDayMode = !isDayMode;
 
-        // Animate speech bubble text change
-        if (motionOK && speechBubble) {
-          // Fade up and out
-          speechBubble.style.animation = 'bubbleFadeUp 0.3s ease-out forwards';
-
-          setTimeout(() => {
-            // Change text content
-            speechBubble.textContent = isDayMode ? 'hello world!' : 'gn, world :)';
-            // Fade down and in
-            speechBubble.style.animation = 'bubbleFadeDown 0.3s ease-out forwards';
-            applySpeechBubbleTheme();
-          }, 300);
-        } else if (speechBubble) {
-          // No animation, just change text
-          speechBubble.textContent = isDayMode ? 'hello world!' : 'gn, world :)';
-          applySpeechBubbleTheme();
-        }
-
         // Update toggle state
         toggle.classList.toggle('active', isDayMode);
 
-        applyGreeting({ animate: canAnimateGreeting });
+        applyGreeting({ animate: true });
 
         // Update background based on current location and theme
         updateBackground('fade');
