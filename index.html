@@ -186,6 +186,7 @@
       left: 50%;
       transform: translateX(-50%);
       z-index: 10;
+      background: #1c1c1e;
     }
 
     .facetime-window:hover {
@@ -197,6 +198,7 @@
       padding: 0;
       width: 100%;
       position: relative;
+      background-color: #1c1c1e;
     }
 
     .facetime-content::before {
@@ -266,18 +268,13 @@
       transform: translateY(-40px);
       display: block;
       cursor: pointer;
-      transition: transform 0.2s ease;
-    }
-
-    .avatar:hover {
-      transform: translateY(-40px) scale(1.02);
     }
 
     .pupil-backdrop {
       position: absolute;
       top: 44%;
       left: 50%;
-      width: 46%;
+      width: calc(46% - 40px);
       height: 22%;
       background: #fff;
       transform: translate(-50%, -50%);
@@ -2052,8 +2049,8 @@
         night: 'assets/sf-background-night.png'
       },
       nyc: {
-        day: 'assets/nyc-background-day.png',
-        night: 'assets/nyc-background-night.png'
+        day: 'assets/nyc-background-day-2.png',
+        night: 'assets/nyc-background-night-2.png'
       },
       nonus: {
         day: 'assets/bliss-background.png',
