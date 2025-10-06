@@ -2304,7 +2304,9 @@
         ? `hello ${displayLabel}!`
         : `gn, ${displayLabel} :)`;
 
-      speechBubble.classList.toggle('speech-bubble--night', !isDayMode);
+      const targetNightMode = !isDayMode;
+      const isNightModeApplied = speechBubble.classList.contains('speech-bubble--night');
+      const shouldToggleTheme = isNightModeApplied !== targetNightMode;
 
       if (activeSpeechBubbleAnimationCleanup) {
         activeSpeechBubbleAnimationCleanup();
@@ -2321,6 +2323,9 @@
       const shouldAnimate = animate && canAnimateGreeting && messageChanged;
 
       if (!shouldAnimate) {
+        if (shouldToggleTheme) {
+          speechBubble.classList.toggle('speech-bubble--night', targetNightMode);
+        }
         if (messageChanged) {
           speechBubble.textContent = message;
         }
@@ -2346,6 +2351,9 @@
 
         speechBubble.removeEventListener('animationend', exitHandler);
         speechBubble.classList.remove('speech-bubble--exiting');
+        if (shouldToggleTheme) {
+          speechBubble.classList.toggle('speech-bubble--night', targetNightMode);
+        }
         speechBubble.textContent = message;
         speechBubble.classList.add('speech-bubble--entering');
 
