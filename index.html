@@ -1518,7 +1518,6 @@
           <div class="folder">
             <div class="folder-header" onclick="toggleFolder(this)">
               <span class="folder-arrow">▼</span>
-              <!-- TODO: Replace with macOS folder icon - suggested: assets/icon-folder-open.png -->
               <img src="assets/icon-folder.png" alt="" class="folder-icon" />
               <span class="folder-name">backend</span>
             </div>
@@ -2568,9 +2567,6 @@
       const sfLocation = document.getElementById('sfLocation');
       const nycLocation = document.getElementById('nycLocation');
       const nonusLocation = document.getElementById('nonusLocation');
-
-      // Initialize: bold SF since it's the starting location
-      sfLocation.style.fontWeight = '700';
 
       avatar.addEventListener('click', function(e) {
         e.stopPropagation(); // Prevent triggering window click-to-front
