@@ -272,6 +272,19 @@
       transform: translateY(-40px) scale(1.02);
     }
 
+    .pupil-backdrop {
+      position: absolute;
+      top: 44%;
+      left: 50%;
+      width: 46%;
+      height: 22%;
+      background: #fff;
+      transform: translate(-50%, -50%);
+      border-radius: 12px;
+      z-index: 0;
+      pointer-events: none;
+    }
+
     .pupil {
       position: absolute;
       z-index: 1;
@@ -1249,6 +1262,7 @@
       </div>
       <div class="window-content facetime-content">
         <div class="avatar-stage" id="stage">
+          <div class="pupil-backdrop"></div>
           <div class="pupil left" id="pupilL"></div>
           <div class="pupil right" id="pupilR"></div>
           <img class="avatar" id="avatarImg" src="assets/avatar_no-eyes.png" alt="Rhea Singh avatar" />
