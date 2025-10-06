@@ -47,7 +47,7 @@
       /* Eye tracking variables */
       --eye-left-x: 42.9%;
       --eye-left-y: 40.6%;
-      --eye-right-x: 57.3%;
+      --eye-right-x: 57.2%;
       --eye-right-y: 40.6%;
       --pupil-size: 16px;
       --pupil-radius: 2.1px;
@@ -733,9 +733,10 @@
       animation: none; /* No animation by default on desktop */
     }
 
-    /* Cursor blinks when terminal window is hovered or active on desktop */
+    /* Cursor blinks when terminal window or dashboard widget is hovered */
     .terminal-window:hover .terminal-cursor,
-    .terminal-window.active .terminal-cursor {
+    .terminal-window.active .terminal-cursor,
+    .dashboard-widget:hover .terminal-cursor {
       animation: blink 1s step-end infinite;
     }
 
