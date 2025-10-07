@@ -1312,56 +1312,148 @@
       margin: 0;
     }
 
-    .apple-project-reference-gallery {
+    .apple-project-reference-gallery,
+    .apple-project-resource-list {
       display: grid;
       gap: 12px;
     }
 
-    .reference-card {
-      background: rgba(255, 255, 255, 0.85);
-      border: 1px solid rgba(74, 14, 61, 0.1);
-      border-radius: 12px;
-      padding: 14px 16px;
-      box-shadow: 0 6px 18px rgba(74, 14, 61, 0.1);
+    .apple-project-resource-list {
+      margin-top: 12px;
     }
 
-    .reference-type {
+    .reference-card {
+      position: relative;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(74, 14, 61, 0.08);
+      box-shadow: 0 8px 24px rgba(74, 14, 61, 0.12);
+    }
+
+    .reference-card__link {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 16px;
+      align-items: start;
+      padding: 16px 18px;
+      color: inherit;
+      text-decoration: none;
+      border-radius: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .reference-card__link--no-media {
+      grid-template-columns: 1fr;
+    }
+
+    .reference-card__link:focus-visible {
+      outline: 2px solid rgba(181, 71, 128, 0.8);
+      outline-offset: 4px;
+    }
+
+    .reference-card__media {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: rgba(74, 14, 61, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .reference-card__media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .reference-card__fallback {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .reference-card__body {
+      display: grid;
+      gap: 6px;
+    }
+
+    .reference-card__type {
       font-size: 11px;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 0.08em;
       color: var(--text-muted);
-      margin-bottom: 6px;
     }
 
-    .reference-quote {
+    .reference-card__title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-dark);
+      line-height: 1.4;
+    }
+
+    .reference-card__excerpt {
       font-size: 13px;
       line-height: 1.6;
       color: var(--text-dark);
-      font-style: italic;
-      margin: 0 0 12px;
+      margin: 0;
     }
 
-    .reference-source {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
+    .reference-card__excerpt--tweet {
+      font-style: normal;
     }
 
-    .reference-source span {
+    .reference-card__meta {
       font-size: 12px;
       color: var(--text-muted);
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
     }
 
-    .reference-source a {
-      font-size: 12px;
-      font-weight: 600;
+    .reference-card--tweet {
+      background: linear-gradient(135deg, rgba(56, 151, 240, 0.18), rgba(255, 255, 255, 0.95));
+      border-color: rgba(56, 151, 240, 0.25);
+    }
+
+    .reference-card--tweet .reference-card__type {
+      color: rgba(56, 151, 240, 0.9);
+    }
+
+    .reference-card--tweet .reference-card__media {
+      border-radius: 50%;
+      background: rgba(56, 151, 240, 0.18);
+    }
+
+    .reference-card__tweet-author {
+      display: flex;
+      gap: 8px;
+      align-items: baseline;
+      font-size: 13px;
       color: var(--text-dark);
-      text-decoration: none;
     }
 
-    .reference-source a:hover {
-      text-decoration: underline;
+    .reference-card__tweet-handle {
+      color: rgba(56, 151, 240, 0.9);
+      font-weight: 500;
+      font-size: 12px;
+    }
+
+    .reference-card--press .reference-card__media,
+    .reference-card--article .reference-card__media,
+    .reference-card--news .reference-card__media {
+      background: rgba(181, 71, 128, 0.1);
+    }
+
+    .reference-card--press .reference-card__type,
+    .reference-card--article .reference-card__type,
+    .reference-card--news .reference-card__type {
+      color: rgba(181, 71, 128, 0.85);
     }
 
     .project-description {
@@ -1393,10 +1485,9 @@
       box-shadow: 0 8px 20px rgba(74, 14, 61, 0.18);
     }
 
-    .resource-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+    .reference-card__link:hover .reference-card__title,
+    .reference-card__link:focus-visible .reference-card__title {
+      text-decoration: underline;
     }
 
     /* --- Screenshot Gallery & Phone Mockups --- */
@@ -2274,6 +2365,186 @@
       return heading;
     }
 
+    const referenceTypeSlug = type => (type || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'resource';
+
+    function createReferenceMedia(entry) {
+      const mediaWrapper = document.createElement('div');
+      mediaWrapper.className = 'reference-card__media';
+
+      const hasAvatar = Boolean(entry && entry.avatar);
+      const mediaSrc = (entry && (entry.avatar || entry.image || entry.icon)) || null;
+      if (mediaSrc) {
+        const img = document.createElement('img');
+        img.src = mediaSrc;
+        const altSeed = (entry && (entry.mediaAlt || entry.source || entry.title || entry.label)) || 'Reference';
+        img.alt = hasAvatar ? `${altSeed} avatar` : `${altSeed} logo`;
+        img.loading = 'lazy';
+        mediaWrapper.appendChild(img);
+        return mediaWrapper;
+      }
+
+      const fallbackSeed = ((entry && (entry.badge || entry.source || entry.title || entry.label)) || '').trim();
+      if (!fallbackSeed) {
+        return null;
+      }
+
+      const fallback = document.createElement('div');
+      fallback.className = 'reference-card__fallback';
+      fallback.textContent = fallbackSeed.charAt(0).toUpperCase();
+      mediaWrapper.appendChild(fallback);
+      return mediaWrapper;
+    }
+
+    function createReferenceCard(entry) {
+      if (!entry || !entry.link) {
+        return null;
+      }
+
+      const normalizedType = (entry.type || '').toLowerCase();
+      const isTweet = normalizedType.includes('tweet');
+      const isPress = normalizedType.includes('press') || normalizedType.includes('news') || normalizedType.includes('article');
+
+      const article = document.createElement('article');
+      article.className = 'reference-card';
+      article.setAttribute('role', 'listitem');
+
+      const slug = referenceTypeSlug(entry.type);
+      if (slug) {
+        article.classList.add(`reference-card--${slug}`);
+      }
+
+      if (isTweet) {
+        article.classList.add('reference-card--tweet');
+      } else if (isPress) {
+        article.classList.add('reference-card--press');
+      } else {
+        article.classList.add('reference-card--resource');
+      }
+
+      const anchor = document.createElement('a');
+      anchor.href = entry.link;
+      anchor.target = '_blank';
+      anchor.rel = 'noopener noreferrer';
+      anchor.className = 'reference-card__link';
+
+      const ariaLabelParts = [];
+      if (entry.title) {
+        ariaLabelParts.push(entry.title);
+      } else if (entry.label) {
+        ariaLabelParts.push(entry.label);
+      }
+      if (entry.source) {
+        ariaLabelParts.push(`from ${entry.source}`);
+      }
+      const ariaLabel = ariaLabelParts.join(' ');
+      if (ariaLabel) {
+        anchor.setAttribute('aria-label', `Open ${ariaLabel}`);
+      } else {
+        anchor.setAttribute('aria-label', 'Open external resource');
+      }
+
+      const media = createReferenceMedia(entry);
+      if (media) {
+        anchor.appendChild(media);
+      } else {
+        anchor.classList.add('reference-card__link--no-media');
+      }
+
+      const body = document.createElement('div');
+      body.className = 'reference-card__body';
+
+      if (entry.type) {
+        const typeLabel = document.createElement('span');
+        typeLabel.className = 'reference-card__type';
+        typeLabel.textContent = entry.type;
+        body.appendChild(typeLabel);
+      }
+
+      if (isTweet) {
+        if (entry.title || entry.source) {
+          const authorRow = document.createElement('div');
+          authorRow.className = 'reference-card__tweet-author';
+
+          if (entry.title) {
+            const nameEl = document.createElement('span');
+            nameEl.className = 'reference-card__title';
+            nameEl.textContent = entry.title;
+            authorRow.appendChild(nameEl);
+          }
+
+          if (entry.source) {
+            const handleEl = document.createElement('span');
+            handleEl.className = 'reference-card__tweet-handle';
+            handleEl.textContent = entry.source;
+            authorRow.appendChild(handleEl);
+          }
+
+          body.appendChild(authorRow);
+        }
+
+        if (entry.excerpt || entry.quote) {
+          const tweetText = document.createElement('p');
+          tweetText.className = 'reference-card__excerpt reference-card__excerpt--tweet';
+          tweetText.textContent = entry.excerpt || entry.quote;
+          body.appendChild(tweetText);
+        }
+
+        const metaParts = [];
+        if (entry.timestamp) {
+          metaParts.push(entry.timestamp);
+        }
+        if (entry.meta) {
+          metaParts.push(entry.meta);
+        }
+        if (metaParts.length) {
+          const meta = document.createElement('div');
+          meta.className = 'reference-card__meta';
+          meta.textContent = metaParts.join(' · ');
+          body.appendChild(meta);
+        }
+      } else {
+        const titleText = entry.title || entry.label || '';
+        if (titleText) {
+          const titleEl = document.createElement('div');
+          titleEl.className = 'reference-card__title';
+          titleEl.textContent = titleText;
+          body.appendChild(titleEl);
+        }
+
+        if (entry.excerpt || entry.quote || entry.description) {
+          const excerptEl = document.createElement('p');
+          excerptEl.className = 'reference-card__excerpt';
+          excerptEl.textContent = entry.excerpt || entry.quote || entry.description;
+          body.appendChild(excerptEl);
+        }
+
+        const metaParts = [];
+        if (entry.source) {
+          metaParts.push(entry.source);
+        }
+        if (entry.meta) {
+          metaParts.push(entry.meta);
+        }
+        if (entry.timestamp && !metaParts.includes(entry.timestamp)) {
+          metaParts.push(entry.timestamp);
+        }
+        if (entry.host) {
+          metaParts.push(entry.host);
+        }
+
+        if (metaParts.length) {
+          const meta = document.createElement('div');
+          meta.className = 'reference-card__meta';
+          meta.textContent = metaParts.join(' · ');
+          body.appendChild(meta);
+        }
+      }
+
+      anchor.appendChild(body);
+      article.appendChild(anchor);
+      return article;
+    }
+
     function showAppleProjectsError() {
       const grid = document.getElementById('appleProjectGrid');
       const windowsContainer = document.getElementById('appleProjectWindowsContainer');
@@ -2492,50 +2763,21 @@
         referenceSection.appendChild(createSectionHeading(project.referencesHeading || 'References'));
         const cards = document.createElement('div');
         cards.className = 'apple-project-reference-gallery';
+        cards.setAttribute('role', 'list');
 
+        let hasReferenceCards = false;
         project.references.forEach(ref => {
-          const card = document.createElement('article');
-          card.className = 'reference-card';
-
-          if (ref.type) {
-            const type = document.createElement('div');
-            type.className = 'reference-type';
-            type.textContent = ref.type;
-            card.appendChild(type);
+          const card = createReferenceCard(ref);
+          if (card) {
+            cards.appendChild(card);
+            hasReferenceCards = true;
           }
-
-          if (ref.quote) {
-            const quote = document.createElement('p');
-            quote.className = 'reference-quote';
-            quote.textContent = ref.quote;
-            card.appendChild(quote);
-          }
-
-          if (ref.source || ref.link) {
-            const sourceRow = document.createElement('div');
-            sourceRow.className = 'reference-source';
-
-            const sourceText = document.createElement('span');
-            sourceText.textContent = ref.source || '';
-            sourceRow.appendChild(sourceText);
-
-            if (ref.link) {
-              const anchor = document.createElement('a');
-              anchor.href = ref.link;
-              anchor.target = '_blank';
-              anchor.rel = 'noopener noreferrer';
-              anchor.textContent = 'Open →';
-              sourceRow.appendChild(anchor);
-            }
-
-            card.appendChild(sourceRow);
-          }
-
-          cards.appendChild(card);
         });
 
-        referenceSection.appendChild(cards);
-        content.appendChild(referenceSection);
+        if (hasReferenceCards) {
+          referenceSection.appendChild(cards);
+          content.appendChild(referenceSection);
+        }
       }
 
       if (Array.isArray(project.links) && project.links.length) {
@@ -2543,21 +2785,26 @@
         resourcesSection.className = 'apple-project-section apple-project-resources';
         resourcesSection.appendChild(createSectionHeading(project.linksHeading || 'Resources'));
         const linksContainer = document.createElement('div');
-        linksContainer.className = 'resource-links';
+        linksContainer.className = 'apple-project-resource-list';
+        linksContainer.setAttribute('role', 'list');
 
+        let hasResourceCards = false;
         project.links.forEach(link => {
-          if (!link || !link.url) return;
-          const anchor = document.createElement('a');
-          anchor.href = link.url;
-          anchor.className = 'project-link';
-          anchor.target = '_blank';
-          anchor.rel = 'noopener noreferrer';
-          anchor.textContent = `${link.label || 'Open'} →`;
-          linksContainer.appendChild(anchor);
+          const card = createReferenceCard({
+            ...link,
+            link: link.url || link.link
+          });
+
+          if (card) {
+            linksContainer.appendChild(card);
+            hasResourceCards = true;
+          }
         });
 
-        resourcesSection.appendChild(linksContainer);
-        content.appendChild(resourcesSection);
+        if (hasResourceCards) {
+          resourcesSection.appendChild(linksContainer);
+          content.appendChild(resourcesSection);
+        }
       }
 
       windowEl.append(titlebar, content);
