@@ -1186,21 +1186,31 @@
     .apple-project-content {
       max-height: 500px;
       overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .apple-project-section {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
 
     .apple-project-hero {
-      display: flex;
+      display: grid;
       gap: 16px;
-      align-items: flex-start;
-      margin-bottom: 20px;
+      align-items: start;
     }
 
-    .apple-project-hero.has-image {
-      align-items: stretch;
+    .apple-project-hero.has-media {
+      grid-template-columns: minmax(0, 1fr) 140px;
     }
 
-    .apple-project-hero-text {
-      flex: 1;
+    .apple-project-hero-body {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
 
     .hero-eyebrow {
@@ -1230,7 +1240,32 @@
       margin: 0;
     }
 
-    .apple-project-hero-asset {
+    .apple-project-hero-stat {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 12px 16px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(74, 14, 61, 0.12);
+      box-shadow: 0 8px 20px rgba(74, 14, 61, 0.12);
+      max-width: 260px;
+    }
+
+    .apple-project-hero-stat-value {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-dark);
+      line-height: 1.2;
+    }
+
+    .apple-project-hero-stat-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .apple-project-hero-media {
       width: 128px;
       border-radius: 16px;
       overflow: hidden;
@@ -1238,20 +1273,19 @@
       flex-shrink: 0;
     }
 
-    .apple-project-hero-asset img {
+    .apple-project-hero-media img {
       width: 100%;
       height: auto;
       display: block;
     }
 
-    .apple-project-metrics {
+    .apple-project-metrics-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
       gap: 12px;
-      margin: 20px 0;
     }
 
-    .apple-project-metric {
+    .apple-project-metric-card {
       background: rgba(255, 255, 255, 0.8);
       border: 1px solid rgba(74, 14, 61, 0.08);
       border-radius: 12px;
@@ -1274,10 +1308,13 @@
       display: block;
     }
 
-    .reference-cards {
+    .apple-project-feature-list {
+      margin: 0;
+    }
+
+    .apple-project-reference-gallery {
       display: grid;
       gap: 12px;
-      margin: 16px 0 0;
     }
 
     .reference-card {
@@ -1487,20 +1524,22 @@
       }
 
       .apple-project-hero {
+        display: flex;
         flex-direction: column;
         align-items: flex-start;
+        gap: 20px;
       }
 
-      .apple-project-hero.has-image {
-        align-items: flex-start;
+      .apple-project-hero.has-media {
+        display: flex;
       }
 
-      .apple-project-hero-asset {
+      .apple-project-hero-media {
         width: 100%;
         max-width: 220px;
       }
 
-      .apple-project-metrics {
+      .apple-project-metrics-grid {
         grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
       }
 
@@ -2287,82 +2326,124 @@
       const content = document.createElement('div');
       content.className = 'window-content apple-project-content';
 
-      const hero = document.createElement('div');
-      hero.className = 'apple-project-hero';
+      const heroSection = document.createElement('section');
+      heroSection.className = 'apple-project-section apple-project-hero';
 
-      const heroText = document.createElement('div');
-      heroText.className = 'apple-project-hero-text';
+      const heroBody = document.createElement('div');
+      heroBody.className = 'apple-project-hero-body';
 
       if (project.hero && project.hero.eyebrow) {
         const eyebrow = document.createElement('div');
         eyebrow.className = 'hero-eyebrow';
         eyebrow.textContent = project.hero.eyebrow;
-        heroText.appendChild(eyebrow);
+        heroBody.appendChild(eyebrow);
       }
 
       const headline = document.createElement('h3');
       headline.className = 'hero-headline';
       headline.textContent = (project.hero && project.hero.headline) || project.title;
-      heroText.appendChild(headline);
+      heroBody.appendChild(headline);
 
       if (project.hero && project.hero.subhead) {
         const subhead = document.createElement('div');
         subhead.className = 'hero-subhead';
         subhead.textContent = project.hero.subhead;
-        heroText.appendChild(subhead);
+        heroBody.appendChild(subhead);
       }
 
       if (project.hero && project.hero.summary) {
         const summary = document.createElement('p');
         summary.className = 'hero-summary';
         summary.textContent = project.hero.summary;
-        heroText.appendChild(summary);
+        heroBody.appendChild(summary);
       }
 
-      hero.appendChild(heroText);
+      const metrics = Array.isArray(project.metrics) ? [...project.metrics] : [];
+      const heroKeyMetric = metrics.length ? metrics.shift() : null;
+
+      if (heroKeyMetric && (heroKeyMetric.value || heroKeyMetric.label)) {
+        const heroStat = document.createElement('div');
+        heroStat.className = 'apple-project-hero-stat';
+
+        if (heroKeyMetric.value) {
+          const value = document.createElement('div');
+          value.className = 'apple-project-hero-stat-value';
+          value.textContent = heroKeyMetric.value;
+          heroStat.appendChild(value);
+        }
+
+        if (heroKeyMetric.label) {
+          const label = document.createElement('div');
+          label.className = 'apple-project-hero-stat-label';
+          label.textContent = heroKeyMetric.label;
+          heroStat.appendChild(label);
+        }
+
+        heroBody.appendChild(heroStat);
+      }
+
+      heroSection.appendChild(heroBody);
 
       if (project.assets && project.assets.heroImage) {
-        const heroAsset = document.createElement('div');
-        heroAsset.className = 'apple-project-hero-asset';
+        const heroMedia = document.createElement('div');
+        heroMedia.className = 'apple-project-hero-media';
         const img = document.createElement('img');
         img.src = project.assets.heroImage;
         img.alt = project.assets.heroAlt || `${project.title} imagery`;
-        heroAsset.appendChild(img);
-        hero.classList.add('has-image');
-        hero.appendChild(heroAsset);
+        heroMedia.appendChild(img);
+        heroSection.classList.add('has-media');
+        heroSection.appendChild(heroMedia);
       }
 
-      content.appendChild(hero);
+      content.appendChild(heroSection);
 
-      if (Array.isArray(project.metrics) && project.metrics.length) {
-        content.appendChild(createSectionHeading('Metrics'));
+      if (metrics.length) {
+        const metricsSection = document.createElement('section');
+        metricsSection.className = 'apple-project-section apple-project-metrics-section';
+        metricsSection.appendChild(createSectionHeading('Supporting Metrics'));
+
         const metricsGrid = document.createElement('div');
-        metricsGrid.className = 'apple-project-metrics';
+        metricsGrid.className = 'apple-project-metrics-grid';
+        let hasMetricCards = false;
 
-        project.metrics.forEach(metric => {
+        metrics.forEach(metric => {
+          if (!metric) return;
           const metricCard = document.createElement('div');
-          metricCard.className = 'apple-project-metric';
+          metricCard.className = 'apple-project-metric-card';
+          let hasContent = false;
 
-          const value = document.createElement('span');
-          value.className = 'apple-project-metric-value';
-          value.textContent = metric.value;
-          metricCard.appendChild(value);
+          if (metric.value) {
+            const value = document.createElement('span');
+            value.className = 'apple-project-metric-value';
+            value.textContent = metric.value;
+            metricCard.appendChild(value);
+            hasContent = true;
+          }
 
           if (metric.label) {
             const label = document.createElement('span');
             label.className = 'apple-project-metric-label';
             label.textContent = metric.label;
             metricCard.appendChild(label);
+            hasContent = true;
           }
 
-          metricsGrid.appendChild(metricCard);
+          if (hasContent) {
+            metricsGrid.appendChild(metricCard);
+            hasMetricCards = true;
+          }
         });
 
-        content.appendChild(metricsGrid);
+        if (hasMetricCards) {
+          metricsSection.appendChild(metricsGrid);
+          content.appendChild(metricsSection);
+        }
       }
 
       if (Array.isArray(project.tech) && project.tech.length) {
-        content.appendChild(createSectionHeading('Tech Stack'));
+        const techSection = document.createElement('section');
+        techSection.className = 'apple-project-section apple-project-tech';
+        techSection.appendChild(createSectionHeading('Tech Stack'));
         const tagWrapper = document.createElement('div');
         tagWrapper.className = 'skill-tags';
         project.tech.forEach(tag => {
@@ -2371,13 +2452,16 @@
           span.textContent = tag;
           tagWrapper.appendChild(span);
         });
-        content.appendChild(tagWrapper);
+        techSection.appendChild(tagWrapper);
+        content.appendChild(techSection);
       }
 
       if (Array.isArray(project.highlights) && project.highlights.length) {
-        content.appendChild(createSectionHeading(project.highlightsHeading || 'Highlights'));
+        const featureSection = document.createElement('section');
+        featureSection.className = 'apple-project-section apple-project-features';
+        featureSection.appendChild(createSectionHeading(project.highlightsHeading || 'Highlights'));
         const list = document.createElement('ul');
-        list.className = 'info-list';
+        list.className = 'info-list apple-project-feature-list';
 
         project.highlights.forEach(highlight => {
           const li = document.createElement('li');
@@ -2398,13 +2482,16 @@
           list.appendChild(li);
         });
 
-        content.appendChild(list);
+        featureSection.appendChild(list);
+        content.appendChild(featureSection);
       }
 
       if (Array.isArray(project.references) && project.references.length) {
-        content.appendChild(createSectionHeading(project.referencesHeading || 'References'));
+        const referenceSection = document.createElement('section');
+        referenceSection.className = 'apple-project-section apple-project-references';
+        referenceSection.appendChild(createSectionHeading(project.referencesHeading || 'References'));
         const cards = document.createElement('div');
-        cards.className = 'reference-cards';
+        cards.className = 'apple-project-reference-gallery';
 
         project.references.forEach(ref => {
           const card = document.createElement('article');
@@ -2447,11 +2534,14 @@
           cards.appendChild(card);
         });
 
-        content.appendChild(cards);
+        referenceSection.appendChild(cards);
+        content.appendChild(referenceSection);
       }
 
       if (Array.isArray(project.links) && project.links.length) {
-        content.appendChild(createSectionHeading(project.linksHeading || 'Resources'));
+        const resourcesSection = document.createElement('section');
+        resourcesSection.className = 'apple-project-section apple-project-resources';
+        resourcesSection.appendChild(createSectionHeading(project.linksHeading || 'Resources'));
         const linksContainer = document.createElement('div');
         linksContainer.className = 'resource-links';
 
@@ -2466,7 +2556,8 @@
           linksContainer.appendChild(anchor);
         });
 
-        content.appendChild(linksContainer);
+        resourcesSection.appendChild(linksContainer);
+        content.appendChild(resourcesSection);
       }
 
       windowEl.append(titlebar, content);
@@ -2882,16 +2973,11 @@
             const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
             const fullyVisible = rect.top >= 0 && rect.bottom <= viewportHeight;
 
-      if (window.matchMedia('(max-width: 768px)').matches) {
-        requestAnimationFrame(() => {
-          const rect = projectWindow.getBoundingClientRect();
-          const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-          const fullyVisible = rect.top >= 0 && rect.bottom <= viewportHeight;
-
-          if (!fullyVisible) {
-            projectWindow.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          }
-        });
+            if (!fullyVisible) {
+              projectWindow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+          });
+        }
       }
     }
 
@@ -2922,7 +3008,7 @@
       }
     }
 
-    renderAppleProjectGrid();
+    renderAppleProjects();
 
     // Make dock icons accessible for link elements
     document.querySelectorAll('.dock-icon').forEach(icon => {
