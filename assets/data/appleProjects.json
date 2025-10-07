@@ -12,7 +12,7 @@
     "assets": {
       "icon": "assets/icon-research-app.png",
       "iconAlt": "Apple Research App icon",
-      "heroImage": "assets/hero-research-app.png",
+      "heroImage": "assets/screenshot-research-app.png",
       "heroAlt": "Abstract gradient suggesting the Apple Research app"
     },
     "metrics": [
