@@ -47,6 +47,13 @@
       --text-dark: #4a0e3d;
       --text-muted: #8b6b83;
       --window-shadow: 0 8px 24px rgba(74, 14, 61, 0.15);
+      --retro-sunrise: linear-gradient(135deg, rgba(255, 246, 244, 0.92), rgba(255, 209, 244, 0.9));
+      --retro-haze: radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.55) 0%, transparent 55%),
+        radial-gradient(circle at 85% 15%, rgba(255, 255, 255, 0.45) 0%, transparent 50%),
+        linear-gradient(135deg, rgba(250, 217, 239, 0.55), rgba(214, 174, 229, 0.3));
+      --retro-chip: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(243, 211, 238, 0.88));
+      --retro-card: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(245, 225, 248, 0.92));
+      --micro-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
 
       /* Eye tracking variables */
       --eye-left-x: 42.9%;
@@ -1018,6 +1025,7 @@
 
     .project-window.active {
       display: block;
+      z-index: 950;
     }
 
     .project-window:hover {
@@ -1183,18 +1191,85 @@
       max-height: 500px;
     }
 
+    @media (min-width: 1100px) {
+      .apple-project-window {
+        width: 620px;
+      }
+
+      .apple-project-content {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      }
+    }
+
+    @media (min-width: 1400px) {
+      .apple-project-window {
+        width: 680px;
+      }
+    }
+
     .apple-project-content {
       max-height: 500px;
       overflow-y: auto;
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 24px;
+      align-content: start;
     }
 
     .apple-project-section {
       display: flex;
       flex-direction: column;
       gap: 12px;
+    }
+
+    .project-hero {
+      position: relative;
+      padding: 24px;
+      border-radius: 22px;
+      background: var(--retro-sunrise);
+      border: 1px solid rgba(74, 14, 61, 0.12);
+      box-shadow: 0 14px 32px rgba(74, 14, 61, 0.18);
+      overflow: hidden;
+      isolation: isolate;
+      transition: transform 220ms var(--micro-ease), box-shadow 220ms var(--micro-ease), filter 220ms ease;
+      grid-column: 1 / -1;
+    }
+
+    .project-hero::before,
+    .project-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      mix-blend-mode: screen;
+      opacity: 0.5;
+      transition: opacity 220ms ease;
+    }
+
+    .project-hero::before {
+      background: var(--retro-haze);
+      z-index: 0;
+    }
+
+    .project-hero::after {
+      background: linear-gradient(160deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 40%),
+        radial-gradient(circle at 30% 80%, rgba(255, 255, 255, 0.32), transparent 60%);
+      z-index: 0;
+      opacity: 0.35;
+    }
+
+    .project-hero:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 38px rgba(74, 14, 61, 0.22);
+    }
+
+    .project-hero:hover::after {
+      opacity: 0.55;
+    }
+
+    .project-hero > * {
+      position: relative;
+      z-index: 1;
     }
 
     .apple-project-hero {
@@ -1240,16 +1315,45 @@
       margin: 0;
     }
 
+    .metric-chip {
+      position: relative;
+      display: inline-flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 14px 18px;
+      border-radius: 16px;
+      background: var(--retro-chip);
+      border: 1px solid rgba(74, 14, 61, 0.14);
+      box-shadow: 0 10px 24px rgba(74, 14, 61, 0.14);
+      max-width: 280px;
+      transition: transform 200ms var(--micro-ease), box-shadow 200ms var(--micro-ease);
+      overflow: hidden;
+    }
+
+    .metric-chip::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0));
+      opacity: 0.75;
+      mix-blend-mode: screen;
+      transition: opacity 200ms ease;
+      pointer-events: none;
+    }
+
+    .metric-chip:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 34px rgba(74, 14, 61, 0.18);
+    }
+
+    .metric-chip:hover::before {
+      opacity: 1;
+    }
+
     .apple-project-hero-stat {
       display: inline-flex;
       flex-direction: column;
       gap: 4px;
-      padding: 12px 16px;
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.85);
-      border: 1px solid rgba(74, 14, 61, 0.12);
-      box-shadow: 0 8px 20px rgba(74, 14, 61, 0.12);
-      max-width: 260px;
     }
 
     .apple-project-hero-stat-value {
@@ -1324,10 +1428,33 @@
 
     .reference-card {
       position: relative;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.92);
-      border: 1px solid rgba(74, 14, 61, 0.08);
-      box-shadow: 0 8px 24px rgba(74, 14, 61, 0.12);
+      border-radius: 18px;
+      background: var(--retro-card);
+      border: 1px solid rgba(74, 14, 61, 0.1);
+      box-shadow: 0 12px 28px rgba(74, 14, 61, 0.14);
+      overflow: hidden;
+      transition: transform 200ms var(--micro-ease), box-shadow 200ms var(--micro-ease), border-color 200ms ease;
+    }
+
+    .reference-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(100deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0));
+      opacity: 0.8;
+      pointer-events: none;
+      mix-blend-mode: screen;
+      transition: opacity 200ms ease;
+    }
+
+    .reference-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 36px rgba(74, 14, 61, 0.22);
+      border-color: rgba(74, 14, 61, 0.18);
+    }
+
+    .reference-card:hover::before {
+      opacity: 1;
     }
 
     .reference-card__link {
@@ -1485,6 +1612,59 @@
       box-shadow: 0 8px 20px rgba(74, 14, 61, 0.18);
     }
 
+    @keyframes projectWindowLift {
+      0% {
+        opacity: 0;
+        transform: translateY(12px) scale(0.98);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes projectChipFloat {
+      0% {
+        opacity: 0;
+        transform: translateY(10px) scale(0.97);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes referenceShimmer {
+      0% {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      60% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+
+    .project-window.active .project-hero {
+      animation: projectWindowLift 420ms var(--micro-ease);
+    }
+
+    .project-window.active .metric-chip {
+      animation: projectChipFloat 360ms var(--micro-ease) forwards;
+    }
+
+    .project-window.active .apple-project-metric-card:nth-child(1) { animation-delay: 40ms; }
+    .project-window.active .apple-project-metric-card:nth-child(2) { animation-delay: 80ms; }
+    .project-window.active .apple-project-metric-card:nth-child(3) { animation-delay: 120ms; }
+    .project-window.active .apple-project-metric-card:nth-child(4) { animation-delay: 160ms; }
+
+    .project-window.active .reference-card,
+    .project-window.active .apple-project-resource-list .reference-card {
+      animation: referenceShimmer 420ms var(--micro-ease);
+    }
+
     .reference-card__link:hover .reference-card__title,
     .reference-card__link:focus-visible .reference-card__title {
       text-decoration: underline;
@@ -1544,6 +1724,12 @@
       .speech-bubble { animation: none; }
       .terminal-cursor { animation: none; opacity: 1; }
       .online-indicator { animation: none; }
+      .project-hero,
+      .metric-chip,
+      .reference-card {
+        transition: none;
+        animation: none !important;
+      }
 
       /* Disable iris animations - instant background swap instead */
       .facetime-content.iris-close::before,
@@ -1608,6 +1794,10 @@
         margin: 20px auto;
         width: calc(100% - 20px);
         max-width: 550px;
+      }
+
+      .apple-project-content {
+        grid-template-columns: 1fr;
       }
 
       .phone-mockup {
@@ -2598,7 +2788,7 @@
       content.className = 'window-content apple-project-content';
 
       const heroSection = document.createElement('section');
-      heroSection.className = 'apple-project-section apple-project-hero';
+      heroSection.className = 'apple-project-section apple-project-hero project-hero';
 
       const heroBody = document.createElement('div');
       heroBody.className = 'apple-project-hero-body';
@@ -2634,7 +2824,7 @@
 
       if (heroKeyMetric && (heroKeyMetric.value || heroKeyMetric.label)) {
         const heroStat = document.createElement('div');
-        heroStat.className = 'apple-project-hero-stat';
+        heroStat.className = 'apple-project-hero-stat metric-chip';
 
         if (heroKeyMetric.value) {
           const value = document.createElement('div');
@@ -2680,7 +2870,7 @@
         metrics.forEach(metric => {
           if (!metric) return;
           const metricCard = document.createElement('div');
-          metricCard.className = 'apple-project-metric-card';
+          metricCard.className = 'apple-project-metric-card metric-chip';
           let hasContent = false;
 
           if (metric.value) {
