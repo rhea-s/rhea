@@ -1088,6 +1088,17 @@
     }
 
     /* --- Project Grid (Launchpad/Finder Style) --- */
+    .apple-projects-empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      padding: 16px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px dashed rgba(74, 14, 61, 0.15);
+    }
+
     .project-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
@@ -1106,6 +1117,11 @@
       border-radius: 12px;
       transition: all 0.2s ease;
       user-select: none;
+    }
+
+    .project-grid-item:focus-visible {
+      outline: 2px solid var(--pink-border);
+      transform: scale(1.03);
     }
 
     .project-grid-item:hover {
@@ -1151,11 +1167,172 @@
       overflow-y: auto;
     }
 
+    .apple-project-hero {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+
+    .apple-project-hero.has-image {
+      align-items: stretch;
+    }
+
+    .apple-project-hero-text {
+      flex: 1;
+    }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .hero-headline {
+      font-size: 20px;
+      margin: 0 0 4px;
+      color: var(--text-dark);
+    }
+
+    .hero-subhead {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin: 0 0 12px;
+    }
+
+    .hero-summary {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text-dark);
+      margin: 0;
+    }
+
+    .apple-project-hero-asset {
+      width: 128px;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 16px rgba(74, 14, 61, 0.12);
+      flex-shrink: 0;
+    }
+
+    .apple-project-hero-asset img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .apple-project-metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .apple-project-metric {
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(74, 14, 61, 0.08);
+      border-radius: 12px;
+      padding: 12px 14px;
+      box-shadow: 0 4px 12px rgba(74, 14, 61, 0.08);
+    }
+
+    .apple-project-metric-value {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .apple-project-metric-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.4;
+      display: block;
+    }
+
+    .reference-cards {
+      display: grid;
+      gap: 12px;
+      margin: 16px 0 0;
+    }
+
+    .reference-card {
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(74, 14, 61, 0.1);
+      border-radius: 12px;
+      padding: 14px 16px;
+      box-shadow: 0 6px 18px rgba(74, 14, 61, 0.1);
+    }
+
+    .reference-type {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .reference-quote {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text-dark);
+      font-style: italic;
+      margin: 0 0 12px;
+    }
+
+    .reference-source {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .reference-source span {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .reference-source a {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-dark);
+      text-decoration: none;
+    }
+
+    .reference-source a:hover {
+      text-decoration: underline;
+    }
+
     .project-description {
       font-size: 13px;
       line-height: 1.6;
       color: var(--text-dark);
       margin-bottom: 16px;
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(74, 14, 61, 0.12);
+      color: var(--text-dark);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(74, 14, 61, 0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .project-link:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(74, 14, 61, 0.18);
     }
 
     .resource-links {
@@ -1286,6 +1463,24 @@
 
       .phone-mockup {
         width: 160px;
+      }
+
+      .apple-project-hero {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .apple-project-hero.has-image {
+        align-items: flex-start;
+      }
+
+      .apple-project-hero-asset {
+        width: 100%;
+        max-width: 220px;
+      }
+
+      .apple-project-metrics {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
       }
 
       .dock {
@@ -1673,29 +1868,6 @@
       </div>
     </div>
 
-    <!-- Apple Work Placeholder Window -->
-    <div class="window project-window" id="appleWorkPlaceholderWindow">
-      <div class="window-titlebar">
-        <div class="window-controls">
-          <div class="window-button close" onclick="closeProjectWindow('appleWorkPlaceholderWindow')"></div>
-          <div class="window-button minimize"></div>
-          <div class="window-button maximize"></div>
-        </div>
-        <div class="window-title">apple-work</div>
-        <div style="width: 54px;"></div>
-      </div>
-      <div class="window-content">
-        <div style="text-align: center; padding: 40px 20px;">
-          <p style="font-size: 18px; font-weight: 600; color: var(--text-dark); margin-bottom: 8px;">
-            🚧 Under Construction 🚧
-          </p>
-          <p style="font-size: 13px; color: var(--text-muted);">
-            Check back soon!
-          </p>
-        </div>
-      </div>
-    </div>
-
     <!-- Work Window (Finder-style project grid) -->
     <div class="window project-window" id="workWindow">
       <div class="window-titlebar">
@@ -1708,288 +1880,11 @@
         <div style="width: 54px;"></div>
       </div>
       <div class="window-content">
-        <div class="project-grid">
-          <div class="project-grid-item" onclick="openAppleProject('researchAppWindow')">
-            <div class="project-grid-icon">
-              <!-- TODO: Replace with Apple Research app icon -->
-              <img src="assets/icon-os.png" alt="Apple Research App" />
-            </div>
-            <div class="project-grid-label">Apple Research App</div>
-          </div>
-          <div class="project-grid-item" onclick="openAppleProject('smartStackWindow')">
-            <div class="project-grid-icon">
-              <!-- TODO: Replace with Apple Watch or watchOS icon -->
-              <img src="assets/icon-os.png" alt="Smart Stack" />
-            </div>
-            <div class="project-grid-label">Smart Stack Workout Suggestions</div>
-          </div>
-          <div class="project-grid-item" onclick="openAppleProject('journalAppWindow')">
-            <div class="project-grid-icon">
-              <!-- TODO: Replace with Journal app icon -->
-              <img src="assets/icon-os.png" alt="Journal App" />
-            </div>
-            <div class="project-grid-label">Journal App</div>
-          </div>
-          <div class="project-grid-item" onclick="openAppleProject('airpodsHearingWindow')">
-            <div class="project-grid-icon">
-              <!-- TODO: Replace with AirPods or Health icon -->
-              <img src="assets/icon-os.png" alt="AirPods Hearing Aid" />
-            </div>
-            <div class="project-grid-label">AirPods Hearing Aid</div>
-          </div>
-          <div class="project-grid-item" onclick="openAppleProject('fitnessIphoneWindow')">
-            <div class="project-grid-icon">
-              <!-- TODO: Replace with Fitness app icon -->
-              <img src="assets/icon-os.png" alt="Fitness on iPhone" />
-            </div>
-            <div class="project-grid-label">Fitness on iPhone</div>
-          </div>
-        </div>
+        <div class="project-grid" id="appleProjectGrid" role="list"></div>
       </div>
     </div>
 
-    <!-- Apple Research App Project Detail Window -->
-    <div class="window project-window apple-project-window" id="researchAppWindow">
-      <div class="window-titlebar">
-        <div class="window-controls">
-          <div class="window-button close" onclick="closeProjectWindow('researchAppWindow')"></div>
-          <div class="window-button minimize"></div>
-          <div class="window-button maximize"></div>
-        </div>
-        <div class="window-title">Apple Research App</div>
-        <div style="width: 54px;"></div>
-      </div>
-      <div class="window-content apple-project-content">
-        <div class="section-heading">Project Overview</div>
-        <p class="project-description">
-          Built and owned the Apple Research app (launched late 2019), enabling everyday users to contribute to groundbreaking medical studies via their iPhone and Apple Watch. Hailed as a "game changer" by CEO Tim Cook for enabling people to "securely contribute to research that could lead to new discoveries."
-        </p>
-
-        <!-- TODO: Add screenshot of Research app on iPhone with study tasks -->
-
-        <div class="section-heading">Tech Stack</div>
-        <div style="margin-bottom: 16px;">
-          <span class="skill-tag">Swift</span>
-          <span class="skill-tag">iOS</span>
-          <span class="skill-tag">watchOS</span>
-          <span class="skill-tag">HealthKit</span>
-          <span class="skill-tag">ResearchKit</span>
-          <span class="skill-tag">Privacy & Security</span>
-        </div>
-
-        <div class="section-heading">Impact & Statistics</div>
-        <ul class="info-list">
-          <li><strong>350,000+ participants</strong> enrolled across three landmark studies (women's health, heart & movement, and hearing)</li>
-          <li><strong>400 million hours</strong> of sound exposure data collected in Apple Hearing Study alone</li>
-          <li>Research insights used to improve cycle tracking predictions in iPhone Health app</li>
-          <li>Turned Apple devices into powerful research tools using HealthKit integration and on-device privacy controls</li>
-          <li>Architected secure, high-fidelity sensor data collection at scale</li>
-        </ul>
-
-        <div class="section-heading">Resources</div>
-        <div class="resource-links">
-          <!-- TODO: Update with specific Apple Research app link -->
-          <a href="https://www.apple.com/newsroom/" class="project-link" target="_blank">Apple Newsroom →</a>
-          <!-- TODO: Update with App Store link if available -->
-          <a href="https://apps.apple.com/" class="project-link" target="_blank">App Store →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Smart Stack Workout Suggestions Project Detail Window -->
-    <div class="window project-window apple-project-window" id="smartStackWindow">
-      <div class="window-titlebar">
-        <div class="window-controls">
-          <div class="window-button close" onclick="closeProjectWindow('smartStackWindow')"></div>
-          <div class="window-button minimize"></div>
-          <div class="window-button maximize"></div>
-        </div>
-        <div class="window-title">Smart Stack Workout Suggestions</div>
-        <div style="width: 54px;"></div>
-      </div>
-      <div class="window-content apple-project-content">
-        <div class="section-heading">Project Overview</div>
-        <p class="project-description">
-          Developed the Smart Stack workout suggestion system for watchOS 10, leveraging on-device machine learning to proactively suggest workouts based on user routines. The Smart Stack is a scrolling widget system that surfaces helpful information depending on context – weather in the morning, boarding passes at airports, and workout prompts when it's time to exercise.
-        </p>
-
-        <!-- TODO: Add screenshot of Smart Stack on Apple Watch showing workout suggestion -->
-
-        <div class="section-heading">Tech Stack</div>
-        <div style="margin-bottom: 16px;">
-          <span class="skill-tag">Swift</span>
-          <span class="skill-tag">watchOS</span>
-          <span class="skill-tag">Machine Learning</span>
-          <span class="skill-tag">CoreMotion</span>
-          <span class="skill-tag">HealthKit</span>
-          <span class="skill-tag">Live Activities</span>
-        </div>
-
-        <div class="section-heading">Key Features & Engineering Achievements</div>
-        <ul class="info-list">
-          <li>On-device ML learns user workout patterns and proactively suggests exercises at the right time</li>
-          <li>Live Activities in Smart Stack display active workout metrics (duration, heart rate zones) during sessions</li>
-          <li>Designed efficient background suggestion algorithm with careful system performance optimization</li>
-          <li>Suggestions generated and updated in real-time on-device while respecting battery and resource constraints</li>
-          <li>Seamless integration with watchOS 10 interface redesign – tap on wrist notification when workout is due</li>
-        </ul>
-
-        <div class="section-heading">Resources & Coverage</div>
-        <div class="resource-links">
-          <a href="https://www.apple.com/newsroom/2023/06/introducing-watchos-10-a-milestone-update-for-apple-watch/" class="project-link" target="_blank">watchOS 10 Announcement →</a>
-          <a href="https://support.apple.com/guide/watch/see-widgets-in-the-smart-stack-apdecf142fb9/watchos" class="project-link" target="_blank">Apple Support →</a>
-          <!-- TODO: Embed or link to Twitter/X post from @srinathtm: https://twitter.com/srinathtm -->
-          <a href="https://twitter.com/srinathtm" class="project-link" target="_blank">@srinathtm on X →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Journal App Project Detail Window -->
-    <div class="window project-window apple-project-window" id="journalAppWindow">
-      <div class="window-titlebar">
-        <div class="window-controls">
-          <div class="window-button close" onclick="closeProjectWindow('journalAppWindow')"></div>
-          <div class="window-button minimize"></div>
-          <div class="window-button maximize"></div>
-        </div>
-        <div class="window-title">Journal App (iOS 17)</div>
-        <div style="width: 54px;"></div>
-      </div>
-      <div class="window-content apple-project-content">
-        <div class="section-heading">Project Overview</div>
-        <p class="project-description">
-          Built Apple's Journal app for iOS 17.2 – a new iPhone app focused on daily reflection, journaling, and mental well-being. Announced at WWDC 2023, Journal provides a dedicated, private space for users to log everyday moments, thoughts, and milestones with on-device intelligence creating personalized writing prompts.
-        </p>
-
-        <div class="section-heading">Tech Stack</div>
-        <div style="margin-bottom: 16px;">
-          <span class="skill-tag">Swift</span>
-          <span class="skill-tag">iOS</span>
-          <span class="skill-tag">Machine Learning</span>
-          <span class="skill-tag">Privacy & Encryption</span>
-          <span class="skill-tag">Face ID / Touch ID</span>
-          <span class="skill-tag">Core Data</span>
-        </div>
-
-        <div class="section-heading">Key Features & Impact</div>
-        <ul class="info-list">
-          <li><strong>On-device ML prompts:</strong> Analyzes recent activities (photos, places, workouts, music) to suggest personalized moments to write about</li>
-          <li><strong>Rich media entries:</strong> Support for photos, videos, audio recordings, and locations to enhance memories</li>
-          <li><strong>End-to-end encryption:</strong> All entries are encrypted and can be locked behind Face ID/Touch ID</li>
-          <li><strong>Journaling Suggestions API:</strong> Introduced API for third-party apps to integrate similar prompts while respecting privacy</li>
-          <li><strong>Wellness focus:</strong> Scheduled notifications, gratitude/kindness themes based on research showing positive impact of reflection</li>
-          <li>Praised by Day One founder as "ushers in a new chapter for the practice" of digital journaling</li>
-        </ul>
-
-        <div class="section-heading">Resources & Coverage</div>
-        <div class="resource-links">
-          <a href="https://www.apple.com/newsroom/2023/12/apple-launches-journal-app-a-new-app-for-reflecting-on-everyday-moments/" class="project-link" target="_blank">Apple Newsroom →</a>
-          <!-- TODO: Add App Store link for Journal app -->
-          <a href="https://apps.apple.com/" class="project-link" target="_blank">App Store →</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- AirPods Hearing Aid Feature Project Detail Window -->
-    <div class="window project-window apple-project-window" id="airpodsHearingWindow">
-      <div class="window-titlebar">
-        <div class="window-controls">
-          <div class="window-button close" onclick="closeProjectWindow('airpodsHearingWindow')"></div>
-          <div class="window-button minimize"></div>
-          <div class="window-button maximize"></div>
-        </div>
-        <div class="window-title">AirPods Hearing Aid Feature</div>
-        <div style="width: 54px;"></div>
-      </div>
-      <div class="window-content apple-project-content">
-        <div class="section-heading">Project Overview</div>
-        <p class="project-description">
-          Developed Apple's first FDA-authorized over-the-counter hearing aid software for AirPods Pro 2 (announced 2024). This software-based feature allows AirPods Pro to function as clinical-grade hearing aids, amplifying sounds for users with mild to moderate hearing loss – without a doctor's visit or prescription.
-        </p>
-
-        <!-- TODO: Add screenshot of hearing test results on iPhone with Hearing Aid setup option -->
-
-        <div class="section-heading">Tech Stack</div>
-        <div style="margin-bottom: 16px;">
-          <span class="skill-tag">Swift</span>
-          <span class="skill-tag">iOS 18</span>
-          <span class="skill-tag">AirPods Pro 2</span>
-          <span class="skill-tag">Audio Processing</span>
-          <span class="skill-tag">FDA-Regulated Software</span>
-          <span class="skill-tag">Clinical Validation</span>
-        </div>
-
-        <div class="section-heading">Impact & Clinical Validation</div>
-        <ul class="info-list">
-          <li><strong>FDA Authorization (Sept 2024):</strong> First-ever over-the-counter hearing aid software device authorized by the FDA</li>
-          <li><strong>Clinical study:</strong> 118 participants showed hearing improvements on par with professionally-fitted hearing aids, with no adverse effects</li>
-          <li><strong>5-minute Hearing Test:</strong> Clinical-grade pure-tone audiometry test on iPhone generates personalized hearing profile</li>
-          <li><strong>Dynamic amplification:</strong> AirPods Pro boost frequencies tailored to user's hearing profile in real-time</li>
-          <li><strong>Accessibility goal:</strong> Addressing that 75% of people with diagnosable hearing loss don't use any aid – making hearing assistance more accessible and socially acceptable</li>
-          <li>Part of "all-in-one hearing health experience" including Hearing Protection mode for loud noise reduction</li>
-        </ul>
-
-        <div class="section-heading">Resources & Coverage</div>
-        <div class="resource-links">
-          <a href="https://www.apple.com/newsroom/2024/09/apple-introduces-groundbreaking-health-features/" class="project-link" target="_blank">Apple Newsroom →</a>
-          <a href="https://www.fda.gov/news-events/press-announcements/fda-authorizes-first-over-counter-hearing-aid-software" class="project-link" target="_blank">FDA Press Release →</a>
-        </div>
-
-        <div class="section-heading">Quote</div>
-        <p class="project-description" style="font-style: italic; border-left: 3px solid var(--pink-border); padding-left: 12px; margin-top: 8px;">
-          "This initiative serves as a case study for Apple's future health efforts, showing how consumer tech can crossover into medical device territory when backed by solid research and compliance." — VP of Health, Sumbul Desai
-        </p>
-      </div>
-    </div>
-
-    <!-- Fitness on iPhone Project Detail Window -->
-    <div class="window project-window apple-project-window" id="fitnessIphoneWindow">
-      <div class="window-titlebar">
-        <div class="window-controls">
-          <div class="window-button close" onclick="closeProjectWindow('fitnessIphoneWindow')"></div>
-          <div class="window-button minimize"></div>
-          <div class="window-button maximize"></div>
-        </div>
-        <div class="window-title">Fitness on iPhone (Without Apple Watch)</div>
-        <div style="width: 54px;"></div>
-      </div>
-      <div class="window-content apple-project-content">
-        <div class="section-heading">Project Overview</div>
-        <p class="project-description">
-          Opened up Apple's Fitness app to all iPhone users (iOS 16+), removing the Apple Watch requirement. Any iPhone 8 or later can now set activity goals, track daily movement, record workouts, and access Fitness+ – making Apple's fitness ecosystem approachable to millions more users.
-        </p>
-
-        <!-- TODO: Add screenshot of Fitness app Workout tab on iPhone showing exercise options -->
-
-        <div class="section-heading">Tech Stack</div>
-        <div style="margin-bottom: 16px;">
-          <span class="skill-tag">Swift</span>
-          <span class="skill-tag">iOS</span>
-          <span class="skill-tag">CoreMotion</span>
-          <span class="skill-tag">HealthKit</span>
-          <span class="skill-tag">Live Activities</span>
-          <span class="skill-tag">External Sensor Integration</span>
-        </div>
-
-        <div class="section-heading">Key Features & Engineering Achievements</div>
-        <ul class="info-list">
-          <li><strong>Workouts tab (iOS 17):</strong> Start workout sessions directly on iPhone – outdoor runs, cycling, HIIT, core training, etc.</li>
-          <li><strong>Live Activities:</strong> Real-time workout stats displayed on Lock Screen during active sessions</li>
-          <li><strong>Cross-device integration:</strong> Seamlessly pair with Apple Watch, Bluetooth heart-rate monitors, or AirPods Pro (3rd gen) for heart rate and calorie data</li>
-          <li><strong>Motion sensor tracking:</strong> iPhone counts steps, distance, flights climbed contributing to Move ring</li>
-          <li><strong>Fitness+ expansion:</strong> Extended subscription service to iPhone-only users (late 2022) – studio workouts on iPhone or TV without requiring Apple Watch</li>
-          <li>Complex engineering: Real-time sensor handoff, background workout syncing, ensuring smooth data flow from Watch/accessories to iPhone</li>
-          <li>Noted in tech press as Apple "sherlocking" basic fitness tracking – making it a built-in feature for all iPhone owners</li>
-        </ul>
-
-        <div class="section-heading">Resources & Coverage</div>
-        <div class="resource-links">
-          <a href="https://support.apple.com/en-au/guide/iphone/ipha5dddb411/ios" class="project-link" target="_blank">Apple Support →</a>
-          <!-- TODO: Add link to Fitness+ page -->
-          <a href="https://www.apple.com/apple-fitness-plus/" class="project-link" target="_blank">Apple Fitness+ →</a>
-        </div>
-      </div>
-    </div>
+    <div id="appleProjectWindowsContainer"></div>
 
     <!-- Dashboard Widget (Terminal) -->
     <div class="dashboard-widget">
@@ -2038,7 +1933,7 @@
         <div class="dock-divider"></div>
 
         <!-- Work/Apple Projects Icon -->
-        <div class="dock-icon" onclick="openProjectWindow('appleWorkPlaceholderWindow')">
+        <div class="dock-icon" onclick="openProjectWindow('workWindow')">
           <img src="assets/icon-apple.png" alt="Work Projects" />
           <div class="dock-tooltip">apple-work</div>
         </div>
@@ -2063,6 +1958,9 @@
   </div>
 
   <script>
+    let appleProjectsData = [];
+    let zIndexCounter = 100;
+
     const avatarImgEl = document.getElementById('avatarImg');
     const avatarLoading = document.getElementById('avatarLoading');
     const PUPIL_SPRITE_URL = 'assets/avatar_eye-pupil.png';
@@ -2263,17 +2161,333 @@
     })();
 
     // Window click-to-front functionality
-    (function () {
-      const windows = document.querySelectorAll('.window');
-      let zIndexCounter = 100;
+    function bringWindowToFront(windowEl) {
+      if (!windowEl) return;
+      zIndexCounter += 1;
+      windowEl.style.zIndex = zIndexCounter;
+    }
 
-      windows.forEach(window => {
-        window.addEventListener('click', function() {
-          zIndexCounter++;
-          this.style.zIndex = zIndexCounter;
+    function registerWindow(windowEl) {
+      if (!windowEl) return;
+      windowEl.addEventListener('click', () => bringWindowToFront(windowEl));
+    }
+
+    function createSectionHeading(text) {
+      const heading = document.createElement('div');
+      heading.className = 'section-heading';
+      heading.textContent = text;
+      return heading;
+    }
+
+    function showAppleProjectsError() {
+      const grid = document.getElementById('appleProjectGrid');
+      const windowsContainer = document.getElementById('appleProjectWindowsContainer');
+
+      if (grid) {
+        grid.innerHTML = '';
+        const message = document.createElement('div');
+        message.className = 'apple-projects-empty';
+        message.textContent = 'Project data is unavailable right now. Please refresh or try again later.';
+        grid.appendChild(message);
+      }
+
+      if (windowsContainer) {
+        windowsContainer.innerHTML = '';
+      }
+    }
+
+    function buildAppleProjectWindow(project, windowId) {
+      const windowEl = document.createElement('div');
+      windowEl.className = 'window project-window apple-project-window';
+      windowEl.id = windowId;
+
+      const titlebar = document.createElement('div');
+      titlebar.className = 'window-titlebar';
+
+      const controls = document.createElement('div');
+      controls.className = 'window-controls';
+
+      const closeButton = document.createElement('div');
+      closeButton.className = 'window-button close';
+      closeButton.addEventListener('click', () => closeProjectWindow(windowId));
+
+      const minimizeButton = document.createElement('div');
+      minimizeButton.className = 'window-button minimize';
+
+      const maximizeButton = document.createElement('div');
+      maximizeButton.className = 'window-button maximize';
+
+      controls.append(closeButton, minimizeButton, maximizeButton);
+
+      const title = document.createElement('div');
+      title.className = 'window-title';
+      title.textContent = project.title;
+
+      const spacer = document.createElement('div');
+      spacer.style.width = '54px';
+
+      titlebar.append(controls, title, spacer);
+
+      const content = document.createElement('div');
+      content.className = 'window-content apple-project-content';
+
+      const hero = document.createElement('div');
+      hero.className = 'apple-project-hero';
+
+      const heroText = document.createElement('div');
+      heroText.className = 'apple-project-hero-text';
+
+      if (project.hero && project.hero.eyebrow) {
+        const eyebrow = document.createElement('div');
+        eyebrow.className = 'hero-eyebrow';
+        eyebrow.textContent = project.hero.eyebrow;
+        heroText.appendChild(eyebrow);
+      }
+
+      const headline = document.createElement('h3');
+      headline.className = 'hero-headline';
+      headline.textContent = (project.hero && project.hero.headline) || project.title;
+      heroText.appendChild(headline);
+
+      if (project.hero && project.hero.subhead) {
+        const subhead = document.createElement('div');
+        subhead.className = 'hero-subhead';
+        subhead.textContent = project.hero.subhead;
+        heroText.appendChild(subhead);
+      }
+
+      if (project.hero && project.hero.summary) {
+        const summary = document.createElement('p');
+        summary.className = 'hero-summary';
+        summary.textContent = project.hero.summary;
+        heroText.appendChild(summary);
+      }
+
+      hero.appendChild(heroText);
+
+      if (project.assets && project.assets.heroImage) {
+        const heroAsset = document.createElement('div');
+        heroAsset.className = 'apple-project-hero-asset';
+        const img = document.createElement('img');
+        img.src = project.assets.heroImage;
+        img.alt = project.assets.heroAlt || `${project.title} imagery`;
+        heroAsset.appendChild(img);
+        hero.classList.add('has-image');
+        hero.appendChild(heroAsset);
+      }
+
+      content.appendChild(hero);
+
+      if (Array.isArray(project.metrics) && project.metrics.length) {
+        content.appendChild(createSectionHeading('Metrics'));
+        const metricsGrid = document.createElement('div');
+        metricsGrid.className = 'apple-project-metrics';
+
+        project.metrics.forEach(metric => {
+          const metricCard = document.createElement('div');
+          metricCard.className = 'apple-project-metric';
+
+          const value = document.createElement('span');
+          value.className = 'apple-project-metric-value';
+          value.textContent = metric.value;
+          metricCard.appendChild(value);
+
+          if (metric.label) {
+            const label = document.createElement('span');
+            label.className = 'apple-project-metric-label';
+            label.textContent = metric.label;
+            metricCard.appendChild(label);
+          }
+
+          metricsGrid.appendChild(metricCard);
         });
+
+        content.appendChild(metricsGrid);
+      }
+
+      if (Array.isArray(project.tech) && project.tech.length) {
+        content.appendChild(createSectionHeading('Tech Stack'));
+        const tagWrapper = document.createElement('div');
+        tagWrapper.className = 'skill-tags';
+        project.tech.forEach(tag => {
+          const span = document.createElement('span');
+          span.className = 'skill-tag';
+          span.textContent = tag;
+          tagWrapper.appendChild(span);
+        });
+        content.appendChild(tagWrapper);
+      }
+
+      if (Array.isArray(project.highlights) && project.highlights.length) {
+        content.appendChild(createSectionHeading(project.highlightsHeading || 'Highlights'));
+        const list = document.createElement('ul');
+        list.className = 'info-list';
+
+        project.highlights.forEach(highlight => {
+          const li = document.createElement('li');
+          const hasLabel = Boolean(highlight && highlight.label);
+          const hasDescription = Boolean(highlight && highlight.description);
+
+          if (hasLabel) {
+            const strong = document.createElement('strong');
+            strong.textContent = hasDescription ? `${highlight.label}:` : highlight.label;
+            li.appendChild(strong);
+            if (hasDescription) {
+              li.appendChild(document.createTextNode(` ${highlight.description}`));
+            }
+          } else if (hasDescription) {
+            li.textContent = highlight.description;
+          }
+
+          list.appendChild(li);
+        });
+
+        content.appendChild(list);
+      }
+
+      if (Array.isArray(project.references) && project.references.length) {
+        content.appendChild(createSectionHeading(project.referencesHeading || 'References'));
+        const cards = document.createElement('div');
+        cards.className = 'reference-cards';
+
+        project.references.forEach(ref => {
+          const card = document.createElement('article');
+          card.className = 'reference-card';
+
+          if (ref.type) {
+            const type = document.createElement('div');
+            type.className = 'reference-type';
+            type.textContent = ref.type;
+            card.appendChild(type);
+          }
+
+          if (ref.quote) {
+            const quote = document.createElement('p');
+            quote.className = 'reference-quote';
+            quote.textContent = ref.quote;
+            card.appendChild(quote);
+          }
+
+          if (ref.source || ref.link) {
+            const sourceRow = document.createElement('div');
+            sourceRow.className = 'reference-source';
+
+            const sourceText = document.createElement('span');
+            sourceText.textContent = ref.source || '';
+            sourceRow.appendChild(sourceText);
+
+            if (ref.link) {
+              const anchor = document.createElement('a');
+              anchor.href = ref.link;
+              anchor.target = '_blank';
+              anchor.rel = 'noopener noreferrer';
+              anchor.textContent = 'Open →';
+              sourceRow.appendChild(anchor);
+            }
+
+            card.appendChild(sourceRow);
+          }
+
+          cards.appendChild(card);
+        });
+
+        content.appendChild(cards);
+      }
+
+      if (Array.isArray(project.links) && project.links.length) {
+        content.appendChild(createSectionHeading(project.linksHeading || 'Resources'));
+        const linksContainer = document.createElement('div');
+        linksContainer.className = 'resource-links';
+
+        project.links.forEach(link => {
+          if (!link || !link.url) return;
+          const anchor = document.createElement('a');
+          anchor.href = link.url;
+          anchor.className = 'project-link';
+          anchor.target = '_blank';
+          anchor.rel = 'noopener noreferrer';
+          anchor.textContent = `${link.label || 'Open'} →`;
+          linksContainer.appendChild(anchor);
+        });
+
+        content.appendChild(linksContainer);
+      }
+
+      windowEl.append(titlebar, content);
+      return windowEl;
+    }
+
+    function renderAppleProjects() {
+      const grid = document.getElementById('appleProjectGrid');
+      const windowsContainer = document.getElementById('appleProjectWindowsContainer');
+
+      if (!grid || !windowsContainer) {
+        return;
+      }
+
+      grid.innerHTML = '';
+      windowsContainer.innerHTML = '';
+
+      appleProjectsData.forEach(project => {
+        const windowId = `appleProject-${project.id}`;
+
+        const gridItem = document.createElement('div');
+        gridItem.className = 'project-grid-item';
+        gridItem.setAttribute('role', 'button');
+        gridItem.setAttribute('tabindex', '0');
+        gridItem.dataset.windowId = windowId;
+
+        const iconWrap = document.createElement('div');
+        iconWrap.className = 'project-grid-icon';
+        const icon = document.createElement('img');
+        icon.src = (project.assets && project.assets.icon) || 'assets/icon-apple.png';
+        icon.alt = (project.assets && project.assets.iconAlt) || `${project.title} icon`;
+        iconWrap.appendChild(icon);
+        gridItem.appendChild(iconWrap);
+
+        const label = document.createElement('div');
+        label.className = 'project-grid-label';
+        label.textContent = project.shortTitle || project.title;
+        gridItem.appendChild(label);
+
+        const openHandler = () => openAppleProject(windowId);
+        gridItem.addEventListener('click', openHandler);
+        gridItem.addEventListener('keydown', event => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            openHandler();
+          }
+        });
+
+        grid.appendChild(gridItem);
+
+        const projectWindow = buildAppleProjectWindow(project, windowId);
+        windowsContainer.appendChild(projectWindow);
+        registerWindow(projectWindow);
       });
-    })();
+    }
+
+    async function loadAppleProjects() {
+      try {
+        const response = await fetch('assets/data/appleProjects.json', { cache: 'no-cache' });
+        if (!response.ok) {
+          throw new Error(`Request failed with status ${response.status}`);
+        }
+
+        const data = await response.json();
+        if (!Array.isArray(data)) {
+          throw new Error('Unexpected data format');
+        }
+
+        appleProjectsData = data;
+        renderAppleProjects();
+      } catch (error) {
+        console.warn('Failed to load Apple projects dataset:', error);
+        showAppleProjectsError();
+      }
+    }
+
+    document.querySelectorAll('.window').forEach(registerWindow);
 
     // Location and Theme Management
     let currentLocation = 'sf';
@@ -2528,6 +2742,7 @@
     // Initialize background on page load
     updateBackground();
     setupAvatarLoader();
+    loadAppleProjects();
     applyGreeting();
 
     // Location switcher
@@ -2596,21 +2811,16 @@
     function openProjectWindow(windowId) {
       const projectWindow = document.getElementById(windowId);
       if (projectWindow) {
-        // Close any other open project windows
         document.querySelectorAll('.project-window').forEach(w => {
-          w.classList.remove('active');
+          if (w !== projectWindow) {
+            w.classList.remove('active');
+          }
         });
 
-        // Open the selected window
         projectWindow.classList.add('active');
+        bringWindowToFront(projectWindow);
 
-        // Bring to front
-        let zIndexCounter = 1000;
-        projectWindow.style.zIndex = zIndexCounter++;
-
-        // On small screens, ensure the window is visible to the user
         if (window.matchMedia('(max-width: 768px)').matches) {
-          // Wait for the window to render before measuring
           requestAnimationFrame(() => {
             const rect = projectWindow.getBoundingClientRect();
             const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
@@ -2633,26 +2843,21 @@
 
     // Apple project window interactions
     function openAppleProject(projectWindowId) {
-      // Close the work window
       const workWindow = document.getElementById('workWindow');
       if (workWindow) {
         workWindow.classList.remove('active');
       }
 
-      // Open the selected Apple project window
       const projectWindow = document.getElementById(projectWindowId);
       if (projectWindow) {
-        // Close any other open Apple project windows
         document.querySelectorAll('.apple-project-window').forEach(w => {
-          w.classList.remove('active');
+          if (w !== projectWindow) {
+            w.classList.remove('active');
+          }
         });
 
-        // Open the selected window
         projectWindow.classList.add('active');
-
-        // Bring to front
-        let zIndexCounter = 1000;
-        projectWindow.style.zIndex = zIndexCounter++;
+        bringWindowToFront(projectWindow);
       }
     }
 
