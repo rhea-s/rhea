@@ -30,13 +30,13 @@
     "referencesHeading": "Reference Cards",
     "references": [
       {
-        "type": "Press Release",
-        "source": "Apple Newsroom",
-        "title": "Apple launches new Research app",
+        "type": "Research App",
+        "source": "Apple",
+        "title": "Official documentation",
         "excerpt": "The Research app makes it easier than ever for people to contribute to groundbreaking studies.",
-        "meta": "Nov 2019",
-        "link": "https://www.apple.com/newsroom/2019/11/apple-launches-new-research-app/",
-        "image": "assets/icon-apple.png"
+        "meta": "2025",
+        "link": "https://www.apple.com/ios/research-app/",
+        "image": "assets/screenshot-research-app.png"
       },
       {
         "type": "Tweet",
@@ -49,7 +49,7 @@
       },
       {
         "type": "Article",
-        "source": "CNBC",
+        "source": "Apple Newsroom",
         "title": "Apple’s Research app offers an unprecedented scale for medical studies",
         "excerpt": "Apple’s Research app offers an unprecedented scale for medical studies by leveraging everyday devices.",
         "meta": "Feature analysis",
