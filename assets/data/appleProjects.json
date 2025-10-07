@@ -60,7 +60,7 @@
       "summary": "Contributed to the Smart Stack workout suggestions in watchOS 10, designing on‑device logic to present relevant exercise recommendations based on motion and routine patterns."
     },
     "assets": {
-      "icon": "assets/icon-fitness-watch.png",
+      "icon": "assets/icon-watch.png",
       "iconAlt": "Smart Stack icon",
       "heroImage": "assets/screenshot-fitness-watch.png",
       "heroAlt": "Abstract gradient representing watchOS widgets"
