@@ -4,10 +4,10 @@
     "title": "Apple Research App",
     "shortTitle": "Research App",
     "hero": {
-      "eyebrow": "Flagship Health Study Platform",
+      "eyebrow": "Participant‑Facing Study Platform",
       "headline": "Apple Research App",
-      "subhead": "Launching the first participant-facing research hub on iPhone and Apple Watch.",
-      "summary": "Built and owned the Apple Research app (2019 launch), enabling everyday users to join longitudinal health studies and share secure sensor data with top institutions."
+      "subhead": "Join groundbreaking health studies from your iPhone and Apple Watch.",
+      "summary": "Developed the core system architecture for the Apple Research App, empowering participants to enroll in longitudinal studies and securely share sensor data with researchers at Harvard, the National Institutes of Health, and the University of Michigan."
     },
     "assets": {
       "icon": "assets/icon-research-app.png",
@@ -16,44 +16,35 @@
       "heroAlt": "Abstract gradient suggesting the Apple Research app"
     },
     "metrics": [
-      { "value": "350K+", "label": "Participants enrolled across women’s health, heart & movement, and hearing studies." },
-      { "value": "400M hours", "label": "Environmental sound exposure logged for the Apple Hearing Study." },
-      { "value": "3 landmark studies", "label": "Co-created with Harvard Chan School, NIH, and the University of Michigan." }
+      { "value": "350K+", "label": "People contributing to health studies with Apple Watch and iPhone." },
+      { "value": "400M hours", "label": "Environmental sound exposure recorded for the Apple Hearing Study." },
+      { "value": "3 studies", "label": "Collaborations with Harvard T.H. Chan School, the National Institutes of Health, and the University of Michigan." }
     ],
     "highlightsHeading": "Impact & Capabilities",
     "highlights": [
-      { "label": "Cycle tracking insights", "description": "Research data informed improvements to Health app predictions." },
-      { "label": "Secure data collection", "description": "Architected high-fidelity sensor ingestion with on-device privacy controls." },
-      { "label": "Research tools on-device", "description": "Transformed iPhone and Apple Watch into remote study kits with surveys, tasks, and reminders." }
+      { "label": "Privacy‑first data collection", "description": "Designed high‑fidelity sensor pipelines with encryption and participant controls." },
+      { "label": "Scientific partnerships", "description": "Collaborated with researchers from Harvard, NIH, and the University of Michigan to design studies and run clinical validation." },
+      { "label": "Remote research tools", "description": "Built surveys, tasks, and reminders that turn iPhone and Apple Watch into portable study kits." }
     ],
     "tech": ["Swift", "iOS", "watchOS", "HealthKit", "ResearchKit", "Privacy & Security"],
     "referencesHeading": "Reference Cards",
     "references": [
       {
-        "type": "Research App",
+        "type": "Documentation",
         "source": "Apple",
-        "title": "Official documentation",
-        "excerpt": "The Research app makes it easier than ever for people to contribute to groundbreaking studies.",
-        "meta": "2025",
+        "title": "Research app — Apple",
+        "excerpt": "Apple invites over 350,000 people to contribute to groundbreaking studies using Apple Watch and iPhone.",
+        "meta": "Apple",
         "link": "https://www.apple.com/ios/research-app/",
-        "image": "assets/screenshot-research-app.png"
-      },
-      {
-        "type": "Tweet",
-        "source": "@tim_cook",
-        "title": "Tim Cook",
-        "excerpt": "The new Research app is a game changer—empowering iPhone and Apple Watch users to securely contribute to discoveries.",
-        "timestamp": "Nov 14, 2019",
-        "link": "https://twitter.com/tim_cook/status/1195011313538037761",
-        "avatar": "assets/reference-avatars/tim-cook.svg"
+        "image": "assets/hero-research-app.png"
       },
       {
         "type": "Article",
-        "source": "Apple Newsroom",
-        "title": "Apple’s Research app offers an unprecedented scale for medical studies",
-        "excerpt": "Apple’s Research app offers an unprecedented scale for medical studies by leveraging everyday devices.",
-        "meta": "Feature analysis",
-        "link": "https://www.cnbc.com/2019/11/14/apple-research-app-launches-with-three-new-health-studies.html",
+        "source": "Hearing Review",
+        "title": "New Insights on Tinnitus Revealed in Apple Hearing Study",
+        "excerpt": "The University of Michigan’s Apple Hearing Study involves more than 160,000 participants and has collected hundreds of millions of hours of environmental sound data.",
+        "meta": "May 2024",
+        "link": "https://hearingreview.com/hearing-loss/tinnitus/new-insights-on-tinnitus-revealed-in-apple-hearing-study",
         "image": "assets/icon-file.png"
       }
     ]
@@ -63,10 +54,10 @@
     "title": "Smart Stack Workout Suggestions",
     "shortTitle": "Smart Stack",
     "hero": {
-      "eyebrow": "watchOS 10 Experience",
+      "eyebrow": "watchOS 10 Experience",
       "headline": "Smart Stack Workout Suggestions",
-      "subhead": "Proactive coaching surfaced right on the Apple Watch home interface.",
-      "summary": "Led the workout intelligence portion of Smart Stack, shipping on-device models that surface the right workout card exactly when it’s time to move."
+      "subhead": "Context‑aware workout suggestions on the Apple Watch home interface.",
+      "summary": "Contributed to the Smart Stack workout suggestions in watchOS 10, designing on‑device logic to present relevant exercise recommendations based on motion and routine patterns."
     },
     "assets": {
       "icon": "assets/icon-apple.png",
@@ -75,15 +66,15 @@
       "heroAlt": "Abstract gradient representing watchOS widgets"
     },
     "metrics": [
-      { "value": "watchOS 10", "label": "Shipped to millions of Apple Watch users in the 2023 redesign." },
-      { "value": "100% on-device", "label": "Recommendations computed locally to preserve privacy and responsiveness." },
-      { "value": "Keynote feature", "label": "Highlighted during the Apple Watch Series 9 launch demo." }
+      { "value": "watchOS 10", "label": "Introduced with the Apple Watch redesign in 2023." },
+      { "value": "On‑device", "label": "Workout suggestions computed locally for privacy and responsiveness." },
+      { "value": "Contextual hints", "label": "Smart Stack uses motion, location and routines to suggest workouts at the right time." }
     ],
     "highlightsHeading": "Contextual Coaching",
     "highlights": [
-      { "label": "Routine intelligence", "description": "Used motion and location signals to time workout prompts when routines suggested it was time to move." },
-      { "label": "WidgetKit collaboration", "description": "Partnered with design to craft glanceable cards with playful metrics and streaks." },
-      { "label": "Engagement uplift", "description": "Early dogfooding showed higher daily workout starts compared to legacy notifications." }
+      { "label": "Sensor‑driven timing", "description": "Used motion, time of day and location signals to determine when to suggest a workout." },
+      { "label": "Design collaboration", "description": "Worked with design teams to build glanceable cards using WidgetKit." },
+      { "label": "Privacy‑first", "description": "Kept all recommendation logic on device to protect user data." }
     ],
     "tech": ["Swift", "watchOS", "WidgetKit", "On-device ML", "CoreMotion", "HealthKit"],
     "referencesHeading": "References",
@@ -91,10 +82,19 @@
       {
         "type": "Press Release",
         "source": "Apple Newsroom",
-        "title": "watchOS 10 introduces Smart Stack",
-        "excerpt": "watchOS 10 introduces Smart Stack, delivering relevant widgets just when users need them.",
-        "meta": "Jun 2023",
+        "title": "watchOS 10 introduces Smart Stack",
+        "excerpt": "watchOS 10 introduces Smart Stack, delivering relevant widgets just when users need them.",
+        "meta": "Jun 2023",
         "link": "https://www.apple.com/newsroom/2023/06/apple-watch-gets-its-biggest-update-since-its-introduction/",
+        "image": "assets/icon-apple.png"
+      },
+      {
+        "type": "Press Release",
+        "source": "Apple Newsroom",
+        "title": "watchOS 26 delivers more personalized ways to stay active and connected",
+        "excerpt": "In watchOS 26, the Smart Stack becomes even more proactive by using contextual data, sensor data, and routines to provide hints — for example, suggesting a Pilates workout when you arrive at a studio at your usual time.",
+        "meta": "Jun 2025",
+        "link": "https://www.apple.com/newsroom/2025/06/watchos-26-delivers-more-personalized-ways-to-stay-active-and-connected/",
         "image": "assets/icon-apple.png"
       },
       {
@@ -102,17 +102,8 @@
         "source": "WWDC23",
         "title": "Design widgets for watchOS",
         "excerpt": "Discover how Smart Stack surfaces timely widgets to help people take action in the moment.",
-        "meta": "Session 10054",
+        "meta": "Session 10054",
         "link": "https://developer.apple.com/videos/play/wwdc2023/10054/",
-        "image": "assets/icon-file.png"
-      },
-      {
-        "type": "Article",
-        "source": "The Verge",
-        "title": "Smart Stack’s workout cards feel like a coach on your wrist",
-        "excerpt": "Smart Stack’s workout cards feel like having a coach tap you on the wrist at just the right time.",
-        "meta": "Launch coverage",
-        "link": "https://www.theverge.com/2023/9/12/23870853/apple-watchos-10-smart-stack-widgets",
         "image": "assets/icon-file.png"
       }
     ]
@@ -125,7 +116,7 @@
       "eyebrow": "Mental Well-being",
       "headline": "Journal for iPhone",
       "subhead": "Personal reflection, protected by Apple’s privacy architecture.",
-      "summary": "Built Apple’s Journal app for iOS 17.2, giving people a dedicated, private space to capture everyday moments with on-device intelligence creating prompts."
+      "summary": "Contributed to Apple’s Journal app for iOS 17.2, giving iPhone users a private place to record everyday moments with on‑device intelligence creating personalized prompts."
     },
     "assets": {
       "icon": "assets/icon-apple.png",
@@ -134,16 +125,16 @@
       "heroAlt": "Soft gradient reflecting mindful journaling"
     },
     "metrics": [
-      { "value": "iOS 17.2", "label": "Launched globally in December 2023 with the iOS 17.2 release." },
-      { "value": "On-device ML", "label": "Suggestion engine runs entirely on device across photos, workouts, and media." },
-      { "value": "API launch", "label": "Introduced Journaling Suggestions API for third-party developers." }
+      { "value": "iOS 17.2", "label": "Launched in December 2023 as part of the iOS 17.2 update." },
+      { "value": "On‑device ML", "label": "Suggestions engine runs entirely on device to surface relevant entries from photos, workouts and other activities." },
+      { "value": "Journaling API", "label": "Introduced a Journaling Suggestions API for developers." }
     ],
     "highlightsHeading": "Key Experiences",
     "highlights": [
-      { "label": "Rich media entries", "description": "Support for photos, videos, audio snippets, and locations to enhance memories." },
-      { "label": "Privacy-first architecture", "description": "End-to-end encryption with optional Face ID or Touch ID lock." },
-      { "label": "Wellness programs", "description": "Scheduled notifications and gratitude prompts grounded in positive psychology research." },
-      { "label": "Ecosystem impact", "description": "Praised by Day One founder as ushering in a new chapter for digital journaling." }
+      { "label": "Rich media entries", "description": "Create memories with text, photos, videos, audio recordings and locations." },
+      { "label": "On‑device suggestions", "description": "Personalized prompts generated with on‑device machine learning and customizable notifications." },
+      { "label": "Privacy & security", "description": "Entries are end‑to‑end encrypted and can be locked with Face ID or Touch ID." },
+      { "label": "Journaling Suggestions API", "description": "Third‑party apps can suggest journaling moments while respecting user privacy." }
     ],
     "tech": ["Swift", "iOS", "Machine Learning", "Privacy & Encryption", "Face ID / Touch ID", "Core Data"],
     "referencesHeading": "Coverage",
@@ -152,26 +143,27 @@
         "type": "Press Release",
         "source": "Apple Newsroom",
         "title": "Journal helps iPhone users reflect on everyday moments",
-        "excerpt": "Journal helps iPhone users reflect on everyday moments and preserve their memories.",
-        "meta": "Dec 2023",
+        "excerpt": "The Journal app uses on‑device machine learning to create personalized suggestions and supports photos, videos, audio recordings, locations and more.",
+        "meta": "Dec 2023",
         "link": "https://www.apple.com/newsroom/2023/12/apple-launches-journal-app-a-new-app-for-reflecting-on-everyday-moments/",
         "image": "assets/icon-apple.png"
       },
       {
         "type": "Article",
-        "source": "MacRumors",
-        "title": "Apple’s Journal app arrives with thoughtful design",
-        "excerpt": "Apple’s Journal app arrives with thoughtful design and deep integrations across the iPhone experience.",
-        "meta": "App launch coverage",
-        "link": "https://www.macrumors.com/2023/12/11/apple-releases-journal-app/",
+        "source": "TechCrunch",
+        "title": "Apple’s new Journal app is now available with the release of iOS 17.2",
+        "excerpt": "The Journal app lets users capture moments with text, photos, videos, audio recordings and locations, and uses on‑device AI to provide personalized suggestions; all entries are end‑to‑end encrypted and a Journaling Suggestions API lets third‑party apps suggest moments.",
+        "meta": "Dec 2023",
+        "link": "https://techcrunch.com/2023/12/11/apple-journal-app-ios-17-2/",
         "image": "assets/icon-file.png"
       },
       {
-        "type": "Community Quote",
-        "source": "Day One Founder",
-        "title": "A new chapter for digital journaling",
-        "excerpt": "Journal ushers in a new chapter for the practice of digital journaling.",
-        "link": "https://dayoneapp.com/blog/apple-journal-app/",
+        "type": "Article",
+        "source": "MacRumors",
+        "title": "Apple’s Journal app arrives with thoughtful design",
+        "excerpt": "Journal helps users reflect on everyday moments with deep integrations across the iPhone experience.",
+        "meta": "Dec 2023",
+        "link": "https://www.macrumors.com/2023/12/11/apple-releases-journal-app/",
         "image": "assets/icon-file.png"
       }
     ]
@@ -184,7 +176,7 @@
       "eyebrow": "Hearing Health",
       "headline": "AirPods Pro Hearing Aid Mode",
       "subhead": "Clinical-grade amplification without clinic visits.",
-      "summary": "Developed Apple’s first FDA-authorized over-the-counter hearing aid software for AirPods Pro 2, delivering personalized amplification after an iPhone-based hearing test."
+      "summary": "Collaborated across engineering and research teams to create Apple’s first FDA‑authorized over‑the‑counter hearing aid software for AirPods Pro 2, delivering personalized amplification after an iPhone‑based hearing test."
     },
     "assets": {
       "icon": "assets/icon-apple.png",
@@ -193,15 +185,15 @@
       "heroAlt": "Night skyline evoking a soundscape"
     },
     "metrics": [
-      { "value": "FDA authorized", "label": "First over-the-counter hearing aid software cleared in September 2024." },
-      { "value": "118 participants", "label": "Clinical validation matched performance of professionally fitted hearing aids." },
-      { "value": "5-minute test", "label": "Pure-tone audiometry completed entirely on iPhone to build a personal profile." }
+      { "value": "FDA authorized", "label": "First over‑the‑counter hearing aid software cleared in September 2024." },
+      { "value": "118 participants", "label": "Clinical study found the self‑fitting method provided similar benefits to professionally fitted hearing aids." },
+      { "value": "5‑minute test", "label": "Pure‑tone audiometry on iPhone builds a personal hearing profile in about five minutes." }
     ],
     "highlightsHeading": "Impact & Validation",
     "highlights": [
-      { "label": "Dynamic amplification", "description": "AirPods boost targeted frequencies in real time based on the user’s profile." },
-      { "label": "Accessibility mission", "description": "Addresses the 75% of people with diagnosable hearing loss who do not use any aid." },
-      { "label": "Hearing health suite", "description": "Part of an all-in-one experience alongside Hearing Test and Hearing Protection features." }
+      { "label": "Personalized amplification", "description": "Transforms AirPods Pro into a clinical‑grade hearing aid by boosting frequencies according to your hearing profile." },
+      { "label": "Validated self‑fitting", "description": "Clinical study with 118 participants showed comparable performance to professionally fitted hearing aids." },
+      { "label": "Hearing health suite", "description": "Integrated with hearing test and hearing protection features for a seamless hearing health experience." }
     ],
     "tech": ["Swift", "iOS 18", "AirPods Pro 2", "Audio Processing", "FDA-Regulated Software", "Clinical Validation"],
     "referencesHeading": "References",
@@ -210,28 +202,28 @@
         "type": "Press Release",
         "source": "Apple Newsroom",
         "title": "Apple introduces groundbreaking health features",
-        "excerpt": "Apple introduces groundbreaking health features, including turning AirPods Pro into FDA-authorized hearing aids.",
-        "meta": "Sep 2024",
+        "excerpt": "Apple’s new hearing aid capability for AirPods Pro uses the hearing test’s personalized profile to dynamically adjust sounds, providing a clinical‑grade over‑the‑counter hearing aid.",
+        "meta": "Sep 2024",
         "link": "https://www.apple.com/newsroom/2024/09/apple-introduces-groundbreaking-health-features/",
         "image": "assets/icon-apple.png"
       },
       {
         "type": "Press Release",
-        "source": "U.S. FDA",
-        "title": "FDA authorizes the first over-the-counter hearing aid software device",
-        "excerpt": "FDA authorizes the first over-the-counter hearing aid software device.",
-        "meta": "Regulatory announcement",
+        "source": "U.S. FDA",
+        "title": "FDA authorizes the first over‑the‑counter hearing aid software device",
+        "excerpt": "The FDA cleared a self‑fitting software hearing aid for mild to moderate hearing loss based on a study with 118 participants, showing comparable benefits to professionally fitted hearing aids.",
+        "meta": "Nov 2024",
         "link": "https://www.fda.gov/news-events/press-announcements/fda-authorizes-first-over-counter-hearing-aid-software",
         "image": "assets/icon-file.png"
       },
       {
-        "type": "Article",
-        "source": "The Verge",
-        "title": "AirPods Pro are about to double as hearing aids",
-        "excerpt": "AirPods Pro are about to double as hearing aids you can set up from your couch.",
-        "meta": "Product coverage",
-        "link": "https://www.theverge.com/2024/9/10/23866095/apple-airpods-pro-hearing-test-fda-approval",
-        "image": "assets/icon-file.png"
+        "type": "Web Page",
+        "source": "Apple",
+        "title": "AirPods Pro hearing health experience",
+        "excerpt": "AirPods Pro provide a hearing test built on pure‑tone audiometry that takes a few minutes to complete and creates a personalized hearing profile used to recommend the hearing aid feature; all test data is stored privately on device.",
+        "meta": "2024",
+        "link": "https://www.apple.com/airpods-pro/hearing-health/",
+        "image": "assets/icon-apple.png"
       }
     ]
   },
@@ -243,7 +235,7 @@
       "eyebrow": "Fitness & Coaching",
       "headline": "Apple Fitness on Every iPhone",
       "subhead": "Unlocking activity tracking without requiring Apple Watch.",
-      "summary": "Opened up Apple’s Fitness app to all iPhone users (iOS 16+), delivering Move rings, workout tracking, and Fitness+ access without a watch."
+      "summary": "Worked across teams to open up the Fitness app to all iPhone users in iOS 16, enabling activity tracking and Move rings without requiring an Apple Watch."
     },
     "assets": {
       "icon": "assets/icon-apple.png",
@@ -252,9 +244,9 @@
       "heroAlt": "Daytime skyline representing active lifestyles"
     },
     "metrics": [
-      { "value": "iOS 16", "label": "Removed the Apple Watch requirement for the Fitness app in 2022." },
-      { "value": "Live Activities", "label": "Delivered lock screen workout stats for in-progress sessions." },
-      { "value": "Fitness+ expansion", "label": "Extended premium studio classes to iPhone-only customers." }
+      { "value": "iOS 16", "label": "Made the Fitness app available to all iPhone users in 2022." },
+      { "value": "Move rings", "label": "Track steps, distance, flights climbed and third‑party workouts to fill your daily Move goal using only iPhone motion sensors." },
+      { "value": "Activity sharing", "label": "Share your Move ring progress with friends for motivation." }
     ],
     "highlightsHeading": "Engineering Highlights",
     "highlights": [
@@ -266,29 +258,21 @@
     "referencesHeading": "References",
     "references": [
       {
-        "type": "Press Release",
-        "source": "Apple Newsroom",
-        "title": "Apple Fitness+ available to all iPhone users",
-        "excerpt": "Later this fall, all iPhone customers will be able to subscribe to Apple Fitness+.",
-        "meta": "Sep 2022",
-        "link": "https://www.apple.com/newsroom/2022/09/apple-fitness-plus-available-to-all-iphone-users/",
-        "image": "assets/icon-apple.png"
-      },
-      {
-        "type": "Support Doc",
-        "source": "Apple Support",
-        "title": "Track activity with iPhone",
-        "excerpt": "You can track your daily activity on iPhone even if you don’t have an Apple Watch.",
-        "link": "https://support.apple.com/guide/iphone/ipha5dddb411/ios",
+        "type": "Article",
+        "source": "MacRumors",
+        "title": "You can use the iOS 16 Fitness app for activity tracking without an Apple Watch",
+        "excerpt": "With iOS 16, the iPhone’s motion sensors track steps, distance and third‑party workouts to estimate calories burned, letting users set a daily Move goal even without an Apple Watch.",
+        "meta": "Jun 2022",
+        "link": "https://www.macrumors.com/2022/06/07/ios-16-fitness-activity-tracking-on-iphone/",
         "image": "assets/icon-file.png"
       },
       {
         "type": "Article",
-        "source": "TechCrunch",
-        "title": "Apple brings Fitness tracking to every iPhone",
-        "excerpt": "Apple is sherlocking basic fitness tracking by baking it directly into every iPhone.",
-        "meta": "Launch coverage",
-        "link": "https://techcrunch.com/2022/09/07/apple-fitness-plus-iphone/",
+        "source": "Well+Good",
+        "title": "Apple is making the Fitness app available to all iPhone users",
+        "excerpt": "The Fitness app quantifies your steps, distance and flights climbed into active calories, lets you set a Move goal, ingests workouts from third‑party apps, and lets you share your Move ring with friends.",
+        "meta": "Jun 2022",
+        "link": "https://www.wellandgood.com/fitness/fitness-app-on-iphone-ios-16",
         "image": "assets/icon-file.png"
       }
     ]
