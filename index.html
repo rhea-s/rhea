@@ -2955,6 +2955,11 @@
             hasResourceCards = true;
           }
         });
+
+        if (hasResourceCards) {
+          resourcesSection.appendChild(linksContainer);
+          content.appendChild(resourcesSection);
+        }
       }
 
       windowEl.append(titlebar, content);
