@@ -568,9 +568,10 @@
     /* --- Experience Window --- */
     .experience-window {
       width: 480px;
-      top: 540px;
-      left: 37%;
-      transform: translateX(-50%);
+      top: 100px;
+      right: 80px;
+      left: auto;
+      transform: none;
       z-index: 7;
       max-height: 350px;
     }
@@ -734,8 +735,9 @@
     /* --- Extracurriculars Window --- */
     .extra-window {
       width: 380px;
-      top: 100px;
-      right: 80px;
+      top: 540px;
+      left: 37%;
+      transform: translateX(-50%);
       z-index: 4;
       max-height: 380px;
     }
@@ -745,6 +747,10 @@
     }
 
     .experience-window:hover {
+      transform: translateY(-2px);
+    }
+
+    .extra-window:hover {
       transform: translateX(-50%) translateY(-2px);
     }
 
