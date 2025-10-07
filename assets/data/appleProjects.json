@@ -26,7 +26,7 @@
       { "label": "Scientific partnerships", "description": "Collaborated with researchers from Harvard, NIH, and the University of Michigan to design studies and run clinical validation." },
       { "label": "Remote research tools", "description": "Built surveys, tasks, and reminders that turn iPhone and Apple Watch into portable study kits." }
     ],
-    "tech": ["Swift", "iOS", "watchOS", "HealthKit", "ResearchKit", "Privacy & Security"],
+    "tech": ["Swift", "iOS", "watchOS", "HealthKit", "ResearchKit", "SensorKit", "CoreMotion"],
     "referencesHeading": "Reference Cards",
     "references": [
       {
@@ -76,7 +76,7 @@
       { "label": "Design collaboration", "description": "Worked with design teams to build glanceable cards using WidgetKit." },
       { "label": "Privacy‑first", "description": "Kept all recommendation logic on device to protect user data." }
     ],
-    "tech": ["Swift", "watchOS", "WidgetKit", "On-device ML", "CoreMotion", "HealthKit"],
+    "tech": ["Swift", "watchOS", "iOS", "On-device clustering", "HealthKit", "CoreRoutine", "CoreMotion", "Python modeling", "Automated testing"],
     "referencesHeading": "References",
     "references": [
       {
@@ -136,7 +136,7 @@
       { "label": "Privacy & security", "description": "Entries are end‑to‑end encrypted and can be locked with Face ID or Touch ID." },
       { "label": "Journaling Suggestions API", "description": "Third‑party apps can suggest journaling moments while respecting user privacy." }
     ],
-    "tech": ["Swift", "iOS", "Machine Learning", "Privacy & Encryption", "Face ID / Touch ID", "Core Data"],
+    "tech": ["Swift", "iOS"],
     "referencesHeading": "Coverage",
     "references": [
       {
@@ -195,7 +195,7 @@
       { "label": "Validated self‑fitting", "description": "Clinical study with 118 participants showed comparable performance to professionally fitted hearing aids." },
       { "label": "Hearing health suite", "description": "Integrated with hearing test and hearing protection features for a seamless hearing health experience." }
     ],
-    "tech": ["Swift", "iOS 18", "AirPods Pro 2", "Audio Processing", "FDA-Regulated Software", "Clinical Validation"],
+    "tech": ["Swift", "iOS", "AirPods", "App Development", "ResearchKit", "Clinical Validation"],
     "referencesHeading": "References",
     "references": [
       {
@@ -254,7 +254,7 @@
       { "label": "Sensor handoff", "description": "Coordinated data flows between iPhone, Apple Watch, Bluetooth heart-rate monitors, and AirPods." },
       { "label": "Activity integration", "description": "Counts steps, distance, and flights climbed to fill the Move ring even without a watch." }
     ],
-    "tech": ["Swift", "iOS", "CoreMotion", "HealthKit", "Live Activities", "External Sensor Integration"],
+    "tech": ["Swift", "iOS", "CoreMotion", "HealthKit", "Live Activities"],
     "referencesHeading": "References",
     "references": [
       {
