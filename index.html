@@ -3394,9 +3394,12 @@
     // Dock project window interactions
     function openProjectWindow(windowId, options = {}) {
       const projectWindow = document.getElementById(windowId);
+      // options.preserveIds allows specific window IDs to keep their active state (e.g., Finder remaining open)
+      const preserveIds = options.preserveIds ?? [];
+      const preserveSet = new Set(Array.isArray(preserveIds) ? preserveIds : [preserveIds].filter(Boolean));
       if (projectWindow) {
         document.querySelectorAll('.project-window').forEach(w => {
-          if (w !== projectWindow) {
+          if (w !== projectWindow && !preserveSet.has(w.id)) {
             w.classList.remove('active');
           }
         });
@@ -3429,20 +3432,10 @@
     function openAppleProject(projectWindowId) {
       const workWindow = document.getElementById('workWindow');
       if (workWindow) {
-        workWindow.classList.remove('active');
+        workWindow.classList.add('active');
       }
 
-      const projectWindow = document.getElementById(projectWindowId);
-      if (projectWindow) {
-        document.querySelectorAll('.apple-project-window').forEach(w => {
-          if (w !== projectWindow) {
-            w.classList.remove('active');
-          }
-        });
-
-        projectWindow.classList.add('active');
-        bringWindowToFront(projectWindow);
-      }
+      openProjectWindow(projectWindowId, { preserveIds: ['workWindow'] });
     }
 
     renderAppleProjects();
