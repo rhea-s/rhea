@@ -1041,26 +1041,58 @@
     }
 
     .project-launch {
+      position: relative;
       display: inline-flex;
       align-items: center;
       gap: 6px;
       padding: 9px 18px;
-      background: linear-gradient(135deg, #f48fb1, #f06292);
-      border: 1px solid rgba(74, 14, 61, 0.15);
+      background: linear-gradient(135deg, #ffe3ef 0%, #f48fb1 45%, #f06292 100%);
       border-radius: 999px;
+      border-top: 1px solid rgba(255, 255, 255, 0.6);
+      border-bottom: 1px solid rgba(129, 27, 89, 0.35);
       color: white;
       text-decoration: none;
       font-size: 13px;
       font-weight: 600;
       letter-spacing: 0.3px;
-      box-shadow: 0 6px 16px rgba(244, 143, 177, 0.4);
-      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+      transition: transform 0.2s ease, filter 0.2s ease;
+      z-index: 1;
+    }
+
+    .project-launch::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(180deg, rgba(162, 25, 95, 0.55), rgba(97, 13, 67, 0.65));
+      transform: translateY(6px);
+      transition: transform 0.2s ease, filter 0.2s ease;
+      z-index: -1;
     }
 
     .project-launch:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 10px 22px rgba(244, 143, 177, 0.45);
-      filter: brightness(1.05);
+      transform: translateY(-2px);
+      filter: brightness(1.08);
+    }
+
+    .project-launch:hover::after {
+      transform: translateY(3px);
+      filter: brightness(0.95);
+    }
+
+    .project-launch:active {
+      transform: translateY(-2px);
+      filter: brightness(0.94) saturate(1.1);
+    }
+
+    .project-launch:active::after {
+      transform: translateY(1px);
+      filter: brightness(0.85);
+    }
+
+    .project-launch:focus-visible {
+      outline: 3px solid rgba(255, 255, 255, 0.7);
+      outline-offset: 2px;
     }
 
     .project-icon-link {
