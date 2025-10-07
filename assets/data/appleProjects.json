@@ -56,25 +56,6 @@
         "link": "https://www.cnbc.com/2019/11/14/apple-research-app-launches-with-three-new-health-studies.html",
         "image": "assets/icon-file.png"
       }
-    ],
-    "linksHeading": "Resources",
-    "links": [
-      {
-        "type": "Press Release",
-        "source": "Apple Newsroom",
-        "title": "Research app overview",
-        "excerpt": "Official press release detailing the launch partners and study design of the Apple Research app.",
-        "link": "https://www.apple.com/newsroom/2019/11/apple-launches-new-research-app/",
-        "image": "assets/icon-apple.png"
-      },
-      {
-        "type": "App Store",
-        "source": "App Store",
-        "title": "Download Apple Research",
-        "excerpt": "Explore screenshots, feature highlights, and device requirements for the Apple Research app.",
-        "link": "https://apps.apple.com/us/app/apple-research/id1469938240",
-        "image": "assets/icon-apple.png"
-      }
     ]
   },
   {
@@ -132,25 +113,6 @@
         "excerpt": "Smart Stack’s workout cards feel like having a coach tap you on the wrist at just the right time.",
         "meta": "Launch coverage",
         "link": "https://www.theverge.com/2023/9/12/23870853/apple-watchos-10-smart-stack-widgets",
-        "image": "assets/icon-file.png"
-      }
-    ],
-    "linksHeading": "Resources",
-    "links": [
-      {
-        "type": "Overview",
-        "source": "Apple",
-        "title": "watchOS 10 product page",
-        "excerpt": "Learn how the redesigned Smart Stack keeps glanceable information within a swipe on Apple Watch.",
-        "link": "https://www.apple.com/watchos/watchos-10/",
-        "image": "assets/icon-apple.png"
-      },
-      {
-        "type": "Developer",
-        "source": "Apple Developer",
-        "title": "WWDC session: Design widgets for watchOS",
-        "excerpt": "Session video that breaks down composing glanceable Smart Stack cards with WidgetKit.",
-        "link": "https://developer.apple.com/videos/play/wwdc2023/10054/",
         "image": "assets/icon-file.png"
       }
     ]
@@ -212,25 +174,6 @@
         "link": "https://dayoneapp.com/blog/apple-journal-app/",
         "image": "assets/icon-file.png"
       }
-    ],
-    "linksHeading": "Resources",
-    "links": [
-      {
-        "type": "Press Release",
-        "source": "Apple Newsroom",
-        "title": "Journal app announcement",
-        "excerpt": "Official newsroom story detailing Journal’s design pillars and privacy protections.",
-        "link": "https://www.apple.com/newsroom/2023/12/apple-launches-journal-app-a-new-app-for-reflecting-on-everyday-moments/",
-        "image": "assets/icon-apple.png"
-      },
-      {
-        "type": "App Store",
-        "source": "App Store",
-        "title": "Download Journal on the App Store",
-        "excerpt": "Review feature highlights, ratings, and platform requirements for Journal.",
-        "link": "https://apps.apple.com/us/app/journal/id6446009975",
-        "image": "assets/icon-apple.png"
-      }
     ]
   },
   {
@@ -290,25 +233,6 @@
         "link": "https://www.theverge.com/2024/9/10/23866095/apple-airpods-pro-hearing-test-fda-approval",
         "image": "assets/icon-file.png"
       }
-    ],
-    "linksHeading": "Resources",
-    "links": [
-      {
-        "type": "Press Release",
-        "source": "Apple Newsroom",
-        "title": "AirPods hearing health hub",
-        "excerpt": "Read the full announcement on hearing health features coming to AirPods Pro and iPhone.",
-        "link": "https://www.apple.com/newsroom/2024/09/apple-introduces-groundbreaking-health-features/",
-        "image": "assets/icon-apple.png"
-      },
-      {
-        "type": "Regulatory",
-        "source": "U.S. FDA",
-        "title": "FDA authorization release",
-        "excerpt": "Official FDA announcement detailing the authorization of Apple’s over-the-counter hearing aid software.",
-        "link": "https://www.fda.gov/news-events/press-announcements/fda-authorizes-first-over-counter-hearing-aid-software",
-        "image": "assets/icon-file.png"
-      }
     ]
   },
   {
@@ -365,25 +289,6 @@
         "excerpt": "Apple is sherlocking basic fitness tracking by baking it directly into every iPhone.",
         "meta": "Launch coverage",
         "link": "https://techcrunch.com/2022/09/07/apple-fitness-plus-iphone/",
-        "image": "assets/icon-file.png"
-      }
-    ],
-    "linksHeading": "Resources",
-    "links": [
-      {
-        "type": "Product",
-        "source": "Apple",
-        "title": "Explore Apple Fitness+",
-        "excerpt": "Preview studio classes, trainers, and subscription benefits available on iPhone.",
-        "link": "https://www.apple.com/apple-fitness-plus/",
-        "image": "assets/icon-apple.png"
-      },
-      {
-        "type": "Support",
-        "source": "Apple Support",
-        "title": "iPhone activity support guide",
-        "excerpt": "Step-by-step instructions for closing Move rings using just your iPhone sensors.",
-        "link": "https://support.apple.com/guide/iphone/ipha5dddb411/ios",
         "image": "assets/icon-file.png"
       }
     ]
