@@ -52,7 +52,7 @@
   {
     "id": "smart-stack",
     "title": "Smart Stack Workout Suggestions",
-    "shortTitle": "Smart Stack",
+    "shortTitle": "Fitness for watchOS",
     "hero": {
       "eyebrow": "watchOS 10 Experience",
       "headline": "Smart Stack Workout Suggestions",
@@ -60,9 +60,9 @@
       "summary": "Contributed to the Smart Stack workout suggestions in watchOS 10, designing on‑device logic to present relevant exercise recommendations based on motion and routine patterns."
     },
     "assets": {
-      "icon": "assets/icon-apple.png",
+      "icon": "assets/icon-fitness-watch.png",
       "iconAlt": "Smart Stack icon",
-      "heroImage": "assets/bliss-background-night.png",
+      "heroImage": "assets/screenshot-fitness-watch.png",
       "heroAlt": "Abstract gradient representing watchOS widgets"
     },
     "metrics": [
@@ -119,9 +119,9 @@
       "summary": "Contributed to Apple’s Journal app for iOS 17.2, giving iPhone users a private place to record everyday moments with on‑device intelligence creating personalized prompts."
     },
     "assets": {
-      "icon": "assets/icon-apple.png",
+      "icon": "assets/icon-journal.png",
       "iconAlt": "Journal app icon",
-      "heroImage": "assets/bliss-background.png",
+      "heroImage": "assets/screenshot-journal.png",
       "heroAlt": "Soft gradient reflecting mindful journaling"
     },
     "metrics": [
@@ -179,9 +179,9 @@
       "summary": "Collaborated across engineering and research teams to create Apple’s first FDA‑authorized over‑the‑counter hearing aid software for AirPods Pro 2, delivering personalized amplification after an iPhone‑based hearing test."
     },
     "assets": {
-      "icon": "assets/icon-apple.png",
+      "icon": "assets/icon-airpods.png",
       "iconAlt": "AirPods Pro icon",
-      "heroImage": "assets/nyc-background-night.png",
+      "heroImage": "assets/screenshot-airpods.png",
       "heroAlt": "Night skyline evoking a soundscape"
     },
     "metrics": [
@@ -238,9 +238,9 @@
       "summary": "Worked across teams to open up the Fitness app to all iPhone users in iOS 16, enabling activity tracking and Move rings without requiring an Apple Watch."
     },
     "assets": {
-      "icon": "assets/icon-apple.png",
+      "icon": "assets/icon-fitness.png",
       "iconAlt": "Apple Fitness icon",
-      "heroImage": "assets/nyc-background-day.png",
+      "heroImage": "assets/screenshot-fitness-iphone.png",
       "heroAlt": "Daytime skyline representing active lifestyles"
     },
     "metrics": [
