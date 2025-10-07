@@ -54,10 +54,10 @@
     "title": "Smart Stack Workout Suggestions",
     "shortTitle": "Fitness for watchOS",
     "hero": {
-      "eyebrow": "watchOS 10 Experience",
+      "eyebrow": "watchOS 26 Experience",
       "headline": "Smart Stack Workout Suggestions",
       "subhead": "Context‑aware workout suggestions on the Apple Watch home interface.",
-      "summary": "Contributed to the Smart Stack workout suggestions in watchOS 10, designing on‑device logic to present relevant exercise recommendations based on motion and routine patterns."
+      "summary": "Contributed to the Smart Stack workout suggestions in watchOS 26, designing on‑device logic to present relevant exercise recommendations based on motion and routine patterns."
     },
     "assets": {
       "icon": "assets/icon-watch.png",
@@ -66,7 +66,7 @@
       "heroAlt": "Abstract gradient representing watchOS widgets"
     },
     "metrics": [
-      { "value": "watchOS 10", "label": "Introduced with the Apple Watch redesign in 2023." },
+      { "value": "watchOS 10", "label": "Introduced with the Apple Watch redesign in 2025." },
       { "value": "On‑device", "label": "Workout suggestions computed locally for privacy and responsiveness." },
       { "value": "Contextual hints", "label": "Smart Stack uses motion, location and routines to suggest workouts at the right time." }
     ],
