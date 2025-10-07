@@ -10,9 +10,9 @@
       "summary": "Built and owned the Apple Research app (2019 launch), enabling everyday users to join longitudinal health studies and share secure sensor data with top institutions."
     },
     "assets": {
-      "icon": "assets/icon-apple.png",
+      "icon": "assets/icon-research-app.png",
       "iconAlt": "Apple Research App icon",
-      "heroImage": "assets/sf-background-day.png",
+      "heroImage": "assets/hero-research-app.png",
       "heroAlt": "Abstract gradient suggesting the Apple Research app"
     },
     "metrics": [
