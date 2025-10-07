@@ -2306,41 +2306,6 @@
     const avatarLoading = document.getElementById('avatarLoading');
     const PUPIL_SPRITE_URL = 'assets/avatar_eye-pupil.png';
     let backgroundLoadPromise = null;
-    const APPLE_PROJECTS = [
-      {
-        id: 'researchAppWindow',
-        title: 'Apple Research App',
-        iconText: 'RA',
-        iconBackground: 'linear-gradient(135deg, #5a7bff, #9f63ff)'
-      },
-      {
-        id: 'smartStackWindow',
-        title: 'Smart Stack Workout Suggestions',
-        iconText: 'SS',
-        iconBackground: 'linear-gradient(135deg, #1ec8a5, #43d67a)'
-      },
-      {
-        id: 'journalAppWindow',
-        title: 'Journal App (iOS 17)',
-        iconText: 'JR',
-        iconBackground: 'linear-gradient(135deg, #ffd66b, #ff9f1c)',
-        iconColor: '#1b1b1f'
-      },
-      {
-        id: 'airpodsHearingWindow',
-        title: 'AirPods Hearing Aid Feature',
-        iconText: 'AP',
-        iconBackground: 'linear-gradient(135deg, #42a5f5, #4789ff)'
-      },
-      {
-        id: 'fitnessIphoneWindow',
-        title: 'Fitness on iPhone (Without Apple Watch)',
-        iconText: 'FIT',
-        iconBackground: 'linear-gradient(135deg, #ff5f6d, #ffc371)',
-        iconColor: '#1b1b1f'
-      }
-    ];
-    let projectWindowZIndex = 1000;
 
     function waitForImageElement(img) {
       if (!img) return Promise.resolve();
