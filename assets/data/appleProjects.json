@@ -29,14 +29,52 @@
     "tech": ["Swift", "iOS", "watchOS", "HealthKit", "ResearchKit", "Privacy & Security"],
     "referencesHeading": "Reference Cards",
     "references": [
-      { "type": "Press Release", "source": "Apple Newsroom · Nov 2019", "quote": "The Research app makes it easier than ever for people to contribute to groundbreaking studies.", "link": "https://www.apple.com/newsroom/2019/11/apple-launches-new-research-app/" },
-      { "type": "Tweet", "source": "Tim Cook", "quote": "The new Research app is a game changer—empowering iPhone and Apple Watch users to securely contribute to discoveries.", "link": "https://twitter.com/tim_cook/status/1195011313538037761" },
-      { "type": "Article", "source": "CNBC", "quote": "Apple’s Research app offers an unprecedented scale for medical studies by leveraging everyday devices.", "link": "https://www.cnbc.com/2019/11/14/apple-research-app-launches-with-three-new-health-studies.html" }
+      {
+        "type": "Press Release",
+        "source": "Apple Newsroom",
+        "title": "Apple launches new Research app",
+        "excerpt": "The Research app makes it easier than ever for people to contribute to groundbreaking studies.",
+        "meta": "Nov 2019",
+        "link": "https://www.apple.com/newsroom/2019/11/apple-launches-new-research-app/",
+        "image": "assets/icon-apple.png"
+      },
+      {
+        "type": "Tweet",
+        "source": "@tim_cook",
+        "title": "Tim Cook",
+        "excerpt": "The new Research app is a game changer—empowering iPhone and Apple Watch users to securely contribute to discoveries.",
+        "timestamp": "Nov 14, 2019",
+        "link": "https://twitter.com/tim_cook/status/1195011313538037761",
+        "avatar": "assets/reference-avatars/tim-cook.svg"
+      },
+      {
+        "type": "Article",
+        "source": "CNBC",
+        "title": "Apple’s Research app offers an unprecedented scale for medical studies",
+        "excerpt": "Apple’s Research app offers an unprecedented scale for medical studies by leveraging everyday devices.",
+        "meta": "Feature analysis",
+        "link": "https://www.cnbc.com/2019/11/14/apple-research-app-launches-with-three-new-health-studies.html",
+        "image": "assets/icon-file.png"
+      }
     ],
     "linksHeading": "Resources",
     "links": [
-      { "label": "Apple Newsroom", "url": "https://www.apple.com/newsroom/2019/11/apple-launches-new-research-app/" },
-      { "label": "App Store", "url": "https://apps.apple.com/us/app/apple-research/id1469938240" }
+      {
+        "type": "Press Release",
+        "source": "Apple Newsroom",
+        "title": "Research app overview",
+        "excerpt": "Official press release detailing the launch partners and study design of the Apple Research app.",
+        "link": "https://www.apple.com/newsroom/2019/11/apple-launches-new-research-app/",
+        "image": "assets/icon-apple.png"
+      },
+      {
+        "type": "App Store",
+        "source": "App Store",
+        "title": "Download Apple Research",
+        "excerpt": "Explore screenshots, feature highlights, and device requirements for the Apple Research app.",
+        "link": "https://apps.apple.com/us/app/apple-research/id1469938240",
+        "image": "assets/icon-apple.png"
+      }
     ]
   },
   {
@@ -69,14 +107,52 @@
     "tech": ["Swift", "watchOS", "WidgetKit", "On-device ML", "CoreMotion", "HealthKit"],
     "referencesHeading": "References",
     "references": [
-      { "type": "Press Release", "source": "Apple Newsroom · Jun 2023", "quote": "watchOS 10 introduces Smart Stack, delivering relevant widgets just when users need them.", "link": "https://www.apple.com/newsroom/2023/06/apple-watch-gets-its-biggest-update-since-its-introduction/" },
-      { "type": "WWDC Session", "source": "Design widgets for watchOS", "quote": "Discover how Smart Stack surfaces timely widgets to help people take action in the moment.", "link": "https://developer.apple.com/videos/play/wwdc2023/10054/" },
-      { "type": "Article", "source": "The Verge", "quote": "Smart Stack’s workout cards feel like having a coach tap you on the wrist at just the right time.", "link": "https://www.theverge.com/2023/9/12/23870853/apple-watchos-10-smart-stack-widgets" }
+      {
+        "type": "Press Release",
+        "source": "Apple Newsroom",
+        "title": "watchOS 10 introduces Smart Stack",
+        "excerpt": "watchOS 10 introduces Smart Stack, delivering relevant widgets just when users need them.",
+        "meta": "Jun 2023",
+        "link": "https://www.apple.com/newsroom/2023/06/apple-watch-gets-its-biggest-update-since-its-introduction/",
+        "image": "assets/icon-apple.png"
+      },
+      {
+        "type": "WWDC Session",
+        "source": "WWDC23",
+        "title": "Design widgets for watchOS",
+        "excerpt": "Discover how Smart Stack surfaces timely widgets to help people take action in the moment.",
+        "meta": "Session 10054",
+        "link": "https://developer.apple.com/videos/play/wwdc2023/10054/",
+        "image": "assets/icon-file.png"
+      },
+      {
+        "type": "Article",
+        "source": "The Verge",
+        "title": "Smart Stack’s workout cards feel like a coach on your wrist",
+        "excerpt": "Smart Stack’s workout cards feel like having a coach tap you on the wrist at just the right time.",
+        "meta": "Launch coverage",
+        "link": "https://www.theverge.com/2023/9/12/23870853/apple-watchos-10-smart-stack-widgets",
+        "image": "assets/icon-file.png"
+      }
     ],
     "linksHeading": "Resources",
     "links": [
-      { "label": "watchOS 10 Overview", "url": "https://www.apple.com/watchos/watchos-10/" },
-      { "label": "WWDC Session", "url": "https://developer.apple.com/videos/play/wwdc2023/10054/" }
+      {
+        "type": "Overview",
+        "source": "Apple",
+        "title": "watchOS 10 product page",
+        "excerpt": "Learn how the redesigned Smart Stack keeps glanceable information within a swipe on Apple Watch.",
+        "link": "https://www.apple.com/watchos/watchos-10/",
+        "image": "assets/icon-apple.png"
+      },
+      {
+        "type": "Developer",
+        "source": "Apple Developer",
+        "title": "WWDC session: Design widgets for watchOS",
+        "excerpt": "Session video that breaks down composing glanceable Smart Stack cards with WidgetKit.",
+        "link": "https://developer.apple.com/videos/play/wwdc2023/10054/",
+        "image": "assets/icon-file.png"
+      }
     ]
   },
   {
@@ -110,14 +186,51 @@
     "tech": ["Swift", "iOS", "Machine Learning", "Privacy & Encryption", "Face ID / Touch ID", "Core Data"],
     "referencesHeading": "Coverage",
     "references": [
-      { "type": "Press Release", "source": "Apple Newsroom · Dec 2023", "quote": "Journal helps iPhone users reflect on everyday moments and preserve their memories.", "link": "https://www.apple.com/newsroom/2023/12/apple-launches-journal-app-a-new-app-for-reflecting-on-everyday-moments/" },
-      { "type": "Article", "source": "MacRumors", "quote": "Apple’s Journal app arrives with thoughtful design and deep integrations across the iPhone experience.", "link": "https://www.macrumors.com/2023/12/11/apple-releases-journal-app/" },
-      { "type": "Community Quote", "source": "Day One Founder", "quote": "Journal ushers in a new chapter for the practice of digital journaling.", "link": "https://dayoneapp.com/blog/apple-journal-app/" }
+      {
+        "type": "Press Release",
+        "source": "Apple Newsroom",
+        "title": "Journal helps iPhone users reflect on everyday moments",
+        "excerpt": "Journal helps iPhone users reflect on everyday moments and preserve their memories.",
+        "meta": "Dec 2023",
+        "link": "https://www.apple.com/newsroom/2023/12/apple-launches-journal-app-a-new-app-for-reflecting-on-everyday-moments/",
+        "image": "assets/icon-apple.png"
+      },
+      {
+        "type": "Article",
+        "source": "MacRumors",
+        "title": "Apple’s Journal app arrives with thoughtful design",
+        "excerpt": "Apple’s Journal app arrives with thoughtful design and deep integrations across the iPhone experience.",
+        "meta": "App launch coverage",
+        "link": "https://www.macrumors.com/2023/12/11/apple-releases-journal-app/",
+        "image": "assets/icon-file.png"
+      },
+      {
+        "type": "Community Quote",
+        "source": "Day One Founder",
+        "title": "A new chapter for digital journaling",
+        "excerpt": "Journal ushers in a new chapter for the practice of digital journaling.",
+        "link": "https://dayoneapp.com/blog/apple-journal-app/",
+        "image": "assets/icon-file.png"
+      }
     ],
     "linksHeading": "Resources",
     "links": [
-      { "label": "Apple Newsroom", "url": "https://www.apple.com/newsroom/2023/12/apple-launches-journal-app-a-new-app-for-reflecting-on-everyday-moments/" },
-      { "label": "App Store", "url": "https://apps.apple.com/us/app/journal/id6446009975" }
+      {
+        "type": "Press Release",
+        "source": "Apple Newsroom",
+        "title": "Journal app announcement",
+        "excerpt": "Official newsroom story detailing Journal’s design pillars and privacy protections.",
+        "link": "https://www.apple.com/newsroom/2023/12/apple-launches-journal-app-a-new-app-for-reflecting-on-everyday-moments/",
+        "image": "assets/icon-apple.png"
+      },
+      {
+        "type": "App Store",
+        "source": "App Store",
+        "title": "Download Journal on the App Store",
+        "excerpt": "Review feature highlights, ratings, and platform requirements for Journal.",
+        "link": "https://apps.apple.com/us/app/journal/id6446009975",
+        "image": "assets/icon-apple.png"
+      }
     ]
   },
   {
@@ -150,14 +263,52 @@
     "tech": ["Swift", "iOS 18", "AirPods Pro 2", "Audio Processing", "FDA-Regulated Software", "Clinical Validation"],
     "referencesHeading": "References",
     "references": [
-      { "type": "Press Release", "source": "Apple Newsroom · Sep 2024", "quote": "Apple introduces groundbreaking health features, including turning AirPods Pro into FDA-authorized hearing aids.", "link": "https://www.apple.com/newsroom/2024/09/apple-introduces-groundbreaking-health-features/" },
-      { "type": "Press Release", "source": "U.S. FDA", "quote": "FDA authorizes the first over-the-counter hearing aid software device.", "link": "https://www.fda.gov/news-events/press-announcements/fda-authorizes-first-over-counter-hearing-aid-software" },
-      { "type": "Article", "source": "The Verge", "quote": "AirPods Pro are about to double as hearing aids you can set up from your couch.", "link": "https://www.theverge.com/2024/9/10/23866095/apple-airpods-pro-hearing-test-fda-approval" }
+      {
+        "type": "Press Release",
+        "source": "Apple Newsroom",
+        "title": "Apple introduces groundbreaking health features",
+        "excerpt": "Apple introduces groundbreaking health features, including turning AirPods Pro into FDA-authorized hearing aids.",
+        "meta": "Sep 2024",
+        "link": "https://www.apple.com/newsroom/2024/09/apple-introduces-groundbreaking-health-features/",
+        "image": "assets/icon-apple.png"
+      },
+      {
+        "type": "Press Release",
+        "source": "U.S. FDA",
+        "title": "FDA authorizes the first over-the-counter hearing aid software device",
+        "excerpt": "FDA authorizes the first over-the-counter hearing aid software device.",
+        "meta": "Regulatory announcement",
+        "link": "https://www.fda.gov/news-events/press-announcements/fda-authorizes-first-over-counter-hearing-aid-software",
+        "image": "assets/icon-file.png"
+      },
+      {
+        "type": "Article",
+        "source": "The Verge",
+        "title": "AirPods Pro are about to double as hearing aids",
+        "excerpt": "AirPods Pro are about to double as hearing aids you can set up from your couch.",
+        "meta": "Product coverage",
+        "link": "https://www.theverge.com/2024/9/10/23866095/apple-airpods-pro-hearing-test-fda-approval",
+        "image": "assets/icon-file.png"
+      }
     ],
     "linksHeading": "Resources",
     "links": [
-      { "label": "Apple Newsroom", "url": "https://www.apple.com/newsroom/2024/09/apple-introduces-groundbreaking-health-features/" },
-      { "label": "FDA Announcement", "url": "https://www.fda.gov/news-events/press-announcements/fda-authorizes-first-over-counter-hearing-aid-software" }
+      {
+        "type": "Press Release",
+        "source": "Apple Newsroom",
+        "title": "AirPods hearing health hub",
+        "excerpt": "Read the full announcement on hearing health features coming to AirPods Pro and iPhone.",
+        "link": "https://www.apple.com/newsroom/2024/09/apple-introduces-groundbreaking-health-features/",
+        "image": "assets/icon-apple.png"
+      },
+      {
+        "type": "Regulatory",
+        "source": "U.S. FDA",
+        "title": "FDA authorization release",
+        "excerpt": "Official FDA announcement detailing the authorization of Apple’s over-the-counter hearing aid software.",
+        "link": "https://www.fda.gov/news-events/press-announcements/fda-authorizes-first-over-counter-hearing-aid-software",
+        "image": "assets/icon-file.png"
+      }
     ]
   },
   {
@@ -190,14 +341,51 @@
     "tech": ["Swift", "iOS", "CoreMotion", "HealthKit", "Live Activities", "External Sensor Integration"],
     "referencesHeading": "References",
     "references": [
-      { "type": "Press Release", "source": "Apple Newsroom · Sep 2022", "quote": "Later this fall, all iPhone customers will be able to subscribe to Apple Fitness+.", "link": "https://www.apple.com/newsroom/2022/09/apple-fitness-plus-available-to-all-iphone-users/" },
-      { "type": "Support Doc", "source": "Apple Support", "quote": "You can track your daily activity on iPhone even if you don’t have an Apple Watch.", "link": "https://support.apple.com/guide/iphone/ipha5dddb411/ios" },
-      { "type": "Article", "source": "TechCrunch", "quote": "Apple is sherlocking basic fitness tracking by baking it directly into every iPhone.", "link": "https://techcrunch.com/2022/09/07/apple-fitness-plus-iphone/" }
+      {
+        "type": "Press Release",
+        "source": "Apple Newsroom",
+        "title": "Apple Fitness+ available to all iPhone users",
+        "excerpt": "Later this fall, all iPhone customers will be able to subscribe to Apple Fitness+.",
+        "meta": "Sep 2022",
+        "link": "https://www.apple.com/newsroom/2022/09/apple-fitness-plus-available-to-all-iphone-users/",
+        "image": "assets/icon-apple.png"
+      },
+      {
+        "type": "Support Doc",
+        "source": "Apple Support",
+        "title": "Track activity with iPhone",
+        "excerpt": "You can track your daily activity on iPhone even if you don’t have an Apple Watch.",
+        "link": "https://support.apple.com/guide/iphone/ipha5dddb411/ios",
+        "image": "assets/icon-file.png"
+      },
+      {
+        "type": "Article",
+        "source": "TechCrunch",
+        "title": "Apple brings Fitness tracking to every iPhone",
+        "excerpt": "Apple is sherlocking basic fitness tracking by baking it directly into every iPhone.",
+        "meta": "Launch coverage",
+        "link": "https://techcrunch.com/2022/09/07/apple-fitness-plus-iphone/",
+        "image": "assets/icon-file.png"
+      }
     ],
     "linksHeading": "Resources",
     "links": [
-      { "label": "Fitness+", "url": "https://www.apple.com/apple-fitness-plus/" },
-      { "label": "Support Guide", "url": "https://support.apple.com/guide/iphone/ipha5dddb411/ios" }
+      {
+        "type": "Product",
+        "source": "Apple",
+        "title": "Explore Apple Fitness+",
+        "excerpt": "Preview studio classes, trainers, and subscription benefits available on iPhone.",
+        "link": "https://www.apple.com/apple-fitness-plus/",
+        "image": "assets/icon-apple.png"
+      },
+      {
+        "type": "Support",
+        "source": "Apple Support",
+        "title": "iPhone activity support guide",
+        "excerpt": "Step-by-step instructions for closing Move rings using just your iPhone sensors.",
+        "link": "https://support.apple.com/guide/iphone/ipha5dddb411/ios",
+        "image": "assets/icon-file.png"
+      }
     ]
   }
 ]

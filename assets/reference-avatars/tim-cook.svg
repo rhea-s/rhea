@@ -1,0 +1,10 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tim Cook avatar">
+  <defs>
+    <linearGradient id="tcGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8bc6ff" />
+      <stop offset="100%" stop-color="#2b6ecb" />
+    </linearGradient>
+  </defs>
+  <circle cx="32" cy="32" r="32" fill="url(#tcGradient)" />
+  <text x="32" y="38" font-family="'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" font-size="26" font-weight="600" text-anchor="middle" fill="#ffffff">TC</text>
+</svg>
