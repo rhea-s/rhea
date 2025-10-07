@@ -250,7 +250,7 @@
     ],
     "highlightsHeading": "Engineering Highlights",
     "highlights": [
-      { "label": "Workouts tab", "description": "Built the iPhone-native Workouts tab to start runs, cycling, HIIT, and more directly on the phone." },
+      { "label": "Workouts tab", "description": "iPhone-native Workouts tab to start runs, cycling, HIIT, and more directly on the phone." },
       { "label": "Sensor handoff", "description": "Coordinated data flows between iPhone, Apple Watch, Bluetooth heart-rate monitors, and AirPods." },
       { "label": "Activity integration", "description": "Counts steps, distance, and flights climbed to fill the Move ring even without a watch." }
     ],
