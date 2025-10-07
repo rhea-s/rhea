@@ -1018,9 +1018,30 @@
     }
 
     #workWindow {
-      left: 30%;
-      top: 18%;
-      width: 500px;
+      left: 32%;
+      top: 16%;
+      width: auto;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      transform: translate(-50%, 0);
+      overflow: visible;
+    }
+
+    #workWindow .window-titlebar {
+      display: none;
+    }
+
+    #workWindow .window-content {
+      padding: 0;
+      background: transparent;
+      display: flex;
+      justify-content: center;
+      overflow: visible;
+    }
+
+    #workWindow:hover {
+      transform: translate(-50%, 0);
     }
 
     .apple-project-window {
@@ -1210,12 +1231,182 @@
       border: 1px dashed rgba(74, 14, 61, 0.15);
     }
 
+    .iphone-window {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      padding: 40px 0 12px;
+    }
+
+    .iphone-device {
+      position: relative;
+      width: min(304px, calc(100% - 20px));
+      background: radial-gradient(circle at top, rgba(255, 255, 255, 0.35), transparent 65%),
+        #070707;
+      border-radius: 44px;
+      padding: 22px 14px 28px;
+      box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.08), 0 18px 48px rgba(0, 0, 0, 0.35);
+    }
+
+    .iphone-notch {
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 26px;
+      background: #000;
+      border-radius: 0 0 16px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .iphone-notch-camera {
+      width: 52px;
+      height: 10px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .iphone-screen {
+      position: relative;
+      background: linear-gradient(160deg, #1a2240 0%, #202954 35%, #161225 100%);
+      border-radius: 32px;
+      padding: 18px 18px 48px;
+      min-height: 560px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      color: #f5f5f7;
+      overflow: hidden;
+    }
+
+    .iphone-status-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      letter-spacing: 0.4px;
+      opacity: 0.8;
+    }
+
+    .iphone-status-icons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .iphone-status-signal,
+    .iphone-status-wifi,
+    .iphone-status-battery {
+      display: inline-block;
+      background: currentColor;
+      border-radius: 2px;
+    }
+
+    .iphone-status-signal { width: 12px; height: 6px; opacity: 0.6; }
+    .iphone-status-wifi { width: 10px; height: 8px; opacity: 0.7; }
+    .iphone-status-battery { width: 18px; height: 8px; border-radius: 2px; opacity: 0.9; }
+
+    .iphone-imessage-bubble {
+      align-self: flex-start;
+      max-width: 220px;
+      background: linear-gradient(135deg, rgba(64, 126, 255, 0.85), rgba(46, 94, 210, 0.9));
+      color: #fff;
+      padding: 12px 16px;
+      border-radius: 20px 20px 20px 6px;
+      font-size: 14px;
+      font-weight:300;
+      line-height: 1.4;
+      box-shadow: 0 5px 10px rgba(33, 79, 200, 0.35);
+      margin-top: 0;
+      margin-bottom: 14px;
+    }
+
+    .iphone-home-indicator {
+      width: 96px;
+      height: 5px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.3);
+      align-self: center;
+      margin-top: auto;
+      transform: translateY(30px);
+    }
+
     .project-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
       gap: 24px;
       padding: 20px;
       justify-items: center;
+    }
+
+    .iphone-app-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      padding: 0 8px 32px;
+    }
+
+    .iphone-app-grid .project-grid-item {
+      padding: 8px;
+      gap: 10px;
+      border-radius: 18px;
+      color: #f5f5f7;
+      transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .iphone-app-grid .project-grid-item:hover {
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    .iphone-app-grid .project-grid-item:focus-visible {
+      outline: 2px solid rgba(255, 255, 255, 0.65);
+    }
+
+    .iphone-app-grid .project-grid-label {
+      color: #f5f5f7;
+      font-weight: 300;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    }
+
+    .iphone-close-button {
+      position: absolute;
+      top: -18px;
+      right: -18px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(7, 7, 7, 0.85);
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 18px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+      transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+      z-index: 2;
+    }
+
+    .iphone-close-button:hover,
+    .iphone-close-button:focus-visible {
+      background: rgba(7, 7, 7, 0.95);
+      color: #fff;
+      outline: none;
+      transform: scale(1.05);
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25), 0 6px 18px rgba(0, 0, 0, 0.3);
+    }
+
+    .iphone-close-button:active {
+      transform: scale(0.95);
+    }
+
+    .iphone-close-button span {
+      pointer-events: none;
     }
 
     .project-grid-item {
@@ -2316,7 +2507,31 @@
         <div style="width: 54px;"></div>
       </div>
       <div class="window-content">
-        <div class="project-grid" id="appleProjectGrid" role="list"></div>
+        <div class="iphone-window">
+          <div class="iphone-device" role="presentation">
+            <button type="button" class="iphone-close-button" onclick="closeProjectWindow('workWindow')" aria-label="Close Apple projects window">
+              <span aria-hidden="true">×</span>
+            </button>
+            <div class="iphone-notch">
+              <div class="iphone-notch-camera"></div>
+            </div>
+            <div class="iphone-screen">
+              <div class="iphone-status-bar" aria-hidden="true">
+                <span class="iphone-status-time">9:41</span>
+                <div class="iphone-status-icons">
+                  <span class="iphone-status-signal"></span>
+                  <span class="iphone-status-wifi"></span>
+                  <span class="iphone-status-battery"></span>
+                </div>
+              </div>
+              <div class="iphone-imessage-bubble" role="presentation">
+                Projects I worked on at Apple:
+              </div>
+              <div class="project-grid iphone-app-grid" id="appleProjectGrid" role="list"></div>
+              <div class="iphone-home-indicator" aria-hidden="true"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
