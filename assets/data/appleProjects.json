@@ -229,13 +229,13 @@
   },
   {
     "id": "fitness-iphone",
-    "title": "Fitness on iPhone (Without Apple Watch)",
-    "shortTitle": "Fitness on iPhone",
+    "title": "Workouts on iPhone with AirPods",
+    "shortTitle": "Workouts on iPhone",
     "hero": {
-      "eyebrow": "Fitness & Coaching",
-      "headline": "Apple Fitness on Every iPhone",
-      "subhead": "Unlocking activity tracking without requiring Apple Watch.",
-      "summary": "Worked across teams to open up the Fitness app to all iPhone users in iOS 16, enabling activity tracking and Move rings without requiring an Apple Watch."
+      "eyebrow": "iOS 26 Fitness Update",
+      "headline": "Start Any Workout on iPhone",
+      "subhead": "Heart‑rate tracked workouts with AirPods and Bluetooth sensors — no watch required.",
+      "summary": "Contributed to Apple’s iOS 26 Fitness update by adding a new Workout tab to the Fitness app. This update lets iPhone users start runs, rides, HIIT and other workouts directly on their phone while tracking heart rate and calories via AirPods Pro 3’s custom photoplethysmography sensor or any Bluetooth heart‑rate monitor. It also introduces an on‑device AI Workout Buddy for personalized coaching and integrates every session with Move rings and Fitness+."
     },
     "assets": {
       "icon": "assets/icon-fitness.png",
@@ -244,36 +244,45 @@
       "heroAlt": "Daytime skyline representing active lifestyles"
     },
     "metrics": [
-      { "value": "iOS 16", "label": "Made the Fitness app available to all iPhone users in 2022." },
-      { "value": "Move rings", "label": "Track steps, distance, flights climbed and third‑party workouts to fill your daily Move goal using only iPhone motion sensors." },
-      { "value": "Activity sharing", "label": "Share your Move ring progress with friends for motivation." }
+      { "value": "iOS 26 (2025)", "label": "Introduced the Workout tab in the Fitness app so workouts can start on iPhone." },
+      { "value": "50+ workouts", "label": "Supports over 50 workout categories when paired with AirPods Pro 3 or Powerbeats Pro 2." },
+      { "value": "AI coaching", "label": "Workout Buddy uses Apple Intelligence to provide real‑time motivation and milestone notifications." }
     ],
     "highlightsHeading": "Engineering Highlights",
     "highlights": [
-      { "label": "Workouts tab", "description": "iPhone-native Workouts tab to start runs, cycling, HIIT, and more directly on the phone." },
-      { "label": "Sensor handoff", "description": "Coordinated data flows between iPhone, Apple Watch, Bluetooth heart-rate monitors, and AirPods." },
-      { "label": "Activity integration", "description": "Counts steps, distance, and flights climbed to fill the Move ring even without a watch." }
+      { "label": "Heart‑rate monitoring", "description": "Enabled AirPods Pro 3’s custom PPG sensor and Bluetooth heart‑rate straps to record heart rate and calories during workouts on iPhone【542024888997062†L418-L446】." },
+      { "label": "Workout tab & AI coaching", "description": "Added a Workout tab with support for over 50 workout types and an AI Workout Buddy that delivers real‑time encouragement and personalized feedback【277625965625512†L82-L93】." },
+      { "label": "Sensor fusion & integration", "description": "Coordinated heart‑rate data between AirPods, PowerBeats, Bluetooth sensors and Apple Watch while syncing workouts to Move rings and Fitness+【208027261285487†L121-L129】." }
     ],
-    "tech": ["Swift", "iOS", "CoreMotion", "HealthKit", "Live Activities"],
+    "tech": ["Swift", "iOS", "HealthKit", "CoreMotion", "CoreBluetooth", "Sensor Fusion", "Apple Intelligence", "On‑device AI"],
     "referencesHeading": "References",
     "references": [
       {
-        "type": "Article",
-        "source": "MacRumors",
-        "title": "You can use the iOS 16 Fitness app for activity tracking without an Apple Watch",
-        "excerpt": "With iOS 16, the iPhone’s motion sensors track steps, distance and third‑party workouts to estimate calories burned, letting users set a daily Move goal even without an Apple Watch.",
-        "meta": "Jun 2022",
-        "link": "https://www.macrumors.com/2022/06/07/ios-16-fitness-activity-tracking-on-iphone/",
-        "image": "assets/icon-file.png"
+        "type": "Press Release",
+        "source": "Apple Newsroom",
+        "title": "Introducing AirPods Pro 3, the ultimate audio experience",
+        "excerpt": "Apple’s press release notes that AirPods Pro 3 can measure heart rate and track over 50 workout types with the new experience in the Fitness app on iPhone【542024888997062†L345-L347】.",
+        "meta": "Sep 2025",
+        "link": "https://www.apple.com/newsroom/2025/09/introducing-airpods-pro-3-the-ultimate-audio-experience/",
+        "image": "assets/icon-apple.png"
       },
       {
         "type": "Article",
-        "source": "Well+Good",
-        "title": "Apple is making the Fitness app available to all iPhone users",
-        "excerpt": "The Fitness app quantifies your steps, distance and flights climbed into active calories, lets you set a Move goal, ingests workouts from third‑party apps, and lets you share your Move ring with friends.",
-        "meta": "Jun 2022",
-        "link": "https://www.wellandgood.com/fitness/fitness-app-on-iphone-ios-16",
+        "source": "DCRainmaker",
+        "title": "Apple’s Secret New Custom Workout Builder in iOS 26/WatchOS 26: Hands‑on",
+        "excerpt": "This hands‑on article explains that iOS 26 adds a Workout tab to the Fitness app that lets users pair AirPods Pro 3 or Powerbeats Pro 2 to record heart rate and other stats, and introduces an AI Workout Buddy on iPhone【277625965625512†L82-L93】.",
+        "meta": "Sep 2025",
+        "link": "https://www.dcrainmaker.com/2025/09/apple-watch-workout-builder-ios26-watchos26.html",
         "image": "assets/icon-file.png"
+      },
+      {
+        "type": "Support Article",
+        "source": "Apple Support",
+        "title": "Use Workout Buddy in Fitness on iPhone",
+        "excerpt": "Apple explains how Workout Buddy uses Apple Intelligence to encourage users during workouts and lists supported workout types such as running, cycling, hiking and HIIT【283743587991669†L50-L75】.",
+        "meta": "2025",
+        "link": "https://support.apple.com/guide/iphone/use-workout-buddy-iphb64176039/ios",
+        "image": "assets/icon-apple.png"
       }
     ]
   }
