@@ -7,7 +7,7 @@
       "eyebrow": "Participant‑Facing Study Platform",
       "headline": "Apple Research App",
       "subhead": "Join groundbreaking health studies from your iPhone and Apple Watch.",
-      "summary": "Developed the core system architecture for the Apple Research App, empowering participants to enroll in longitudinal studies and securely share sensor data with researchers at Harvard, the National Institutes of Health, and the University of Michigan."
+      "summary": "Forked the Apple Research App to create private research study apps and contributed back to codebase. Research App empowers participants to enroll in longitudinal studies and securely share sensor data with researchers at Apple, Harvard, the National Institutes of Health, and the University of Michigan."
     },
     "assets": {
       "icon": "assets/icon-research-app.png",
