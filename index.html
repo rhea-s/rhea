@@ -1471,6 +1471,8 @@
     /* --- Apple Project Windows --- */
     .apple-project-window {
       max-height: 600px;
+      overflow: visible;
+      background-clip: padding-box;
     }
 
     @media (min-width: 1100px) {
@@ -1478,7 +1480,7 @@
         width: 620px;
       }
 
-      .apple-project-content {
+      .apple-project-scroll {
         grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       }
     }
@@ -1490,6 +1492,10 @@
     }
 
     .apple-project-content {
+      overflow: visible;
+    }
+
+    .apple-project-scroll {
       max-height: 580px;
       overflow-y: auto;
       display: grid;
@@ -2078,7 +2084,7 @@
         max-width: 550px;
       }
 
-      .apple-project-content {
+      .apple-project-scroll {
         grid-template-columns: 1fr;
       }
 
@@ -3062,6 +3068,9 @@
       const content = document.createElement('div');
       content.className = 'window-content apple-project-content';
 
+      const scrollContainer = document.createElement('div');
+      scrollContainer.className = 'apple-project-scroll';
+
       const heroSection = document.createElement('section');
       heroSection.className = 'apple-project-section apple-project-hero project-hero';
 
@@ -3131,7 +3140,7 @@
         heroSection.appendChild(heroMedia);
       }
 
-      content.appendChild(heroSection);
+      scrollContainer.appendChild(heroSection);
 
       if (metrics.length) {
         const metricsSection = document.createElement('section');
@@ -3172,7 +3181,7 @@
 
         if (hasMetricCards) {
           metricsSection.appendChild(metricsGrid);
-          content.appendChild(metricsSection);
+          scrollContainer.appendChild(metricsSection);
         }
       }
 
@@ -3189,7 +3198,7 @@
           tagWrapper.appendChild(span);
         });
         techSection.appendChild(tagWrapper);
-        content.appendChild(techSection);
+        scrollContainer.appendChild(techSection);
       }
 
       if (Array.isArray(project.highlights) && project.highlights.length) {
@@ -3219,7 +3228,7 @@
         });
 
         featureSection.appendChild(list);
-        content.appendChild(featureSection);
+        scrollContainer.appendChild(featureSection);
       }
 
       if (Array.isArray(project.references) && project.references.length) {
@@ -3241,7 +3250,7 @@
 
         if (hasReferenceCards) {
           referenceSection.appendChild(cards);
-          content.appendChild(referenceSection);
+          scrollContainer.appendChild(referenceSection);
         }
       }
 
@@ -3268,10 +3277,11 @@
 
         if (hasResourceCards) {
           resourcesSection.appendChild(linksContainer);
-          content.appendChild(resourcesSection);
+          scrollContainer.appendChild(resourcesSection);
         }
       }
 
+      content.appendChild(scrollContainer);
       windowEl.append(titlebar, content);
       return windowEl;
     }
