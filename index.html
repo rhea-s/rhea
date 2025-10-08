@@ -1471,8 +1471,9 @@
     /* --- Apple Project Windows --- */
     .apple-project-window {
       max-height: 600px;
-      overflow: visible;
+      overflow: hidden;
       background-clip: padding-box;
+      clip-path: inset(0 round 8px);
     }
 
     @media (min-width: 1100px) {
@@ -1492,7 +1493,7 @@
     }
 
     .apple-project-content {
-      overflow: visible;
+      overflow: hidden;
     }
 
     .apple-project-scroll {
