@@ -1271,15 +1271,36 @@
 
     .iphone-screen {
       position: relative;
-      background: #1c1c1e;
+      background:
+        radial-gradient(circle at 25% 18%, rgba(255, 232, 152, 0.88) 0%, rgba(255, 232, 152, 0) 55%),
+        radial-gradient(circle at 30% 74%, rgba(255, 133, 198, 0.85) 0%, rgba(255, 133, 198, 0) 60%),
+        radial-gradient(circle at 78% 70%, rgba(126, 221, 255, 0.85) 0%, rgba(126, 221, 255, 0) 60%),
+        radial-gradient(circle at 78% 28%, rgba(255, 182, 120, 0.8) 0%, rgba(255, 182, 120, 0) 55%),
+        #f7f1ff;
       border-radius: 32px;
       padding: 18px 18px 48px;
       min-height: 560px;
       display: flex;
       flex-direction: column;
       gap: 16px;
-      color: #f5f5f7;
+      color: #fefefe;
+      text-shadow: 0 1px 6px rgba(16, 16, 32, 0.35);
       overflow: hidden;
+      isolation: isolate;
+    }
+
+    .iphone-screen::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(16, 16, 32, 0.16) 0%, rgba(16, 16, 32, 0.28) 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .iphone-screen > * {
+      position: relative;
+      z-index: 1;
     }
 
     .iphone-status-bar {
