@@ -136,7 +136,7 @@
       { "label": "Privacy & security", "description": "Entries are end‑to‑end encrypted and can be locked with Face ID or Touch ID." },
       { "label": "Journaling Suggestions API", "description": "Third‑party apps can suggest journaling moments while respecting user privacy." }
     ],
-    "tech": ["Swift", "iOS"],
+    "tech": ["Swift", "iOS", "HealthKit", "CoreMotion", "CoreRoutine"],
     "referencesHeading": "Coverage",
     "references": [
       {
