@@ -1631,6 +1631,7 @@
       max-width: 280px;
       transition: transform 200ms var(--micro-ease), box-shadow 200ms var(--micro-ease);
       overflow: hidden;
+      will-change: transform;
     }
 
     .metric-chip::before {
@@ -1645,7 +1646,7 @@
     }
 
     .metric-chip:hover {
-      transform: translateY(-2px);
+      transform: translate3d(0, -2px, 0);
       box-shadow: 0 16px 34px rgba(74, 14, 61, 0.18);
     }
 
@@ -1698,6 +1699,9 @@
       border-radius: 12px;
       padding: 12px 14px;
       box-shadow: 0 4px 12px rgba(74, 14, 61, 0.08);
+      display: flex;
+      width: 100%;
+      max-width: none;
     }
 
     .apple-project-metric-value {
@@ -1929,11 +1933,11 @@
     @keyframes projectChipFloat {
       0% {
         opacity: 0;
-        transform: translateY(10px) scale(0.97);
+        transform: translate3d(0, 10px, 0) scale(0.97);
       }
       100% {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: translate3d(0, 0, 0) scale(1);
       }
     }
 
